@@ -242,6 +242,267 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2019/04/28/tensorflow-tricks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote and LovingStory">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/28/tensorflow-tricks/" itemprop="url">tensorflow_tricks</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-28T12:13:27Z">
+                2019-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><pre><code>tensorflow之前的版本作为静态图结构（1.5版本后支持动态图了，但是需要把数据预处理成TFRecord形式），都需要将图完整定义后，才能进行训练。并且不容易实时查看网络中tensor的状态（可以用tfdebug，但是有点麻烦），所以有时候写网络是感觉有点麻烦，这里总结
+自己平时实现代码时候用到的技巧，以后比较好复查。
+</code></pre><h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><h3 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h3><pre><code>tensorflow内存溢出就是指，内存会随着训练慢慢增长，且不可逆。
+网络上通常看到内存溢出的问题主要是因为在训练的循环中重复定义了网络的节点，使得它不断重复声明
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = tf.Variable(<span class="number">1.0</span>, dtype=tf.float32)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(NUM_EPOCH):</span><br><span class="line">	node = tf.assign(x, <span class="number">2</span>)</span><br><span class="line">	sess.run(node)</span><br></pre></td></tr></table></figure>
+
+在这里，就会不断重复执行assign操作，就会使得内存溢出。
+上面的形式还比较容易发现，最近自己实现的代码出现了内存溢出问题，也仔细排查了，没有上面的那种形式的问题，后来发现，我在代码中使用
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@property</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">model</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">prop</span><span class="params">()</span>:</span></span><br><span class="line">		...</span><br><span class="line">		<span class="keyword">return</span> p</span><br></pre></td></tr></table></figure>
+
+来获得某个预测值，然后在训练的每个epoch中，都调用
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(obj.prop)</span><br></pre></td></tr></table></figure>
+
+来获得预测值，这样同样也会造成内存溢出，不应该使用python的@property（具体原因占个坑，下次补上）
+</code></pre><h2 id="特殊操作"><a href="#特殊操作" class="headerlink" title="特殊操作"></a>特殊操作</h2><h3 id="将索引变成mask形式"><a href="#将索引变成mask形式" class="headerlink" title="将索引变成mask形式"></a>将索引变成mask形式</h3><pre><code>在我的代码中，会先获得一个索引值，比如`index=[1,4,2]`，而我修改tensor a上这些位置的值，tensorflow里面无法像numpy那样，直接通过`a[index]=v`，查看手册，发现`tf.where()`操作比较类似，但是它传入的是要mask值，就需要把索引变成mask的形式。我的做法如下
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num = tf.shape(a)[<span class="number">0</span>]</span><br><span class="line">one_hot = tf.one_hot(index,num) <span class="comment">#得到的是维度为[3,num]的one-hot编码</span></span><br><span class="line">mask = tf.cast(tf.reduce_sum(one_hot,axis=<span class="number">0</span>),tf.bool)</span><br></pre></td></tr></table></figure>
+
+由此就能够从索引变成mask的形式了。
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2019/04/28/计划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote and LovingStory">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/28/计划/" itemprop="url">计划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-28T12:09:57Z">
+                2019-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近感觉有点焦头烂额，忙东忙西，但是都没什么成果。还是订个计划，按照计划来比较安心。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>最近就是一直在敲代码，都没什么时间做其他的积累。每天还是高效一点，就下午的时候敲敲代码。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>算法还是不能落下，争取每天做LeetCode上面3道中等题目，并且整理算法思想。</p>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><p>感觉做起实验来，还就都没有看论文了，一周看1篇比较经典的论文，不限定范围，并整理成笔记。</p>
+<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><p>每周至少发一篇技术类的博客吧，包含机器学习、深度学习的内容。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2019/04/12/photo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -643,7 +904,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -656,7 +917,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
