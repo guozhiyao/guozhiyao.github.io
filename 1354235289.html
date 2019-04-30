@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="初衷">
+  <meta name="description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。 示例 1:输入:A: [1,2,3,2,1]B: [3,2,1,4,7]输出: 3解释:长度最长的公共子数组是 [3, 2, 1]。 说明:1 &amp;lt;= len(A), len(B) &amp;lt;= 10000 &amp;lt;= A[i], B[i] &amp;lt; 100 思路：首先，使用最简单的暴力算法，直接遍历两者的子数组">
+<meta name="keywords" content="DP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客的初衷">
-<meta property="og:url" content="https://guozhiyao.github.io/30380.html">
+<meta property="og:title" content="leetcode_718">
+<meta property="og:url" content="https://guozhiyao.github.io/1354235289.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="初衷">
+<meta property="og:description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。 示例 1:输入:A: [1,2,3,2,1]B: [3,2,1,4,7]输出: 3解释:长度最长的公共子数组是 [3, 2, 1]。 说明:1 &amp;lt;= len(A), len(B) &amp;lt;= 10000 &amp;lt;= A[i], B[i] &amp;lt; 100 思路：首先，使用最简单的暴力算法，直接遍历两者的子数组">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T06:55:15.309Z">
+<meta property="og:updated_time" content="2019-04-30T14:52:42.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客的初衷">
-<meta name="twitter:description" content="初衷">
+<meta name="twitter:title" content="leetcode_718">
+<meta name="twitter:description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。 示例 1:输入:A: [1,2,3,2,1]B: [3,2,1,4,7]输出: 3解释:长度最长的公共子数组是 [3, 2, 1]。 说明:1 &amp;lt;= len(A), len(B) &amp;lt;= 10000 &amp;lt;= A[i], B[i] &amp;lt; 100 思路：首先，使用最简单的暴力算法，直接遍历两者的子数组">
 
 
 
@@ -114,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/30380">
+  <link rel="canonical" href="https://guozhiyao.github.io/1354235289">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title>博客的初衷 | LearningNote and LovingStory</title>
+  <title>leetcode_718 | LearningNote and LovingStory</title>
   
 
 
@@ -293,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/30380.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/1354235289.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -310,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">博客的初衷
+          <h1 class="post-title" itemprop="name headline">leetcode_718
 
               
             
@@ -336,24 +337,12 @@
                 
               
 
-              <time title="创建时间：2019-04-09 13:52:29" itemprop="dateCreated datePublished" datetime="2019-04-09T13:52:29Z">2019-04-09</time>
+              <time title="创建时间：2019-04-30 22:44:41 / 修改时间：14:52:42" itemprop="dateCreated datePublished" datetime="2019-04-30T22:44:41Z">2019-04-30</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-30 06:55:15" itemprop="dateModified" datetime="2019-04-30T06:55:15Z">2019-04-30</time>
               
             
           </span>
@@ -370,7 +359,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -405,15 +401,12 @@
       
 
       
-        <p>初衷<br><a id="more"></a></p>
-<h1 id="博客的初衷"><a href="#博客的初衷" class="headerlink" title="博客的初衷"></a>博客的初衷</h1><p>创建这个博客呢，主要有两方面目的：</p>
-<ol>
-<li>记录一些学习上的笔记。</li>
-<li>记录一下我与LYX的loving story。</li>
-</ol>
-<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><p>目前，我主要研究的是image caption方向，但是也涉及了一些机器学习、强化学习、graph等方面的内容，感觉之前学习的内容繁琐且杂乱，缺少条理性的总结。而目前正在读研二，正在找实习，就打算乘这段时间整理整理笔记，总结一下过去学的知识，查缺补漏。<br>目前主要整理的内容是一些机器学习基础以及深度学习基础，然后平时也会刷刷算法题，看看会不会整理整理。</p>
-<h2 id="loving-story"><a href="#loving-story" class="headerlink" title="loving story"></a>loving story</h2><p>和LYX在一起也有200来天了，平时一些照片或者日记都保存在某个APP上，但是小可爱说怕有一天那个APP没了，我们的内容也都没了……之前本来想自己写个APP，但是实在有些繁琐，事情也比较多，也就搁置下来了。打算先在博客上更新更新我们的loving story。</p>
-<p>（希望能坚持下来）</p>
+        <p><strong>题目：</strong><br>给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。</p>
+<p>示例 1:<br>输入:<br>A: [1,2,3,2,1]<br>B: [3,2,1,4,7]<br>输出: 3<br>解释:<br>长度最长的公共子数组是 [3, 2, 1]。</p>
+<p>说明:<br>1 &lt;= len(A), len(B) &lt;= 1000<br>0 &lt;= A[i], B[i] &lt; 100</p>
+<p><strong>思路：</strong><br>首先，使用最简单的暴力算法，直接遍历两者的子数组<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                k=<span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> i+k&lt;la <span class="keyword">and</span> j+k&lt;lb <span class="keyword">and</span> A[i+k]==B[j+k]:</span><br><span class="line">                    k+=<span class="number">1</span></span><br><span class="line">                ans = max(ans,k)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
+<p>结果超时了，想想算法的冗余。<br>可以使用DP，<u>dp[i][j]表示以A中第i个字符结尾，以B中第j个字符结尾的最长长度</u> 。则更新可看成是<code>dp[i][j] = dp[i-1][j-1]+1 if A[i]==B[j] else 0</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(lb)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(la)]</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">or</span> j==<span class="number">0</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                ans = max(ans,dp[i][j])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
+<p>5940ms/33.7MB</p>
 
       
     </div>
@@ -435,6 +428,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/DP/" rel="tag"># DP</a>
+          
+        </div>
+      
 
       
       
@@ -444,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/52244.html" rel="next" title="I_love_LinYuxin">
-                <i class="fa fa-chevron-left"></i> I_love_LinYuxin
+              <a href="/1394657022.html" rel="next" title="leetcode_3">
+                <i class="fa fa-chevron-left"></i> leetcode_3
               </a>
             
           </div>
@@ -453,10 +452,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/39434.html" rel="prev" title="photo">
-                photo <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,17 +495,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -608,23 +594,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#博客的初衷"><span class="nav-number">1.</span> <span class="nav-text">博客的初衷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习"><span class="nav-number">1.1.</span> <span class="nav-text">学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loving-story"><span class="nav-number">1.2.</span> <span class="nav-text">loving story</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
