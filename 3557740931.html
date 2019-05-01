@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
-<meta name="keywords" content="tensorflow">
+  <meta name="description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。 锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。 列表 deadends 包含了一组死亡数字，一旦拨">
+<meta name="keywords" content="BFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow_tricks">
-<meta property="og:url" content="https://guozhiyao.github.io/15535.html">
+<meta property="og:title" content="leetcode_752">
+<meta property="og:url" content="https://guozhiyao.github.io/3557740931.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
+<meta property="og:description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。 锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。 列表 deadends 包含了一组死亡数字，一旦拨">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T06:55:54.095Z">
+<meta property="og:updated_time" content="2019-05-01T12:40:31.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow_tricks">
-<meta name="twitter:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
+<meta name="twitter:title" content="leetcode_752">
+<meta name="twitter:description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。 锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。 列表 deadends 包含了一组死亡数字，一旦拨">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/15535">
+  <link rel="canonical" href="https://guozhiyao.github.io/3557740931">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>tensorflow_tricks | LearningNote and LovingStory</title>
+  <title>leetcode_752 | LearningNote and LovingStory</title>
   
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/15535.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/3557740931.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensorflow_tricks
+          <h1 class="post-title" itemprop="name headline">leetcode_752
 
               
             
@@ -337,24 +337,12 @@
                 
               
 
-              <time title="创建时间：2019-04-28 12:13:27" itemprop="dateCreated datePublished" datetime="2019-04-28T12:13:27Z">2019-04-28</time>
+              <time title="创建时间：2019-05-01 20:40:31 / 修改时间：12:40:31" itemprop="dateCreated datePublished" datetime="2019-05-01T20:40:31Z">2019-05-01</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-30 06:55:54" itemprop="dateModified" datetime="2019-04-30T06:55:54Z">2019-04-30</time>
               
             
           </span>
@@ -371,14 +359,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/技巧/" itemprop="url" rel="index"><span itemprop="name">技巧</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -413,14 +401,19 @@
       
 
       
-        <p>tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。<br><a id="more"></a></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>tensorflow之前的版本作为静态图结构（1.5版本后支持动态图了，但是需要把数据预处理成TFRecord形式），都需要将图完整定义后，才能进行训练。并且不容易实时查看网络中tensor的状态（可以用tfdebug，但是有点麻烦），所以有时候写网络是感觉有点麻烦，这里总结自己平时实现代码时候用到的技巧，以后比较好复查。</p>
-<h1 id="一、-坑"><a href="#一、-坑" class="headerlink" title="一、 坑"></a>一、 坑</h1><h2 id="1-内存溢出"><a href="#1-内存溢出" class="headerlink" title="1. 内存溢出"></a>1. 内存溢出</h2><p>tensorflow内存溢出就是指，内存会随着训练慢慢增长，且不可逆。<br>网络上通常看到内存溢出的问题主要是因为在训练的循环中重复定义了网络的节点，使得它不断重复声明<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = tf.Variable(<span class="number">1.0</span>, dtype=tf.float32)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(NUM_EPOCH):</span><br><span class="line">	node = tf.assign(x, <span class="number">2</span>)</span><br><span class="line">	sess.run(node)</span><br></pre></td></tr></table></figure></p>
-<p>在这里，就会不断重复执行assign操作，就会使得内存溢出。<br>上面的形式还比较容易发现，最近自己实现的代码出现了内存溢出问题，也仔细排查了，没有上面的那种形式的问题，后来发现，我在代码中使用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@property</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">model</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">prop</span><span class="params">()</span>:</span></span><br><span class="line">		...</span><br><span class="line">		<span class="keyword">return</span> p</span><br></pre></td></tr></table></figure></p>
-<p>来获得某个预测值，然后在训练的每个epoch中，都调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(obj.prop)</span><br></pre></td></tr></table></figure></p>
-<p>来获得预测值，这样同样也会造成内存溢出，不应该使用python的@property（具体原因占个坑，下次补上）</p>
-<h1 id="二、-特殊操作"><a href="#二、-特殊操作" class="headerlink" title="二、 特殊操作"></a>二、 特殊操作</h1><h2 id="1-将索引变成mask形式"><a href="#1-将索引变成mask形式" class="headerlink" title="1. 将索引变成mask形式"></a>1. 将索引变成mask形式</h2><p>在我的代码中，会先获得一个索引值，比如<code>index=[1,4,2]</code>，而我修改tensor a上这些位置的值，tensorflow里面无法像numpy那样，直接通过<code>a[index]=v</code>，查看手册，发现<code>tf.where()</code>操作比较类似，但是它传入的是要mask值，就需要把索引变成mask的形式。我的做法如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num = tf.shape(a)[<span class="number">0</span>]</span><br><span class="line">one_hot = tf.one_hot(index,num) <span class="comment">#得到的是维度为[3,num]的one-hot编码</span></span><br><span class="line">mask = tf.cast(tf.reduce_sum(one_hot,axis=<span class="number">0</span>),tf.bool)</span><br></pre></td></tr></table></figure></p>
-<p>由此就能够从索引变成mask的形式了。</p>
+        <p><strong>题目：</strong><br>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。</p>
+<p>锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。</p>
+<p>列表 deadends 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
+<p>字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。</p>
+<p>示例 1:<br>输入：deadends = [“0201”,”0101”,”0102”,”1212”,”2002”], target = “0202”<br>输出：6<br>解释：<br>可能的移动序列为 “0000” -&gt; “1000” -&gt; “1100” -&gt; “1200” -&gt; “1201” -&gt; “1202” -&gt; “0202”。<br>注意 “0000” -&gt; “0001” -&gt; “0002” -&gt; “0102” -&gt; “0202” 这样的序列是不能解锁的，<br>因为当拨动到 “0102” 时这个锁就会被锁定。</p>
+<p>示例 2:<br>输入: deadends = [“8888”], target = “0009”<br>输出：1<br>解释：<br>把最后一位反向旋转一次即可 “0000” -&gt; “0009”。</p>
+<p>示例 3:<br>输入: deadends = [“8887”,”8889”,”8878”,”8898”,”8788”,”8988”,”7888”,”9888”], target = “8888”<br>输出：-1<br>解释：<br>无法旋转到目标数字且不被锁定。</p>
+<p>示例 4:<br>输入: deadends = [“0000”], target = “8888”<br>输出：-1</p>
+<p>提示：<br>死亡列表 deadends 的长度范围为 [1, 500]。<br>目标数字 target 不会在 deadends 之中。<br>每个 deadends 和 target 中的字符串的数字会在 10,000 个可能的情况 ‘0000’ 到 ‘9999’ 中产生。</p>
+<p><strong>思路：</strong><br>这题就是比较直观的BFS问题从初始状态“0000”开始探索，每次可以对4个位置的数字进行加1或减1操作，直接通过BFS找到最快的方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">openLock</span><span class="params">(self, deadends, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type deadends: List[str]</span></span><br><span class="line"><span class="string">        :type target: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"0000"</span> <span class="keyword">in</span> deadends <span class="keyword">or</span> target <span class="keyword">in</span> deadends:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        q = [[<span class="string">"0000"</span>,<span class="number">0</span>]]</span><br><span class="line">        </span><br><span class="line">        visited = &#123;<span class="string">"0000"</span>:<span class="number">1</span>&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> deadends:</span><br><span class="line">            visited[i] = <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">while</span> len(q)!=<span class="number">0</span>:</span><br><span class="line">            t = q[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">if</span> t[<span class="number">0</span>]==target:</span><br><span class="line">                <span class="keyword">return</span> t[<span class="number">1</span>]</span><br><span class="line">            q.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">-1</span>,<span class="number">2</span>,<span class="number">2</span>):</span><br><span class="line">                    new = list(t[<span class="number">0</span>])</span><br><span class="line">                    new[i] = str((int(t[<span class="number">0</span>][i])+j)%<span class="number">10</span>)</span><br><span class="line">                    new = <span class="string">""</span>.join(new)</span><br><span class="line">                    <span class="keyword">if</span> new <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                        q.append([new,t[<span class="number">1</span>]+<span class="number">1</span>])</span><br><span class="line">                        visited[new] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
+<p>消耗1428ms/13.1MB。这里之所以要记录这个方法是因为，如果我这里把<code>visited</code>定义为list类型，或者没有把deadends存成字典类型，就会超时（后来看评论，说是deadends里面包含很多重复元素……也是歪打正着了）。所以<u>要判断一个值是否访问过，定义成字典类型比较高效</u>这就涉及到了python里面dict、list和set的实现原理了。</p>
+<h1 id="python中dict、list和set的实现原理"><a href="#python中dict、list和set的实现原理" class="headerlink" title="python中dict、list和set的实现原理"></a>python中dict、list和set的实现原理</h1><p>首先，dict保存的是键值对，内部实现是使用哈希表实现的，而哈希表是以数组表示的，数组的索引就是键的哈希值，这样在从dict中根据键获取值时，是先通过哈希函数获取键对应的哈希值，再通过哈希值直接在数组中获得对应的值，但是因为内部实现是数组，所以存放的是一个连续空间，并且因为是使用哈希值作为索引，所以为了避免哈希冲突，当数组中只剩下不到1/3的“空的”空间时，就会对其进行扩容操作，所以会占用比较到的内存空间，用空间换时间。所以<strong>dict的特点是：</strong>查找和插入为O(1)，不受数据量的影响，但是会占用大量内存。<br>而set与dict类似，也是保存值对应的哈希值，只是没有保存value。<br>而list就是数据结构中的顺序表的形式，是以下标为索引的连续空间，当使用下标进行索引时，时间复杂度也是O(1)，但是如果要进行查找时，就要依次遍历数组中的所有元素来进行查找，时间复杂度为O(n)。<br>综上所述，如果是要<strong>查找</strong>，使用dict或者set，如果是<strong>根据下标进行索引</strong>，使用list。</p>
+<p><strong>参考：</strong><br><a href="https://www.jianshu.com/p/6363e3a6e2df" target="_blank" rel="noopener">dict内部实现</a><br><a href="https://blog.csdn.net/zhao_crystal/article/details/82620524" target="_blank" rel="noopener">set和dict的实现原理</a><br><a href="https://www.jianshu.com/p/J4U6rR" target="_blank" rel="noopener">list的实现原理</a><br><a href="https://www.cnblogs.com/tianyiliang/p/10330878.html" target="_blank" rel="noopener">判断值是否在list和set的对比以及set的实现原理</a></p>
 
       
     </div>
@@ -444,7 +437,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+            <a href="/tags/BFS/" rel="tag"># BFS</a>
           
         </div>
       
@@ -457,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/22059.html" rel="next" title="计划">
-                <i class="fa fa-chevron-left"></i> 计划
+              <a href="/167032858.html" rel="next" title="leetcode_670">
+                <i class="fa fa-chevron-left"></i> leetcode_670
               </a>
             
           </div>
@@ -466,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/57041.html" rel="prev" title="leetcode_739">
-                leetcode_739 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-坑"><span class="nav-number">2.</span> <span class="nav-text">一、 坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-内存溢出"><span class="nav-number">2.1.</span> <span class="nav-text">1. 内存溢出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-特殊操作"><span class="nav-number">3.</span> <span class="nav-text">二、 特殊操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-将索引变成mask形式"><span class="nav-number">3.1.</span> <span class="nav-text">1. 将索引变成mask形式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python中dict、list和set的实现原理"><span class="nav-number">1.</span> <span class="nav-text">python中dict、list和set的实现原理</span></a></li></ol></div>
             
 
           </div>
