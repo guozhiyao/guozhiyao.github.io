@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值">
+  <meta name="description" content="题目：如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一">
 <meta name="keywords" content="DP,algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode_376：摆动序列">
 <meta property="og:url" content="https://guozhiyao.github.io/56274.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值">
+<meta property="og:description" content="题目：如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-01T14:29:23.509Z">
+<meta property="og:updated_time" content="2019-05-01T14:39:17.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode_376：摆动序列">
-<meta name="twitter:description" content="如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值">
+<meta name="twitter:description" content="题目：如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一">
 
 
 
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-01 14:29:23" itemprop="dateModified" datetime="2019-05-01T14:29:23Z">2019-05-01</time>
+                <time title="修改时间：2019-05-01 14:39:17" itemprop="dateModified" datetime="2019-05-01T14:39:17Z">2019-05-01</time>
               
             
           </span>
@@ -447,8 +447,7 @@
       
 
       
-        <p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。<br>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。<br><a id="more"></a><br><strong>题目：</strong><br>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。<br>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
-<p>示例 1:<br>输入: [1,7,4,9,2,5]<br>输出: 6<br>解释: 整个序列均为摆动序列。</p>
+        <p><strong>题目：</strong><br>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。<br>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。<br><a id="more"></a><br>示例 1:<br>输入: [1,7,4,9,2,5]<br>输出: 6<br>解释: 整个序列均为摆动序列。</p>
 <p>示例 2:<br>输入: [1,17,5,10,13,15,10,5,16,8]<br>输出: 7<br>解释: 这个序列包含几个长度为 7 摆动序列，其中一个可为[1,17,10,13,10,16,8]。</p>
 <p>示例 3:<br>输入: [1,2,3,4,5,6,7,8,9]<br>输出: 2</p>
 <p><strong>代码：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wiggleMaxLength</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        <span class="keyword">if</span> l&lt;<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        f = [<span class="number">1</span>]*l</span><br><span class="line">        pre_state = <span class="string">" "</span></span><br><span class="line">        state = <span class="string">" "</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,l):</span><br><span class="line">            <span class="keyword">if</span> nums[i]&gt;nums[i<span class="number">-1</span>]:</span><br><span class="line">                state = <span class="string">'up'</span></span><br><span class="line">            <span class="keyword">elif</span> nums[i]&lt;nums[i<span class="number">-1</span>]:</span><br><span class="line">                state = <span class="string">'down'</span></span><br><span class="line">            <span class="keyword">if</span> state==pre_state:</span><br><span class="line">                f[i]=f[i<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                f[i]=f[i<span class="number">-1</span>]+<span class="number">1</span></span><br><span class="line">            pre_state = state</span><br><span class="line">        <span class="keyword">return</span> f[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure></p>

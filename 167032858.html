@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
+  <meta name="description" content="题目：给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode_670：最大交换">
 <meta property="og:url" content="https://guozhiyao.github.io/167032858.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
+<meta property="og:description" content="题目：给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-01T14:30:06.988Z">
+<meta property="og:updated_time" content="2019-05-01T14:39:27.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode_670：最大交换">
-<meta name="twitter:description" content="给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
+<meta name="twitter:description" content="题目：给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。">
 
 
 
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="创建时间：2019-05-01 18:13:40 / 修改时间：14:30:06" itemprop="dateCreated datePublished" datetime="2019-05-01T18:13:40Z">2019-05-01</time>
+              <time title="创建时间：2019-05-01 18:13:40 / 修改时间：14:39:27" itemprop="dateCreated datePublished" datetime="2019-05-01T18:13:40Z">2019-05-01</time>
             
 
             
@@ -434,8 +434,7 @@
       
 
       
-        <p>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。<br><a id="more"></a><br><strong>题目：</strong><br>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。</p>
-<p>示例 1 :<br>输入: 2736<br>输出: 7236<br>解释: 交换数字2和数字7。</p>
+        <p><strong>题目：</strong><br>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。<br><a id="more"></a><br>示例 1 :<br>输入: 2736<br>输出: 7236<br>解释: 交换数字2和数字7。</p>
 <p>示例 2 :<br>输入: 9973<br>输出: 9973<br>解释: 不需要交换。</p>
 <p>注意:<br>给定数字的范围是 [0, 108]</p>
 <p><strong>思路：</strong><br>首先，交换到左边的数字要比原始的数字大，其次，相同的数字，要取最右边的才行。所以先从右往左遍历一次，记录各个数字第一次出现的坐标，然后再从左往右遍历，找到字典中比该位数字大，且坐标在右侧的数字进行交换。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maximumSwap</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        n = list(str(num))</span><br><span class="line">        l = len(n)</span><br><span class="line">        loc = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> n[i] <span class="keyword">not</span> <span class="keyword">in</span> loc:</span><br><span class="line">                loc[n[i]] = i</span><br><span class="line">            <span class="keyword">if</span> len(loc)==<span class="number">10</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        find = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">9</span>,int(n[i]),<span class="number">-1</span>):</span><br><span class="line">                <span class="keyword">if</span> str(k) <span class="keyword">in</span> loc <span class="keyword">and</span> loc[str(k)]&gt;i:</span><br><span class="line">                    n[i],n[loc[str(k)]] = n[loc[str(k)]],n[i]</span><br><span class="line">                    find = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> find:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> int(<span class="string">""</span>.join(n))</span><br></pre></td></tr></table></figure></p>
