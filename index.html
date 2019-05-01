@@ -231,6 +231,40 @@
         
         
           
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-archives">
 
     
@@ -313,7 +347,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/3557740931.html" class="post-title-link" itemprop="url">leetcode_752</a>
+                <a href="/3557740931.html" class="post-title-link" itemprop="url">leetcode_752：打开转盘锁</a>
               
             
           </h1>
@@ -338,7 +372,7 @@
                 
               
 
-              <time title="创建时间：2019-05-01 20:40:31 / 修改时间：12:40:31" itemprop="dateCreated datePublished" datetime="2019-05-01T20:40:31Z">2019-05-01</time>
+              <time title="创建时间：2019-05-01 20:40:31 / 修改时间：14:32:05" itemprop="dateCreated datePublished" datetime="2019-05-01T20:40:31Z">2019-05-01</time>
             
 
             
@@ -403,25 +437,19 @@
 
       
         
+          <p>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。<br>
+          <!--noindex-->
           
-            <p><strong>题目：</strong><br>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。</p>
-<p>锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。</p>
-<p>列表 deadends 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
-<p>字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。</p>
-<p>示例 1:<br>输入：deadends = [“0201”,”0101”,”0102”,”1212”,”2002”], target = “0202”<br>输出：6<br>解释：<br>可能的移动序列为 “0000” -&gt; “1000” -&gt; “1100” -&gt; “1200” -&gt; “1201” -&gt; “1202” -&gt; “0202”。<br>注意 “0000” -&gt; “0001” -&gt; “0002” -&gt; “0102” -&gt; “0202” 这样的序列是不能解锁的，<br>因为当拨动到 “0102” 时这个锁就会被锁定。</p>
-<p>示例 2:<br>输入: deadends = [“8888”], target = “0009”<br>输出：1<br>解释：<br>把最后一位反向旋转一次即可 “0000” -&gt; “0009”。</p>
-<p>示例 3:<br>输入: deadends = [“8887”,”8889”,”8878”,”8898”,”8788”,”8988”,”7888”,”9888”], target = “8888”<br>输出：-1<br>解释：<br>无法旋转到目标数字且不被锁定。</p>
-<p>示例 4:<br>输入: deadends = [“0000”], target = “8888”<br>输出：-1</p>
-<p>提示：<br>死亡列表 deadends 的长度范围为 [1, 500]。<br>目标数字 target 不会在 deadends 之中。<br>每个 deadends 和 target 中的字符串的数字会在 10,000 个可能的情况 ‘0000’ 到 ‘9999’ 中产生。</p>
-<p><strong>思路：</strong><br>这题就是比较直观的BFS问题从初始状态“0000”开始探索，每次可以对4个位置的数字进行加1或减1操作，直接通过BFS找到最快的方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">openLock</span><span class="params">(self, deadends, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type deadends: List[str]</span></span><br><span class="line"><span class="string">        :type target: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"0000"</span> <span class="keyword">in</span> deadends <span class="keyword">or</span> target <span class="keyword">in</span> deadends:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        q = [[<span class="string">"0000"</span>,<span class="number">0</span>]]</span><br><span class="line">        </span><br><span class="line">        visited = &#123;<span class="string">"0000"</span>:<span class="number">1</span>&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> deadends:</span><br><span class="line">            visited[i] = <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">while</span> len(q)!=<span class="number">0</span>:</span><br><span class="line">            t = q[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">if</span> t[<span class="number">0</span>]==target:</span><br><span class="line">                <span class="keyword">return</span> t[<span class="number">1</span>]</span><br><span class="line">            q.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">-1</span>,<span class="number">2</span>,<span class="number">2</span>):</span><br><span class="line">                    new = list(t[<span class="number">0</span>])</span><br><span class="line">                    new[i] = str((int(t[<span class="number">0</span>][i])+j)%<span class="number">10</span>)</span><br><span class="line">                    new = <span class="string">""</span>.join(new)</span><br><span class="line">                    <span class="keyword">if</span> new <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                        q.append([new,t[<span class="number">1</span>]+<span class="number">1</span>])</span><br><span class="line">                        visited[new] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
-<p>消耗1428ms/13.1MB。这里之所以要记录这个方法是因为，如果我这里把<code>visited</code>定义为list类型，或者没有把deadends存成字典类型，就会超时（后来看评论，说是deadends里面包含很多重复元素……也是歪打正着了）。所以<u>要判断一个值是否访问过，定义成字典类型比较高效</u>这就涉及到了python里面dict、list和set的实现原理了。</p>
-<h1 id="python中dict、list和set的实现原理"><a href="#python中dict、list和set的实现原理" class="headerlink" title="python中dict、list和set的实现原理"></a>python中dict、list和set的实现原理</h1><p>首先，dict保存的是键值对，内部实现是使用哈希表实现的，而哈希表是以数组表示的，数组的索引就是键的哈希值，这样在从dict中根据键获取值时，是先通过哈希函数获取键对应的哈希值，再通过哈希值直接在数组中获得对应的值，但是因为内部实现是数组，所以存放的是一个连续空间，并且因为是使用哈希值作为索引，所以为了避免哈希冲突，当数组中只剩下不到1/3的“空的”空间时，就会对其进行扩容操作，所以会占用比较到的内存空间，用空间换时间。所以<strong>dict的特点是：</strong>查找和插入为O(1)，不受数据量的影响，但是会占用大量内存。<br>而set与dict类似，也是保存值对应的哈希值，只是没有保存value。<br>而list就是数据结构中的顺序表的形式，是以下标为索引的连续空间，当使用下标进行索引时，时间复杂度也是O(1)，但是如果要进行查找时，就要依次遍历数组中的所有元素来进行查找，时间复杂度为O(n)。<br>综上所述，如果是要<strong>查找</strong>，使用dict或者set，如果是<strong>根据下标进行索引</strong>，使用list。</p>
-<p><strong>参考：</strong><br><a href="https://www.jianshu.com/p/6363e3a6e2df" target="_blank" rel="noopener">dict内部实现</a><br><a href="https://blog.csdn.net/zhao_crystal/article/details/82620524" target="_blank" rel="noopener">set和dict的实现原理</a><br><a href="https://www.jianshu.com/p/J4U6rR" target="_blank" rel="noopener">list的实现原理</a><br><a href="https://www.cnblogs.com/tianyiliang/p/10330878.html" target="_blank" rel="noopener">判断值是否在list和set的对比以及set的实现原理</a></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/3557740931.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -493,7 +521,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/167032858.html" class="post-title-link" itemprop="url">leetcode_670</a>
+                <a href="/167032858.html" class="post-title-link" itemprop="url">leetcode_670：最大交换</a>
               
             
           </h1>
@@ -518,7 +546,7 @@
                 
               
 
-              <time title="创建时间：2019-05-01 18:13:40 / 修改时间：10:13:40" itemprop="dateCreated datePublished" datetime="2019-05-01T18:13:40Z">2019-05-01</time>
+              <time title="创建时间：2019-05-01 18:13:40 / 修改时间：14:30:06" itemprop="dateCreated datePublished" datetime="2019-05-01T18:13:40Z">2019-05-01</time>
             
 
             
@@ -583,18 +611,19 @@
 
       
         
+          <p>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。<br>
+          <!--noindex-->
           
-            <p><strong>题目：</strong><br>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。</p>
-<p>示例 1 :<br>输入: 2736<br>输出: 7236<br>解释: 交换数字2和数字7。</p>
-<p>示例 2 :<br>输入: 9973<br>输出: 9973<br>解释: 不需要交换。</p>
-<p>注意:<br>给定数字的范围是 [0, 108]</p>
-<p><strong>思路：</strong><br>首先，交换到左边的数字要比原始的数字大，其次，相同的数字，要取最右边的才行。所以先从右往左遍历一次，记录各个数字第一次出现的坐标，然后再从左往右遍历，找到字典中比该位数字大，且坐标在右侧的数字进行交换。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maximumSwap</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        n = list(str(num))</span><br><span class="line">        l = len(n)</span><br><span class="line">        loc = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> n[i] <span class="keyword">not</span> <span class="keyword">in</span> loc:</span><br><span class="line">                loc[n[i]] = i</span><br><span class="line">            <span class="keyword">if</span> len(loc)==<span class="number">10</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        find = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">9</span>,int(n[i]),<span class="number">-1</span>):</span><br><span class="line">                <span class="keyword">if</span> str(k) <span class="keyword">in</span> loc <span class="keyword">and</span> loc[str(k)]&gt;i:</span><br><span class="line">                    n[i],n[loc[str(k)]] = n[loc[str(k)]],n[i]</span><br><span class="line">                    find = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> find:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> int(<span class="string">""</span>.join(n))</span><br></pre></td></tr></table></figure></p>
-<p>28ms/11.7MB，时间复杂度上已经击败100%的用户了。</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/167032858.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -666,7 +695,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/1354235289.html" class="post-title-link" itemprop="url">leetcode_718</a>
+                <a href="/1354235289.html" class="post-title-link" itemprop="url">leetcode_718：最长重复子数组</a>
               
             
           </h1>
@@ -691,12 +720,24 @@
                 
               
 
-              <time title="创建时间：2019-04-30 22:44:41 / 修改时间：14:52:42" itemprop="dateCreated datePublished" datetime="2019-04-30T22:44:41Z">2019-04-30</time>
+              <time title="创建时间：2019-04-30 22:44:41" itemprop="dateCreated datePublished" datetime="2019-04-30T22:44:41Z">2019-04-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 14:30:48" itemprop="dateModified" datetime="2019-05-01T14:30:48Z">2019-05-01</time>
               
             
           </span>
@@ -756,18 +797,19 @@
 
       
         
+          <p>给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。<br>
+          <!--noindex-->
           
-            <p><strong>题目：</strong><br>给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。</p>
-<p>示例 1:<br>输入:<br>A: [1,2,3,2,1]<br>B: [3,2,1,4,7]<br>输出: 3<br>解释:<br>长度最长的公共子数组是 [3, 2, 1]。</p>
-<p>说明:<br>1 &lt;= len(A), len(B) &lt;= 1000<br>0 &lt;= A[i], B[i] &lt; 100</p>
-<p><strong>思路：</strong><br>首先，使用最简单的暴力算法，直接遍历两者的子数组<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                k=<span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> i+k&lt;la <span class="keyword">and</span> j+k&lt;lb <span class="keyword">and</span> A[i+k]==B[j+k]:</span><br><span class="line">                    k+=<span class="number">1</span></span><br><span class="line">                ans = max(ans,k)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>结果超时了，想想算法的冗余。<br>可以使用DP，<u>dp[i][j]表示以A中第i个字符结尾，以B中第j个字符结尾的最长长度</u> 。则更新可看成是<code>dp[i][j] = dp[i-1][j-1]+1 if A[i]==B[j] else 0</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(lb)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(la)]</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">or</span> j==<span class="number">0</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                ans = max(ans,dp[i][j])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>5940ms/33.7MB</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/1354235289.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -839,7 +881,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/1394657022.html" class="post-title-link" itemprop="url">leetcode_3</a>
+                <a href="/1394657022.html" class="post-title-link" itemprop="url">leetcode_3：无重复字符的最长子串</a>
               
             
           </h1>
@@ -864,12 +906,24 @@
                 
               
 
-              <time title="创建时间：2019-04-30 21:31:21 / 修改时间：14:38:00" itemprop="dateCreated datePublished" datetime="2019-04-30T21:31:21Z">2019-04-30</time>
+              <time title="创建时间：2019-04-30 21:31:21" itemprop="dateCreated datePublished" datetime="2019-04-30T21:31:21Z">2019-04-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 14:27:31" itemprop="dateModified" datetime="2019-05-01T14:27:31Z">2019-05-01</time>
               
             
           </span>
@@ -929,21 +983,19 @@
 
       
         
+          <p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。<br>
+          <!--noindex-->
           
-            <p><strong>题目：</strong><br>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
-<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
-<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
-<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>     请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
-<p><strong>思路：</strong><br>首先，是最简单的暴力求解的方法，定义两个指针left和right，分别表示一个子串，然后判断下一个字符a是否包含在子串中，如果不存在，子串就增加一个字符a，如果存在，则将left向右移动一格，right指向left的下一个字符。<br>时间复杂度为O(n^3)，不通过。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(s)</span><br><span class="line">        <span class="keyword">if</span> l &lt;=<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        ans = <span class="number">1</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> right &lt; l <span class="keyword">and</span> left&lt;l:</span><br><span class="line">            ins = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right):</span><br><span class="line">                <span class="keyword">if</span> s[i]==s[right]:</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                    right = left + <span class="number">1</span></span><br><span class="line">                    ins=<span class="literal">False</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> ins:</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">                ans = max(ans,right-left)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>其次，想想优化方法。可以发现，之前的代码有个冗余的计算，就是当下一个字符a与子串重复时，将left向右移动一格，而right如果变成left的下一个字符，则right就又要重新遍历一遍直到字符a，这个遍历的结果是冗余的，可以直接将left指向重复的字符的下一位，而right向下进一位。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(s)</span><br><span class="line">        <span class="keyword">if</span> l &lt;=<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        ans = <span class="number">1</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> right &lt; l <span class="keyword">and</span> left&lt;l:</span><br><span class="line">            ins = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right):</span><br><span class="line">                <span class="keyword">if</span> s[i]==s[right]:</span><br><span class="line">                    left = i+<span class="number">1</span></span><br><span class="line">                    right += <span class="number">1</span></span><br><span class="line">                    ins=<span class="literal">False</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> ins:</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">                ans = max(ans,right-left)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>此时就能通过了，140ms/12MB。<br>但是还是能进一步优化，如果是追求时间复杂度的话，可以建立一个哈希表，指示子串中各个字符的位置，就省去了每次还要重新遍历子串寻找坐标的额过程<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(s)</span><br><span class="line">        <span class="keyword">if</span> l &lt;=<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        ans = <span class="number">-1</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = <span class="number">1</span></span><br><span class="line">        table = &#123;s[left]:left&#125;</span><br><span class="line">        <span class="keyword">while</span> right &lt; l <span class="keyword">and</span> left&lt;l:</span><br><span class="line">            <span class="keyword">if</span> s[right] <span class="keyword">in</span> table <span class="keyword">and</span> table[s[right]]&gt;=left:</span><br><span class="line">                left = table[s[right]]+<span class="number">1</span></span><br><span class="line">                table[s[right]] = right</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                table[s[right]] = right</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">            ans = max(ans,right-left)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>68ms/12MB</p>
-<p><strong>心得：</strong><br>一开始可以提出一个比较简单的暴力方法，然后观察算法中哪些部分比较冗余，然后尝试优化，如果比较注重时间复杂度，可以用哈希表去解决。</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/1394657022.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -1040,12 +1092,24 @@
                 
               
 
-              <time title="创建时间：2019-04-30 12:40:06 / 修改时间：06:57:41" itemprop="dateCreated datePublished" datetime="2019-04-30T12:40:06Z">2019-04-30</time>
+              <time title="创建时间：2019-04-30 12:40:06" itemprop="dateCreated datePublished" datetime="2019-04-30T12:40:06Z">2019-04-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 14:33:49" itemprop="dateModified" datetime="2019-05-01T14:33:49Z">2019-05-01</time>
               
             
           </span>
@@ -1182,7 +1246,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/56274.html" class="post-title-link" itemprop="url">leetcode_376</a>
+                <a href="/56274.html" class="post-title-link" itemprop="url">leetcode_376：摆动序列</a>
               
             
           </h1>
@@ -1224,7 +1288,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-30 06:59:03" itemprop="dateModified" datetime="2019-04-30T06:59:03Z">2019-04-30</time>
+                <time title="修改时间：2019-05-01 14:29:23" itemprop="dateModified" datetime="2019-05-01T14:29:23Z">2019-05-01</time>
               
             
           </span>
@@ -1284,20 +1348,19 @@
 
       
         
+          <p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。<br>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。<br>
+          <!--noindex-->
           
-            <p><strong>题目：</strong></p>
-<p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。</p>
-<p>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。</p>
-<p>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
-<p>示例 1:<br>输入: [1,7,4,9,2,5]<br>输出: 6<br>解释: 整个序列均为摆动序列。</p>
-<p>示例 2:<br>输入: [1,17,5,10,13,15,10,5,16,8]<br>输出: 7<br>解释: 这个序列包含几个长度为 7 摆动序列，其中一个可为[1,17,10,13,10,16,8]。</p>
-<p>示例 3:<br>输入: [1,2,3,4,5,6,7,8,9]<br>输出: 2</p>
-<p><strong>代码：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wiggleMaxLength</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        <span class="keyword">if</span> l&lt;<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        f = [<span class="number">1</span>]*l</span><br><span class="line">        pre_state = <span class="string">" "</span></span><br><span class="line">        state = <span class="string">" "</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,l):</span><br><span class="line">            <span class="keyword">if</span> nums[i]&gt;nums[i<span class="number">-1</span>]:</span><br><span class="line">                state = <span class="string">'up'</span></span><br><span class="line">            <span class="keyword">elif</span> nums[i]&lt;nums[i<span class="number">-1</span>]:</span><br><span class="line">                state = <span class="string">'down'</span></span><br><span class="line">            <span class="keyword">if</span> state==pre_state:</span><br><span class="line">                f[i]=f[i<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                f[i]=f[i<span class="number">-1</span>]+<span class="number">1</span></span><br><span class="line">            pre_state = state</span><br><span class="line">        <span class="keyword">return</span> f[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/56274.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -1369,7 +1432,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/57041.html" class="post-title-link" itemprop="url">leetcode_739</a>
+                <a href="/57041.html" class="post-title-link" itemprop="url">leetcode_739：每日温度</a>
               
             
           </h1>
@@ -1411,7 +1474,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-30 06:56:31" itemprop="dateModified" datetime="2019-04-30T06:56:31Z">2019-04-30</time>
+                <time title="修改时间：2019-05-01 14:31:27" itemprop="dateModified" datetime="2019-05-01T14:31:27Z">2019-05-01</time>
               
             
           </span>
@@ -1471,22 +1534,19 @@
 
       
         
+          <p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。<br>
+          <!--noindex-->
           
-            <a id="more"></a>
-<p><strong>题目：</strong></p>
-<p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。<br>例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。<br>提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [30, 100] 范围内的整数。</p>
-<p><strong>思路：</strong></p>
-<p>可以正向遍历数组，也可以反向遍历数组，我这里采用的是正向遍历。</p>
-<ol>
-<li>首先将第一个元素保存在一个容器中，然后遍历第二个元素；</li>
-<li>然后遍历到第二个元素，将该元素与容器中的元素比较温度，如果当前元素温度比容器中的某个元素的温度高，则可以得到那个元素对应的答案（说明还要保存那个元素对应的索引值）；如果当前元素比容器中的所有元素的温度都低，那也把该元素放入容器中。<br><em>可以发现：</em> 只有当当前元素比容器中所有元素的温度都低时，才会保存在容器中，也就说明了该容器是递减的，可以只比较该容器最新进入的元素，如果比这个元素的值小，才需要比较更前面的元素，所以该容器为栈。</li>
-</ol>
-<p><strong>代码：</strong><br>604ms 16.6MB<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dailyTemperatures</span><span class="params">(self, T)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type T: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(T)</span><br><span class="line">        q = []</span><br><span class="line">        ans = [<span class="number">0</span>]*l</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">if</span> len(q)==<span class="number">0</span>:</span><br><span class="line">                q.append([i,T[i]])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span> len(q)&gt;<span class="number">0</span> <span class="keyword">and</span> q[<span class="number">-1</span>][<span class="number">1</span>]&lt;T[i]:</span><br><span class="line">                    ans[q[<span class="number">-1</span>][<span class="number">0</span>]] = i-q[<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">                    q.pop(<span class="number">-1</span>)</span><br><span class="line">                q.append([i,T[i]])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/57041.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -2125,6 +2185,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
+                    
+                  
+                    
                     
                       
                     
@@ -2140,7 +2204,7 @@
                     
                     <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
-                  
+                  </a>
                 </div>
               
 
@@ -2148,6 +2212,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2173,7 +2241,7 @@
                     
                     <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
-                  
+                  </a>
                 </div>
               
             </nav>

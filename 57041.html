@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [">
+  <meta name="description" content="根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。">
 <meta name="keywords" content="array,DFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode_739">
+<meta property="og:title" content="leetcode_739：每日温度">
 <meta property="og:url" content="https://guozhiyao.github.io/57041.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [">
+<meta property="og:description" content="根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T06:56:31.275Z">
+<meta property="og:updated_time" content="2019-05-01T14:31:27.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode_739">
-<meta name="twitter:description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [">
+<meta name="twitter:title" content="leetcode_739：每日温度">
+<meta name="twitter:description" content="根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>leetcode_739 | LearningNote and LovingStory</title>
+  <title>leetcode_739：每日温度 | LearningNote and LovingStory</title>
   
 
 
@@ -232,6 +232,40 @@
         
         
           
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-archives">
 
     
@@ -311,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode_739
+          <h1 class="post-title" itemprop="name headline">leetcode_739：每日温度
 
               
             
@@ -354,7 +388,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-30 06:56:31" itemprop="dateModified" datetime="2019-04-30T06:56:31Z">2019-04-30</time>
+                <time title="修改时间：2019-05-01 14:31:27" itemprop="dateModified" datetime="2019-05-01T14:31:27Z">2019-05-01</time>
               
             
           </span>
@@ -413,7 +447,7 @@
       
 
       
-        <a id="more"></a>
+        <p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。<br><a id="more"></a></p>
 <p><strong>题目：</strong></p>
 <p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。<br>例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。<br>提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [30, 100] 范围内的整数。</p>
 <p><strong>思路：</strong></p>
@@ -471,8 +505,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/56274.html" rel="prev" title="leetcode_376">
-                leetcode_376 <i class="fa fa-chevron-right"></i>
+              <a href="/56274.html" rel="prev" title="leetcode_376：摆动序列">
+                leetcode_376：摆动序列 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -545,6 +579,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
+                    
+                  
+                    
                     
                       
                     
@@ -560,7 +598,7 @@
                     
                     <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
-                  
+                  </a>
                 </div>
               
 
@@ -568,6 +606,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -593,7 +635,7 @@
                     
                     <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
-                  
+                  </a>
                 </div>
               
             </nav>
