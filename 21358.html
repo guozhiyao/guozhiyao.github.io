@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/leancloundCounter.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/leanclound应用key.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/leanclound安全.png">
-<meta property="og:updated_time" content="2019-05-02T16:25:58.477Z">
+<meta property="og:updated_time" content="2019-05-02T16:30:52.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo">
 <meta name="twitter:description" content="基础的建站内容可以直接查看Hexo的官网 ，以下整理一些建站中遇到的小问题。">
@@ -394,7 +394,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-02 16:25:58" itemprop="dateModified" datetime="2019-05-02T16:25:58Z">2019-05-02</time>
+                <time title="修改时间：2019-05-02 16:30:52" itemprop="dateModified" datetime="2019-05-02T16:30:52Z">2019-05-02</time>
               
             
           </span>
@@ -421,6 +421,19 @@
 
           
             
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/21358.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/21358.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -458,8 +471,8 @@
 
       
         <p>基础的建站内容可以直接查看Hexo的<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网</a> ，以下整理一些建站中遇到的小问题。<br><a id="more"></a></p>
-<h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><ul>
-<li>修改永久链接格式时，注意最后要有<code>/</code>，一开始修改时，我写成<code>:category/:year:month:day/:title</code>的形式，点击博客时，就会变成下载的形式，应该写成<code>:category/:year:month:day/:title/</code>。</li>
+<h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><h2 id="永久链接"><a href="#永久链接" class="headerlink" title="永久链接"></a>永久链接</h2><ul>
+<li>修改永久链接格式时，注意最后要有<code>/</code>，一开始修改时，我写成<code>:category/:year:month:day/:title</code>的形式，点击博客时，就会变成下载的形式，应该写成<code>:category/:year:month:day/:title/</code>。<h2 id="文章插入图片"><a href="#文章插入图片" class="headerlink" title="文章插入图片"></a>文章插入图片</h2>想要在文章中插入图片，需要在<code>source</code>文件夹中创建<code>images</code>文件夹，然后将想要的图片放入该文件夹中，并且使用<br><code>![alt name](/images/imagename.jpg)</code><br>的形式调用这张图片。<strong>注意：</strong>这里不能在<code>images</code>文件夹中再创建子文件夹，只能放在<code>images</code>文件夹中，其他方法后面补上。</li>
 </ul>
 <h1 id="小点"><a href="#小点" class="headerlink" title="小点"></a>小点</h1><h2 id="建立草稿"><a href="#建立草稿" class="headerlink" title="建立草稿"></a>建立草稿</h2><p>首先使用命令行<br><code>hexo new draft title</code><br>创建一篇草稿，这里使用draft布局，文件会保存在<code>source/_drafts</code>中。草稿某人是不会显示在页面中的，也可以在执行时加上<code>--draft</code>来预览草稿。<br>当要发表草稿时，通过<br><code>hexo publish [layout] &lt;title&gt;</code><br>就能把草稿移动到<code>source/_posts</code>文件夹中了。</p>
 <h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><p>如果文章中使用的图片比较少，可以直接把图片放在<code>source/images</code>文件夹中，然后使用Markdown的<code>[image name](image source)</code>方法调用。<br>如果文章中使用的图片比较多，全部放在<code>source/images</code>会比较杂乱，可以在<code>_config.yml</code>中设置<code>post_asset_folder: True</code>，这样创建新文章时，就会为其创建一个与该文章同名的资源文件夹，就能用相对路径来引用存放在里面的图片了。<br>最后，如果用Markdown的方法调用图片，它可能无法出现在首页中，所以推荐的引用图片的方法为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_path slug %&#125;</span><br><span class="line">&#123;% asset_img slug [title] %&#125;</span><br><span class="line">&#123;% asset_link slug [title] %&#125;</span><br></pre></td></tr></table></figure></p>
@@ -577,6 +590,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -733,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#坑"><span class="nav-number">1.</span> <span class="nav-text">坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">2.</span> <span class="nav-text">小点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立草稿"><span class="nav-number">2.1.</span> <span class="nav-text">建立草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">2.2.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置分栏"><span class="nav-number">2.3.</span> <span class="nav-text">设置分栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首行缩进"><span class="nav-number">2.4.</span> <span class="nav-text">首行缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用leanClound添加访问统计"><span class="nav-number">2.5.</span> <span class="nav-text">使用leanClound添加访问统计</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#坑"><span class="nav-number">1.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#永久链接"><span class="nav-number">1.1.</span> <span class="nav-text">永久链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章插入图片"><span class="nav-number">1.2.</span> <span class="nav-text">文章插入图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">2.</span> <span class="nav-text">小点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立草稿"><span class="nav-number">2.1.</span> <span class="nav-text">建立草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">2.2.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置分栏"><span class="nav-number">2.3.</span> <span class="nav-text">设置分栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首行缩进"><span class="nav-number">2.4.</span> <span class="nav-text">首行缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用leanClound添加访问统计"><span class="nav-number">2.5.</span> <span class="nav-text">使用leanClound添加访问统计</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -895,6 +912,36 @@
   
 
   
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz# your leancloud application appid',
+    appKey: 'hlcodrMmu7eeKpdvsymRe7Vk# your leancloud application appkey',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
 
 
   
