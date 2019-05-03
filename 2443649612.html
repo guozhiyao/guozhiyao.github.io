@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
-<meta name="keywords" content="DP">
+  <meta name="description" content="题目：给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。你可以无限次地完成交易，但是你每次交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。返回获得利润的最大值。 示例 1:输入: prices = [1, 3, 2, 8, 4, 9], fee = 2输出: 8解释: 能够达到的最大利润:">
+<meta name="keywords" content="DFS,DP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode_718：最长重复子数组">
-<meta property="og:url" content="https://guozhiyao.github.io/1354235289.html">
+<meta property="og:title" content="leetcode_714：买卖股票的最佳时机含手续费">
+<meta property="og:url" content="https://guozhiyao.github.io/2443649612.html">
 <meta property="og:site_name" content="LearningNote and LovingStory">
-<meta property="og:description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
+<meta property="og:description" content="题目：给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。你可以无限次地完成交易，但是你每次交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。返回获得利润的最大值。 示例 1:输入: prices = [1, 3, 2, 8, 4, 9], fee = 2输出: 8解释: 能够达到的最大利润:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-01T14:39:35.792Z">
+<meta property="og:updated_time" content="2019-05-03T14:51:50.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode_718：最长重复子数组">
-<meta name="twitter:description" content="题目：给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
+<meta name="twitter:title" content="leetcode_714：买卖股票的最佳时机含手续费">
+<meta name="twitter:description" content="题目：给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。你可以无限次地完成交易，但是你每次交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。返回获得利润的最大值。 示例 1:输入: prices = [1, 3, 2, 8, 4, 9], fee = 2输出: 8解释: 能够达到的最大利润:">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/1354235289">
+  <link rel="canonical" href="https://guozhiyao.github.io/2443649612">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>leetcode_718：最长重复子数组 | LearningNote and LovingStory</title>
+  <title>leetcode_714：买卖股票的最佳时机含手续费 | LearningNote and LovingStory</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/1354235289.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2443649612.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode_718：最长重复子数组
+          <h1 class="post-title" itemprop="name headline">leetcode_714：买卖股票的最佳时机含手续费
 
               
             
@@ -373,24 +373,12 @@
                 
               
 
-              <time title="创建时间：2019-04-30 22:44:41" itemprop="dateCreated datePublished" datetime="2019-04-30T22:44:41Z">2019-04-30</time>
+              <time title="创建时间：2019-05-03 22:51:49 / 修改时间：14:51:50" itemprop="dateCreated datePublished" datetime="2019-05-03T22:51:49Z">2019-05-03</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-01 14:39:35" itemprop="dateModified" datetime="2019-05-01T14:39:35Z">2019-05-01</time>
               
             
           </span>
@@ -433,8 +421,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/1354235289.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/1354235289.html" itemprop="commentCount"></span>
+                <a href="/2443649612.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2443649612.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -442,7 +430,7 @@
 
           
           
-            <span id="/1354235289.html" class="leancloud_visitors" data-flag-title="leetcode_718：最长重复子数组">
+            <span id="/2443649612.html" class="leancloud_visitors" data-flag-title="leetcode_714：买卖股票的最佳时机含手续费">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -467,7 +455,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -481,7 +469,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -501,11 +489,18 @@
       
 
       
-        <p><strong>题目：</strong><br>给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。<br><a id="more"></a><br>示例 1:<br>输入:<br>A: [1,2,3,2,1]<br>B: [3,2,1,4,7]<br>输出: 3<br>解释:<br>长度最长的公共子数组是 [3, 2, 1]。</p>
-<p>说明:<br>1 &lt;= len(A), len(B) &lt;= 1000<br>0 &lt;= A[i], B[i] &lt; 100</p>
-<p><strong>思路：</strong><br>首先，使用最简单的暴力算法，直接遍历两者的子数组<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                k=<span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> i+k&lt;la <span class="keyword">and</span> j+k&lt;lb <span class="keyword">and</span> A[i+k]==B[j+k]:</span><br><span class="line">                    k+=<span class="number">1</span></span><br><span class="line">                ans = max(ans,k)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>结果超时了，想想算法的冗余。<br>可以使用DP，<u>dp[i][j]表示以A中第i个字符结尾，以B中第j个字符结尾的最长长度</u> 。则更新可看成是<code>dp[i][j] = dp[i-1][j-1]+1 if A[i]==B[j] else 0</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLength</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type A: List[int]</span></span><br><span class="line"><span class="string">        :type B: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        la = len(A)</span><br><span class="line">        lb = len(B)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(lb)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(la)]</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(la):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(lb):</span><br><span class="line">                <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">or</span> j==<span class="number">0</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span> <span class="keyword">if</span> A[i]==B[j] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                ans = max(ans,dp[i][j])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
-<p>5940ms/33.7MB</p>
+        <p><strong>题目：</strong><br>给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。<br>你可以无限次地完成交易，但是你每次交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。<br>返回获得利润的最大值。</p>
+<p>示例 1:<br>输入: prices = [1, 3, 2, 8, 4, 9], fee = 2<br>输出: 8<br>解释: 能够达到的最大利润:<br>在此处买入 prices[0] = 1<br>在此处卖出 prices[3] = 8<br>在此处买入 prices[4] = 4<br>在此处卖出 prices[5] = 9<br>总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8.</p>
+<p>注意:<br>0 &lt; prices.length &lt;= 50000.<br>0 &lt; prices[i] &lt; 50000.<br>0 &lt;= fee &lt; 50000.<br><a id="more"></a><br><strong>思路：</strong><br>一开始看到这个题目时，想到依次遍历<code>prices</code>，对于每个元素，都判断是买入还是卖出，相当于是要遍历所有情况，就想到使用DFS。有三种状态“买入”、“持股”以及“卖出”。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(self, prices, fee, index, buy, p,c)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> index == len(prices)<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> buy:</span><br><span class="line">                p+=prices[index]-c</span><br><span class="line">            <span class="keyword">if</span> p &gt; self.ans:</span><br><span class="line">                self.ans = p</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># not buy, not sell</span></span><br><span class="line">        self.dfs(prices,fee,index+<span class="number">1</span>,buy,p,c)</span><br><span class="line">        <span class="keyword">if</span> buy:</span><br><span class="line">            <span class="comment"># sell</span></span><br><span class="line">            self.dfs(prices,fee,index+<span class="number">1</span>,<span class="literal">False</span>,p+prices[index]-c,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># buy</span></span><br><span class="line">            self.dfs(prices,fee,index+<span class="number">1</span>,<span class="literal">True</span>,p-fee,prices[index])</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices, fee)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type prices: List[int]</span></span><br><span class="line"><span class="string">        :type fee: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.ans = -fee</span><br><span class="line">        self.dfs(prices,fee,<span class="number">0</span>,<span class="literal">False</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> self.ans</span><br></pre></td></tr></table></figure></p>
+<p>有这个方法超时了，无法通过。<br>第二个思路是使用DP，如果直接使用一维DP表示第i天的最大利润时，当我们已知第i-1天最大利润时，无法得到第i天对应的最大利润，而且每一天都有两种可能状态：“持股”和“没持股”，所以使用二维DP，用<code>dp[i][0]</code>第i天持股时的最大利润，用<code>dp[i][1]</code>表示第i天没持股时的最大利润。则对于有持股的优化函数为<code>dp[i][0] = max(dp[i-1][0],dp[i-1][1]-fee-prices[i])</code>，为第i-1天有持股的最大利润和第i-1天没有持股而在第i天买股的利润之间的最大值；对于没持股的优化函数为<code>dp[i][1] = max(dp[i-1][1],dp[i-1][0]+prices[i])</code>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices, fee)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type prices: List[int]</span></span><br><span class="line"><span class="string">        :type fee: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(prices)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">2</span>)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(l)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = -prices[<span class="number">0</span>]-fee</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,l):</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i<span class="number">-1</span>][<span class="number">1</span>]-fee-prices[i],dp[i<span class="number">-1</span>][<span class="number">0</span>])</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i<span class="number">-1</span>][<span class="number">1</span>],dp[i<span class="number">-1</span>][<span class="number">0</span>]+prices[i])</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">-1</span>][<span class="number">1</span>]</span><br></pre></td></tr></table></figure></p>
+<p>1184ms(34.38%)/22.5MB(5.13%)，效果还行。但是从中可以看到，我们只用到了前一时刻的状态，所以其实不需要使用数组保存之前所有时刻的状态，只要保存前一天就行了，所以进一步优化为<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices, fee)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type prices: List[int]</span></span><br><span class="line"><span class="string">        :type fee: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(prices)</span><br><span class="line">        a1 = <span class="number">0</span></span><br><span class="line">        a0 = -prices[<span class="number">0</span>]-fee <span class="comment">#you</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,l):</span><br><span class="line">            a0,a1 = max(a1-fee-prices[i],a0),max(a1,a0+prices[i])</span><br><span class="line">        <span class="keyword">return</span> a1</span><br></pre></td></tr></table></figure></p>
+<p>860ms(81.25%)/17.7MB(12.82%)</p>
+<p><strong>心得：</strong></p>
+<ol>
+<li>DPS和递归联系密切，而动规是用来解决递归的冗余计算，并且防止递归栈过深的问题的。所以其实DPS和动规也是存在联系的，能够使用DPS解决的问题，也可以尝试使用动规解决。</li>
+<li>使用动规，首先确定DP是几维的，一般由题目中的状态确定的；其次确定DP表示什么意义，一般表示为题目的答案，不过要根据状态数目分解。</li>
+<li>动规中，如果只使用前几个状态的值时，就不用定义很大的数组保存所有的中间状态，节省内存。</li>
+</ol>
 
       
     </div>
@@ -529,6 +524,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
             <a href="/tags/DP/" rel="tag"># DP</a>
           
         </div>
@@ -542,8 +539,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/1394657022.html" rel="next" title="leetcode_3：无重复字符的最长子串">
-                <i class="fa fa-chevron-left"></i> leetcode_3：无重复字符的最长子串
+              <a href="/2064377896.html" rel="next" title="leetcode_41：缺失的第一个正数">
+                <i class="fa fa-chevron-left"></i> leetcode_41：缺失的第一个正数
               </a>
             
           </div>
@@ -551,10 +548,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/167032858.html" rel="prev" title="leetcode_670：最大交换">
-                leetcode_670：最大交换 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
