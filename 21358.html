@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/leancloundCounter.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/leanclound应用key.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/leanclound安全.png">
-<meta property="og:updated_time" content="2019-05-02T16:30:52.940Z">
+<meta property="og:updated_time" content="2019-05-03T05:20:31.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo">
 <meta name="twitter:description" content="基础的建站内容可以直接查看Hexo的官网 ，以下整理一些建站中遇到的小问题。">
@@ -394,7 +394,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-02 16:30:52" itemprop="dateModified" datetime="2019-05-02T16:30:52Z">2019-05-02</time>
+                <time title="修改时间：2019-05-03 05:20:31" itemprop="dateModified" datetime="2019-05-03T05:20:31Z">2019-05-03</time>
               
             
           </span>
@@ -504,7 +504,7 @@
 <ol>
 <li>在LeanClound注册账号，然后点击“创建应用”<br><img src="/images/leanclound创建应用.png" alt="leanClound创建应用"><br>这里的“新应用名称”可以自定义，选择“开发版”就可以了。</li>
 <li>进入设置这个应用，在“存储”中点击“创建Class”<br><img src="/images/leanclound存储.png" alt="leanClound存储"></li>
-<li>注意，这里的“Class名称”只能设置为Counter，next只识别这个Class名称<br><img src="/images/leancloundCounter.png" alt="leanCloundCounter"></li>
+<li>注意，这里的“Class名称”只能设置为Counter，next只识别这个Class名称，过后的访问记录也会保存在这个class中<br><img src="/images/leancloundCounter.png" alt="leanCloundCounter"></li>
 <li>在“设置”中可以获取“应用Key”，这里在后面需要用到<br><img src="/images/leanclound应用key.png" alt="leanClound应用key"></li>
 <li>因为AppID以及AppKey是暴露在外的，为了确保只用于我们自己的博客，建议设置Web安全域名，填入自己的博客域名。<br><img src="/images/leanclound安全.png" alt="leanClound安全"></li>
 <li>修改主题的配置文件，找到“leancloud_visitors”内容，然后修改成以下形式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">leancloud_visitors:</span><br><span class="line">  enable: true</span><br><span class="line">  app_id: #刚获得的id</span><br><span class="line">  app_key: #刚获得的key</span><br><span class="line">  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security</span><br><span class="line">  # If you don&apos;t care about security in leancloud counter and just want to use it directly</span><br><span class="line">  # (without hexo-leancloud-counter-security plugin), set `security` to `false`.</span><br><span class="line">  security: True</span><br><span class="line">  betterPerformance: false</span><br></pre></td></tr></table></figure>
@@ -521,6 +521,7 @@
 <li>修改Counter表中的time字段的数值，可以修改文章的访问量。双击具体的数值，修改之后回车即可保存。</li>
 </ol>
 <p><strong>参考：</strong><br><a href="https://blog.csdn.net/weixin_39345384/article/details/80787998" target="_blank" rel="noopener">NexT主题下，用Leancloud统计文章阅读量</a><br><a href="https://bjtu-hxs.github.io/2018/06/12/leancloud-config/" target="_blank" rel="noopener">Hexo博客Next主题添加统计文章阅读量功能</a></p>
+<h2 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h2><p>这里还是基于leanClound云服务。<br>步骤与上述类似，创建一个应用后，创建一个名为<code>Comment</code>的class，过后的评论都会出现在这里。然后修改主题配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true </span><br><span class="line">  appid: #你的appid</span><br><span class="line">  appkey: #你的appkey</span><br><span class="line">  notify: false # mail notifier, See: https://github.com/xCss/Valine/wiki</span><br><span class="line">  verify: false # Verification code</span><br><span class="line">  placeholder: Just go go # comment box placeholder</span><br><span class="line">  avatar: mm # gravatar style</span><br><span class="line">  guest_info: nick,mail,link # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br><span class="line">  language: # language, available values: en, zh-cn</span><br><span class="line">  visitor: false # leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors&apos; for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span><br><span class="line">  comment_count: true # if false, comment count will only be displayed in post page, not in home page</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -750,7 +751,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#坑"><span class="nav-number">1.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#永久链接"><span class="nav-number">1.1.</span> <span class="nav-text">永久链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章插入图片"><span class="nav-number">1.2.</span> <span class="nav-text">文章插入图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">2.</span> <span class="nav-text">小点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立草稿"><span class="nav-number">2.1.</span> <span class="nav-text">建立草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">2.2.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置分栏"><span class="nav-number">2.3.</span> <span class="nav-text">设置分栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首行缩进"><span class="nav-number">2.4.</span> <span class="nav-text">首行缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用leanClound添加访问统计"><span class="nav-number">2.5.</span> <span class="nav-text">使用leanClound添加访问统计</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#坑"><span class="nav-number">1.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#永久链接"><span class="nav-number">1.1.</span> <span class="nav-text">永久链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章插入图片"><span class="nav-number">1.2.</span> <span class="nav-text">文章插入图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">2.</span> <span class="nav-text">小点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立草稿"><span class="nav-number">2.1.</span> <span class="nav-text">建立草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">2.2.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置分栏"><span class="nav-number">2.3.</span> <span class="nav-text">设置分栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首行缩进"><span class="nav-number">2.4.</span> <span class="nav-text">首行缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用leanClound添加访问统计"><span class="nav-number">2.5.</span> <span class="nav-text">使用leanClound添加访问统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加评论功能"><span class="nav-number">2.6.</span> <span class="nav-text">添加评论功能</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -929,7 +930,7 @@
   new Valine({
     el: '#comments',
     verify: false,
-    notify: false,
+    notify: true,
     appId: 'JUzzK5xpdFaEXELmjt5SEQRy-gzGzoHsz',
     appKey: 'WCtWmzBiyev0hUF8afIuLCuh',
     placeholder: 'Just go go',
