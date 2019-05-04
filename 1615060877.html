@@ -96,17 +96,33 @@
 
 
 
-  <meta name="description" content="To recode the learning note and ongoing love story with LYX">
+  <meta name="description" content="使用V2Ray实现科学上网。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="科学上网——r2ray_v2.26">
 <meta property="og:url" content="https://guozhiyao.github.io/1615060877.html">
 <meta property="og:site_name" content="LearningNote and LoveStory">
-<meta property="og:description" content="To recode the learning note and ongoing love story with LYX">
+<meta property="og:description" content="使用V2Ray实现科学上网。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-04T07:48:51.871Z">
+<meta property="og:image" content="https://guozhiyao.github.io/images/vultr部署新的服务器.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/vultr服务器.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/vultr服务器信息.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/22端口.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/登录服务器.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/v2ray一键安装脚本.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/v2ray安装完成.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/v2rayvmess.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/v2rayN检查更新.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/v2rayN导入vmess.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/SwitchyOmega导入.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/SwitchyOmega端口.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/V2Ray端口.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/shadowrocket界面.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/shadowrocket配置新的服务器.jpg">
+<meta property="og:updated_time" content="2019-05-04T09:33:23.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="科学上网——r2ray_v2.26">
-<meta name="twitter:description" content="To recode the learning note and ongoing love story with LYX">
+<meta name="twitter:description" content="使用V2Ray实现科学上网。">
+<meta name="twitter:image" content="https://guozhiyao.github.io/images/vultr部署新的服务器.png">
 
 
 
@@ -372,7 +388,7 @@
                 
               
 
-              <time title="创建时间：2019-05-04 15:48:51 / 修改时间：07:48:51" itemprop="dateCreated datePublished" datetime="2019-05-04T15:48:51Z">2019-05-04</time>
+              <time title="创建时间：2019-05-04 15:48:51 / 修改时间：09:33:23" itemprop="dateCreated datePublished" datetime="2019-05-04T15:48:51Z">2019-05-04</time>
             
 
             
@@ -382,6 +398,31 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/科学上网/" itemprop="url" rel="index"><span itemprop="name">科学上网</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -429,7 +470,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">0</span>
+                <span title="本文字数">1.8k</span>
               
 
               
@@ -443,7 +484,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -463,7 +504,49 @@
       
 
       
-        
+        <p>使用V2Ray实现科学上网。<br><a id="more"></a></p>
+<p>#前言<br>之前使用shadowsocket搭的梯子崩了，后面一直尝试都搭不起来，现在换成V2Ray就成功了。以下介绍一下搭建过程，主要分成服务器搭建和客户端搭建。</p>
+<h1 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h1><p>这里服务器是从<a href="https://www.vultr.com/" target="_blank" rel="noopener">vultr</a> 上购买的，以下分成两部分，购买服务器和配置服务器。</p>
+<h2 id="从vultr购买服务器"><a href="#从vultr购买服务器" class="headerlink" title="从vultr购买服务器"></a>从vultr购买服务器</h2><ol>
+<li>首先在vultr网站上注册一个账号。</li>
+<li>点击左侧的“Servers”，然后点击左侧的加号，部署新的服务器<br><img src="/images/vultr部署新的服务器.png" alt="vultr部署新的服务器"></li>
+<li>进入后，推荐使用亚洲的服务器，比如日本或者新加坡，距离比较近，延时比较小。然后使用<code>Debian9</code>操作系统，然后部署服务器。</li>
+<li>等待一段时间后就能看到在“Servers”下多了一个服务器<br><img src="/images/vultr服务器.png" alt="vultr服务器"><br>点击进去，可以看到服务器的IP地址、用户名以及密码，这些后面需要。<br><img src="/images/vultr服务器信息.png" alt="vultr服务器信息"></li>
+<li>还需要测试该服务器的22端口是否开启，如果关闭的话就无法使用了。可以使用<a href="http://coolaf.com/tool/port" target="_blank" rel="noopener">这个网址</a> 测试，将服务器IP地址和端口输入，就能知道该端口是否开启<br><img src="/images/22端口.png" alt="22端口"></li>
+<li>如果服务器的22号端口是关闭的，就需要重新部署新的服务器，直到找到22号端口是开启的服务器。这里vultr是计时收费的，所以不会有额外费用。</li>
+</ol>
+<h2 id="配置服务器，安装V2Ray"><a href="#配置服务器，安装V2Ray" class="headerlink" title="配置服务器，安装V2Ray"></a>配置服务器，安装V2Ray</h2><p>然后要对服务器进行配置，安装V2Ray</p>
+<ol>
+<li>我这里使用putty远程登录服务器，使用刚刚得到的IP地址、用户名和账号可以登录到服务器上<br><img src="/images/登录服务器.png" alt="登录服务器"></li>
+<li>然后使用一键安装脚本<br><code>bash &lt;(curl -s -L https://git.io/v2ray.sh)</code><br>输入后，可以看到以下界面，就是开始安装V2Ray<br><img src="/images/v2ray一键安装脚本.png" alt="v2ray一键安装脚本"></li>
+<li>按照命令行提示，选择‘安装’——‘TCP’，然后自定义V2Ray端口号，我这里设置为10086；不开启“广告拦截”；建议还是开启ss，然后设置ss的端口号注意不要和V2Ray冲突，然后输入ss的登录密码，选择默认的加密协议，这样就搭建完成了。<br><img src="/images/v2ray安装完成.png" alt="v2ray安装完成.png"></li>
+<li>然后输入<br><code>v2ray url</code><br>可以获取服务器的<code>vmess</code>，后面需要。<br><img src="/images/v2rayvmess.png" alt="v2rayvmess"></li>
+</ol>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><p>然后需要在自己电脑上配置客户端</p>
+<ol>
+<li>从<a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener">V2RayN</a>上下载最新的V2RayN，我这里使用的版本是2.26版本的，这个是V2Ray的GUI。</li>
+<li>点击V2RayN的“检查更新”中的“检查更新v2rayCore”，会自动同github上下载核心代码。<br><img src="/images/v2rayN检查更新.png" alt="v2rayN检查更新.png"></li>
+<li>复制刚刚服务器上的<code>vmess</code>，然后在安装好的V2RayN上，点击左上角的“服务器”中的“从剪切板导入批量URL”，就能看到下面添加了一项服务器信息，那个就是你购买的服务器。<br><img src="/images/v2rayN导入vmess.png" alt="v2rayN导入vmess.png"></li>
+<li>然后点击该服务器，按回车，就能开启这个服务器。可以右键点击“测试服务器延时”，，如果出现<code>*ms</code>，说明服务器正常。</li>
+<li>右键点击任务栏中的V2RayN，选择“启动Http代理”，然后选择“Http代理模式”中的”PAC模式”。<br><strong>PAC模式和全局模式的区别：</strong>PAC模式会维护一张PAC，只有境外的网址才会使用代理，而全局模式下，访问的所有网址都使用代理，这里建议使用PAC模式。</li>
+</ol>
+<p>至此科学上网工具就搭建完成了。如果还是不能正常的科学上网，还需对浏览器进行配置。</p>
+<h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h2 id="Chormone"><a href="#Chormone" class="headerlink" title="Chormone"></a>Chormone</h2><ol>
+<li>需要先下载扩展工具“SwitchyOmega”</li>
+<li>点击下载好的SwitchyOmega，选择“导入”，并且在“在线恢复”中输入‘<a href="https://github.com/FelisCatus/SwitchyOmega/wiki/GFWList.bak’，并点击“恢复”" target="_blank" rel="noopener">https://github.com/FelisCatus/SwitchyOmega/wiki/GFWList.bak’，并点击“恢复”</a><br><img src="/images/SwitchyOmega导入.png" alt="SwitchyOmega导入.png"></li>
+<li>就会出现一个GFWed的栏目，这里其实就是恢复了一张GFWList，它通过DNS地址进行区分，在Gfwlist列表的DNS走国外，其他走国内，该list包含所有需要走国外的DNS域名。</li>
+<li>点击“GFWed”后，设置“代理端口”和V2RayN的“本地监听端口”相同。<br>V2RayN的“本地监听端口”在“参数设置”中的“基础设置”中<br><img src="/images/SwitchyOmega端口.png" alt="SwitchyOmega端口.png"><br><img src="/images/V2Ray端口.png" alt="V2Ray端口.png"></li>
+</ol>
+<p>至此，就能使用Chrome进行科学上网了。</p>
+<h1 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h1><p>如果还需要在IOS上进行科学上网，还需要以下步骤</p>
+<ol>
+<li>从<a href="https://github.com/Virtue86/Shadowrocket---iOS-ipa" target="_blank" rel="noopener">这里</a> 下载<code>shadowrocket</code>，得到ipa</li>
+<li>将手机连接电脑，使用PP助手从本地安装APP，就能得到shadowrocket，开启后是以下界面<br><img src="/images/shadowrocket界面.jpg" alt="shadowrocket界面.jpg"></li>
+<li>点击右上角的加号，配置新的服务器。<br><img src="/images/shadowrocket配置新的服务器.jpg" alt="shadowrocket配置新的服务器.jpg"><br>如上图所示，“类型”选择“Vmess”，“服务器”为你购买的服务器的IP地址，“端口”为你设置的V2Ray的端口，我这里为10086，“UUID”可以通过在V2RayN中双击你构建的服务中获得。</li>
+</ol>
+<p>至此，就能够在IOS上进行科学上网了。</p>
+<p><strong>参考：</strong><br><a href="https://www.noobyy.com/31/" target="_blank" rel="noopener">V2ray搭建服务器详细图文教程</a><br><a href="https://www.noobyy.com/126/" target="_blank" rel="noopener">V2ray和SS客户端使用教程</a><br><a href="http://koolshare.cn/thread-48771-1-1.html" target="_blank" rel="noopener">GFWList</a></p>
+
       
     </div>
 
@@ -549,8 +632,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -596,7 +688,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -665,6 +759,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器端"><span class="nav-number">1.</span> <span class="nav-text">服务器端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从vultr购买服务器"><span class="nav-number">1.1.</span> <span class="nav-text">从vultr购买服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置服务器，安装V2Ray"><span class="nav-number">1.2.</span> <span class="nav-text">配置服务器，安装V2Ray</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端"><span class="nav-number">2.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器"><span class="nav-number">3.</span> <span class="nav-text">浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chormone"><span class="nav-number">3.1.</span> <span class="nav-text">Chormone</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOS"><span class="nav-number">4.</span> <span class="nav-text">IOS</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -691,7 +802,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">23k</span>
+    <span title="站点总字数">25k</span>
   
 
   
@@ -700,7 +811,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">21 分钟</span>
+    <span title="站点阅读时长">23 分钟</span>
   
 </div>
 
