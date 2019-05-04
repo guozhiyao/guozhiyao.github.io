@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [3">
-<meta name="keywords" content="DFS,array">
+  <meta name="description" content="题目：给定一个无序的整数数组，找到其中最长上升子序列的长度。">
+<meta name="keywords" content="DP,greedy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode_739：每日温度">
-<meta property="og:url" content="https://guozhiyao.github.io/57041.html">
+<meta property="og:title" content="leetcode_300：最长上升子序列">
+<meta property="og:url" content="https://guozhiyao.github.io/2971707738.html">
 <meta property="og:site_name" content="LearningNote and LoveStory">
-<meta property="og:description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [3">
+<meta property="og:description" content="题目：给定一个无序的整数数组，找到其中最长上升子序列的长度。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-01T14:39:47.676Z">
+<meta property="og:updated_time" content="2019-05-04T16:43:48.284Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode_739：每日温度">
-<meta name="twitter:description" content="题目： 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [3">
+<meta name="twitter:title" content="leetcode_300：最长上升子序列">
+<meta name="twitter:description" content="题目：给定一个无序的整数数组，找到其中最长上升子序列的长度。">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/57041">
+  <link rel="canonical" href="https://guozhiyao.github.io/2971707738">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>leetcode_739：每日温度 | LearningNote and LoveStory</title>
+  <title>leetcode_300：最长上升子序列 | LearningNote and LoveStory</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/57041.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2971707738.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode_739：每日温度
+          <h1 class="post-title" itemprop="name headline">leetcode_300：最长上升子序列
 
               
             
@@ -373,7 +373,7 @@
                 
               
 
-              <time title="创建时间：2019-04-28 21:18:45" itemprop="dateCreated datePublished" datetime="2019-04-28T21:18:45Z">2019-04-28</time>
+              <time title="创建时间：2019-05-05 00:43:01" itemprop="dateCreated datePublished" datetime="2019-05-05T00:43:01Z">2019-05-05</time>
             
 
             
@@ -390,7 +390,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-01 14:39:47" itemprop="dateModified" datetime="2019-05-01T14:39:47Z">2019-05-01</time>
+                <time title="修改时间：2019-05-04 16:43:48" itemprop="dateModified" datetime="2019-05-04T16:43:48Z">2019-05-04</time>
               
             
           </span>
@@ -433,8 +433,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/57041.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/57041.html" itemprop="commentCount"></span>
+                <a href="/2971707738.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2971707738.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -442,7 +442,7 @@
 
           
           
-            <span id="/57041.html" class="leancloud_visitors" data-flag-title="leetcode_739：每日温度">
+            <span id="/2971707738.html" class="leancloud_visitors" data-flag-title="leetcode_300：最长上升子序列">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -467,7 +467,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1k</span>
+                <span title="本文字数">2.5k</span>
               
 
               
@@ -481,7 +481,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -501,14 +501,21 @@
       
 
       
-        <p><strong>题目：</strong></p>
-<p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。<br>例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。<br>提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [30, 100] 范围内的整数。<br><a id="more"></a><br><strong>思路：</strong></p>
-<p>可以正向遍历数组，也可以反向遍历数组，我这里采用的是正向遍历。</p>
+        <p><strong>题目：</strong><br>给定一个无序的整数数组，找到其中最长上升子序列的长度。<br><a id="more"></a><br>示例:<br>输入: [10,9,2,5,3,7,101,18]<br>输出: 4<br>解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。</p>
+<p>说明:<br>可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。<br>你算法的时间复杂度应该为 O(n2) 。<br>进阶: 你能将算法的时间复杂度降低到 O(n log n) 吗?</p>
+<p><strong>思路：</strong><br>首先是最简单的暴力搜索方法，用一个数组dp[i]保存以i结尾的最长子序列长度。然后依次遍历数组，对于当前遍历的元素，再往前遍历所有的dp元素，找到比该元素小的最大dp值，就为当前的dp值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLIS</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        <span class="keyword">if</span> l==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        dp = [<span class="number">1</span>]*l</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            max_ = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">                <span class="keyword">if</span> nums[j]&lt;nums[i] <span class="keyword">and</span> dp[j]+<span class="number">1</span>&gt;max_:</span><br><span class="line">                    max_ = dp[j]+<span class="number">1</span></span><br><span class="line">            dp[i] = max_</span><br><span class="line">        <span class="keyword">return</span> max(dp)</span><br></pre></td></tr></table></figure></p>
+<p>536ms(70.48%)/11.8MB(37.78%)，这个算法已经有一点动规的想法了，没想到结果还不错，但是时间复杂度为O(n^2)，一个O(n)用来处理n个数，另一个O(n)用来找到对应的值。感觉还能再优化优化。</p>
+<p>自己的思路主要有一个贪心的想法，就是让找到的序列值尽可能小，比如当前找到了<code>2,5</code>，而下一个元素为<code>3</code>，即使改变成<code>2,3</code>长度没有变化，但是“潜力”更大了。但是具体的实现没有想出来，参考了网上的O(nlogn)的方法，也是用贪心去做的，用O(n)处理n个数，而是用二分查找的O(logn)来完成搜索，所以时间复杂度为O(nlogn)，主要的想法还是要用贪心去增加序列的“潜力”。</p>
+<p>会维护一个栈，当当前元素比栈顶元素大时，就压入栈，如果当前元素比栈顶元素小时，就查找到栈中第一个比该元素大的元素，并且替换，这样该序列的“潜力”就变大了。</p>
+<p>比如对于输入<code>1,5,8,3,6,7</code>，一开始的<code>1,5,8</code>是递增序列，直接插入到栈中，当遇到<code>3</code>时，在该栈中查找到第一个比3大的元素是5，就将5替换成3变成<code>1,3,8</code>，这样序列的“潜力”就变大了。同理，遇到<code>6</code>时，找到8，就变成了<code>1,3,6</code>，而<code>7</code>就直接插入栈顶，而栈的大小就是最后的答案。</p>
+<p>注意：这里栈中的元素并不是最后求到的最长上升子序列。</p>
+<p><strong>有效性：</strong><br>为什么这个方法是有效的呢？</p>
 <ol>
-<li>首先将第一个元素保存在一个容器中，然后遍历第二个元素；</li>
-<li>然后遍历到第二个元素，将该元素与容器中的元素比较温度，如果当前元素温度比容器中的某个元素的温度高，则可以得到那个元素对应的答案（说明还要保存那个元素对应的索引值）；如果当前元素比容器中的所有元素的温度都低，那也把该元素放入容器中。<br><em>可以发现：</em> 只有当当前元素比容器中所有元素的温度都低时，才会保存在容器中，也就说明了该容器是递减的，可以只比较该容器最新进入的元素，如果比这个元素的值小，才需要比较更前面的元素，所以该容器为栈。</li>
+<li>使用较小的值修改栈中的值，并不会导致栈的长度发生变化，也就不会导致答案发生变化。</li>
+<li>只有当当前元素比栈顶元素大时，才会插入到栈顶中。这一点很重有，比如栈中元素为<code>1,4,8</code>，当遇到了<code>6</code>时，很自然要把<code>8</code>替换成<code>6</code>，这样子序列的“潜力”就变大了，下次遇到比6大，比8小的数字就能增加子序列的长度了。再比如<code>1,4,8</code>，当遇到了<code>3</code>，将4和3替换后变成<code>1,3,8</code>，注意，这里栈的大小并没有变化，所以对答案没有改变，而且栈顶元素为<code>8</code>，下一次遇到的比8小的元素也不会影响长度，只有当出现比如<code>6</code>时，栈变成<code>1,3,6</code>时，才会修改栈顶元素，这里我们可以发现，<code>3</code>是在<code>4</code>和<code>8</code>后面的，而<code>6</code>是在<code>3</code>后面的，当我们使用<code>6</code>替换<code>8</code>时，说明<code>6</code>和<code>8</code>之间的所有数字可以用来替换<code>4</code>，使得子序列的“潜力”更大。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#找到第一个比k大的值</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span><span class="params">(self, nums, start,end,k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> start&lt;=end:</span><br><span class="line">            mid = (start+end)//<span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid]==k:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid]&lt;k:</span><br><span class="line">                start = mid+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                end = mid<span class="number">-1</span></span><br><span class="line">        <span class="keyword">return</span> start</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLIS</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        <span class="keyword">if</span> l==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line">        s = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">if</span> len(s)==<span class="number">0</span> <span class="keyword">or</span> nums[i]&gt;s[<span class="number">-1</span>]:</span><br><span class="line">                s.append(nums[i])</span><br><span class="line">            <span class="keyword">elif</span> nums[i]&lt;s[<span class="number">-1</span>]:</span><br><span class="line">                index = self.binarySearch(s,<span class="number">0</span>,len(s)<span class="number">-1</span>,nums[i])</span><br><span class="line">                <span class="keyword">if</span> index==<span class="number">-1</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                s[index] = nums[i]</span><br><span class="line">        <span class="keyword">return</span> len(s)</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<p><strong>代码：</strong><br>604ms 16.6MB<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dailyTemperatures</span><span class="params">(self, T)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type T: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(T)</span><br><span class="line">        q = []</span><br><span class="line">        ans = [<span class="number">0</span>]*l</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">if</span> len(q)==<span class="number">0</span>:</span><br><span class="line">                q.append([i,T[i]])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span> len(q)&gt;<span class="number">0</span> <span class="keyword">and</span> q[<span class="number">-1</span>][<span class="number">1</span>]&lt;T[i]:</span><br><span class="line">                    ans[q[<span class="number">-1</span>][<span class="number">0</span>]] = i-q[<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">                    q.pop(<span class="number">-1</span>)</span><br><span class="line">                q.append([i,T[i]])</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure></p>
+<p>40ms(100%)/11.8MB(37.78%)，提升还是很明显的。</p>
 
       
     </div>
@@ -532,9 +539,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DFS/" rel="tag"># DFS</a>
+            <a href="/tags/DP/" rel="tag"># DP</a>
           
-            <a href="/tags/array/" rel="tag"># array</a>
+            <a href="/tags/greedy/" rel="tag"># greedy</a>
           
         </div>
       
@@ -547,8 +554,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/15535.html" rel="next" title="tensorflow_tricks">
-                <i class="fa fa-chevron-left"></i> tensorflow_tricks
+              <a href="/1615060877.html" rel="next" title="科学上网——r2ray_v2.26">
+                <i class="fa fa-chevron-left"></i> 科学上网——r2ray_v2.26
               </a>
             
           </div>
@@ -556,10 +563,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/56274.html" rel="prev" title="leetcode_376：摆动序列">
-                leetcode_376：摆动序列 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
