@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
-<meta name="keywords" content="tensorflow">
+  <meta name="description" content="题目：给定一个整数序列：a1, a2, …, an，一个132模式的子序列 ai, aj, ak 被定义为：当 i &amp;lt; j &amp;lt; k 时，ai &amp;lt; ak &amp;lt; aj。设计一个算法，当给定有 n 个数字的序列时，验证这个序列中是否含有132模式的子序列。 思路：首先是最简单的暴力搜索算法，时间复杂度为O(n^3)12345678910111213141516171819class">
+<meta name="keywords" content="stack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow_tricks">
-<meta property="og:url" content="https://guozhiyao.github.io/15535.html">
+<meta property="og:title" content="leetcode_456：132模式">
+<meta property="og:url" content="https://guozhiyao.github.io/2140475138.html">
 <meta property="og:site_name" content="LearningNote and LoveStory">
-<meta property="og:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
+<meta property="og:description" content="题目：给定一个整数序列：a1, a2, …, an，一个132模式的子序列 ai, aj, ak 被定义为：当 i &amp;lt; j &amp;lt; k 时，ai &amp;lt; ak &amp;lt; aj。设计一个算法，当给定有 n 个数字的序列时，验证这个序列中是否含有132模式的子序列。 思路：首先是最简单的暴力搜索算法，时间复杂度为O(n^3)12345678910111213141516171819class">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-02T03:39:21.597Z">
+<meta property="og:updated_time" content="2019-05-05T12:02:48.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow_tricks">
-<meta name="twitter:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
+<meta name="twitter:title" content="leetcode_456：132模式">
+<meta name="twitter:description" content="题目：给定一个整数序列：a1, a2, …, an，一个132模式的子序列 ai, aj, ak 被定义为：当 i &amp;lt; j &amp;lt; k 时，ai &amp;lt; ak &amp;lt; aj。设计一个算法，当给定有 n 个数字的序列时，验证这个序列中是否含有132模式的子序列。 思路：首先是最简单的暴力搜索算法，时间复杂度为O(n^3)12345678910111213141516171819class">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/15535">
+  <link rel="canonical" href="https://guozhiyao.github.io/2140475138">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>tensorflow_tricks | LearningNote and LoveStory</title>
+  <title>leetcode_456：132模式 | LearningNote and LoveStory</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/15535.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2140475138.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensorflow_tricks
+          <h1 class="post-title" itemprop="name headline">leetcode_456：132模式
 
               
             
@@ -373,24 +373,12 @@
                 
               
 
-              <time title="创建时间：2019-04-28 12:13:27" itemprop="dateCreated datePublished" datetime="2019-04-28T12:13:27Z">2019-04-28</time>
+              <time title="创建时间：2019-05-05 20:02:48 / 修改时间：12:02:48" itemprop="dateCreated datePublished" datetime="2019-05-05T20:02:48Z">2019-05-05</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-02 03:39:21" itemprop="dateModified" datetime="2019-05-02T03:39:21Z">2019-05-02</time>
               
             
           </span>
@@ -407,14 +395,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/技巧/" itemprop="url" rel="index"><span itemprop="name">技巧</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
 
                 
                 
@@ -433,8 +421,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/15535.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/15535.html" itemprop="commentCount"></span>
+                <a href="/2140475138.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2140475138.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -442,7 +430,7 @@
 
           
           
-            <span id="/15535.html" class="leancloud_visitors" data-flag-title="tensorflow_tricks">
+            <span id="/2140475138.html" class="leancloud_visitors" data-flag-title="leetcode_456：132模式">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -467,7 +455,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.1k</span>
+                <span title="本文字数">2.4k</span>
               
 
               
@@ -481,7 +469,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -501,15 +489,15 @@
       
 
       
-        <p>tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。<br><a id="more"></a></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>tensorflow之前的版本作为静态图结构（1.5版本后支持动态图了，但是需要把数据预处理成TFRecord形式），都需要将图完整定义后，才能进行训练。并且不容易实时查看网络中tensor的状态（可以用tfdebug，但是有点麻烦），所以有时候写网络是感觉有点麻烦，这里总结自己平时实现代码时候用到的技巧，以后比较好复查。</p>
-<h1 id="一、-坑"><a href="#一、-坑" class="headerlink" title="一、 坑"></a>一、 坑</h1><h2 id="1-内存溢出"><a href="#1-内存溢出" class="headerlink" title="1. 内存溢出"></a>1. 内存溢出</h2><p>tensorflow内存溢出就是指，内存会随着训练慢慢增长，且不可逆。<br>网络上通常看到内存溢出的问题主要是因为，在训练的循环中定义了网络节点，使得它不断重复声明，如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = tf.Variable(<span class="number">1.0</span>, dtype=tf.float32)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(NUM_EPOCH):</span><br><span class="line">	node = tf.assign(x, <span class="number">2</span>)</span><br><span class="line">	sess.run(node)</span><br></pre></td></tr></table></figure></p>
-<p>在这里，随着训练就会不断重复声明assign操作，就会使得内存溢出。<br>上面的内存溢出形式还比较容易发现，最近自己实现的代码出现了内存溢出问题，也仔细排查了，没有上面的那种形式的问题，后来发现，我在代码中使用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@property</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">prop</span><span class="params">()</span>:</span></span><br><span class="line">		...</span><br><span class="line">		<span class="keyword">return</span> p</span><br></pre></td></tr></table></figure></p>
-<p>来获得某个预测值，然后在训练的每个epoch中，都调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(model.prop)</span><br></pre></td></tr></table></figure></p>
-<p>来获得预测值，这样同样也会造成内存溢出。而正确使用@property的方法应该是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prop = model.prop</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(NUM_EPOCH):</span><br><span class="line">	sess.run(prop)</span><br></pre></td></tr></table></figure></p>
-<p>需要将定义网络结构和训练过程分开来。</p>
-<h1 id="二、-特殊操作"><a href="#二、-特殊操作" class="headerlink" title="二、 特殊操作"></a>二、 特殊操作</h1><h2 id="1-将索引变成mask形式"><a href="#1-将索引变成mask形式" class="headerlink" title="1. 将索引变成mask形式"></a>1. 将索引变成mask形式</h2><p>在我的代码中，会先获得一个索引值，比如<code>index=[1,4,2]</code>，而我修改tensor a上这些位置的值，tensorflow里面无法像numpy那样，直接通过<code>a[index]=v</code>，查看手册，发现<code>tf.where()</code>操作比较类似，但是它传入的是要mask值，就需要把索引变成mask的形式。我的做法如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num = tf.shape(a)[<span class="number">0</span>]</span><br><span class="line">one_hot = tf.one_hot(index,num) <span class="comment">#得到的是维度为[3,num]的one-hot编码</span></span><br><span class="line">mask = tf.cast(tf.reduce_sum(one_hot,axis=<span class="number">0</span>),tf.bool)</span><br></pre></td></tr></table></figure></p>
-<p>由此就能够从索引变成mask的形式了。</p>
+        <p><strong>题目：</strong><br>给定一个整数序列：a1, a2, …, an，一个132模式的子序列 ai, aj, ak 被定义为：当 i &lt; j &lt; k 时，ai &lt; ak &lt; aj。设计一个算法，当给定有 n 个数字的序列时，验证这个序列中是否含有132模式的子序列。</p>
+<p><strong>思路：</strong><br>首先是最简单的暴力搜索算法，时间复杂度为O(n^3)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find132pattern</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> l&lt;=<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,l):</span><br><span class="line">                <span class="keyword">if</span> nums[j]&lt;=nums[i]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> range(j+<span class="number">1</span>,l):</span><br><span class="line">                    <span class="keyword">if</span> nums[k]&gt;nums[i] <span class="keyword">and</span> nums[k]&lt;nums[j]:</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<p>这里95个测试样例能过80个。</p>
+<p>其次，参考了别人的方法，我之前的想法都是从左往右，依次找到’1’和’3’，然后再对接下来的值与其比较，这个方法比较不好，可以从由往左遍历，这样只要先找到’2’，再找到’3’后，其余的只要比’2’小就返回True。<br>而且这里有维护一个stack，从右往左依次入栈，当下一个元素比栈顶大时，说明栈顶就是’2’，而下一个元素就是’3’，将’2’用<code>_MIN</code>保存起来，而且我们要找到离这个’3’最靠近的’2’，相当于是’3’的最大下界，所以会依次出栈，找到最大的’2’。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find132pattern</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        stack = []</span><br><span class="line">        _MIN = float(<span class="string">'-inf'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &lt; _MIN:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">while</span> stack <span class="keyword">and</span> nums[i] &gt; stack[<span class="number">-1</span>]:</span><br><span class="line">                _MIN = stack.pop()</span><br><span class="line">            stack.append(nums[i])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>这里效果还是不错的，172ms(100.00%)/12.6MB(58.33%)</p>
+<p>而且这里stack有个特点，它里面的元素是从大到小排列的，而我们每次都要在栈中找到最靠近下个元素的值，所以我这里想用二分查找去优化，但是效果反而变差了。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment">#大到小</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span><span class="params">(self,stack,k)</span>:</span></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        end = len(stack)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> start&lt;=end:</span><br><span class="line">            mid = (start+end)//<span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span> stack[mid]&lt;k:</span><br><span class="line">                end -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                start += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> stack[:start],stack[start]</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find132pattern</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        stack = []</span><br><span class="line">        _MIN = float(<span class="string">'-inf'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &lt; _MIN:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> stack <span class="keyword">and</span> nums[i] &gt; stack[<span class="number">-1</span>]:</span><br><span class="line">                stack,_MIN = self.binarySearch(stack,nums[i])</span><br><span class="line">            stack.append(nums[i])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<p>2684ms(6.25%)/12.8MB(52.78%)</p>
+<p><strong>心得：</strong><br>访问数组的顺序可以换一下，可能可以简化问题。</p>
 
       
     </div>
@@ -533,7 +521,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+            <a href="/tags/stack/" rel="tag"># stack</a>
           
         </div>
       
@@ -546,8 +534,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/22059.html" rel="next" title="计划">
-                <i class="fa fa-chevron-left"></i> 计划
+              <a href="/1337356416.html" rel="next" title="leetcode_1031：两个非重叠子数组的最大和">
+                <i class="fa fa-chevron-left"></i> leetcode_1031：两个非重叠子数组的最大和
               </a>
             
           </div>
@@ -555,10 +543,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/57041.html" rel="prev" title="leetcode_739：每日温度">
-                leetcode_739：每日温度 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,17 +590,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -736,23 +711,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-坑"><span class="nav-number">2.</span> <span class="nav-text">一、 坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-内存溢出"><span class="nav-number">2.1.</span> <span class="nav-text">1. 内存溢出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-特殊操作"><span class="nav-number">3.</span> <span class="nav-text">二、 特殊操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-将索引变成mask形式"><span class="nav-number">3.1.</span> <span class="nav-text">1. 将索引变成mask形式</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
