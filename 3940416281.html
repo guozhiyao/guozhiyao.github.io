@@ -96,18 +96,29 @@
 
 
 
-  <meta name="description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。列表 deadends 包含了一组死亡数字，一旦拨轮的">
-<meta name="keywords" content="BFS">
+  <meta name="description" content="使用个人服务器、宝塔以及nextCloud构建个人云存储。这里主要介绍使用宝塔和nextCloud，个人服务器的搭建可以参考之前的blog 购买和配置域名之前的教程搭建的服务器，只能通过tqdm或者其他远程登录工具登录到服务器上，这里要构建成云存储服务器，最好给服务器购买一个域名。我这里是在阿里云上购买的，以下是购买域名的简单步骤。  首先到阿里云 上注册一个账号。 在上方搜索栏搜索“域名”，点击">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode_752：打开转盘锁">
-<meta property="og:url" content="https://guozhiyao.github.io/3557740931.html">
+<meta property="og:title" content="个人服务器+宝塔+nextCloud——构建个人云">
+<meta property="og:url" content="https://guozhiyao.github.io/3940416281.html">
 <meta property="og:site_name" content="LearningNote and LoveStory">
-<meta property="og:description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。列表 deadends 包含了一组死亡数字，一旦拨轮的">
+<meta property="og:description" content="使用个人服务器、宝塔以及nextCloud构建个人云存储。这里主要介绍使用宝塔和nextCloud，个人服务器的搭建可以参考之前的blog 购买和配置域名之前的教程搭建的服务器，只能通过tqdm或者其他远程登录工具登录到服务器上，这里要构建成云存储服务器，最好给服务器购买一个域名。我这里是在阿里云上购买的，以下是购买域名的简单步骤。  首先到阿里云 上注册一个账号。 在上方搜索栏搜索“域名”，点击">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-01T14:40:02.332Z">
+<meta property="og:image" content="https://guozhiyao.github.io/images/阿里云域名注册.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/阿里云购买域名.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/阿里云控制台.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/阿里云域名.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/阿里云域名解析.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/宝塔面板安装.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/宝塔面板安装LNMP.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/安装nextcloud.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nextcloud配置.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nextcloud安装后配置.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nextcloud桌面版.png">
+<meta property="og:updated_time" content="2019-05-06T08:56:14.739Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode_752：打开转盘锁">
-<meta name="twitter:description" content="题目：你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。列表 deadends 包含了一组死亡数字，一旦拨轮的">
+<meta name="twitter:title" content="个人服务器+宝塔+nextCloud——构建个人云">
+<meta name="twitter:description" content="使用个人服务器、宝塔以及nextCloud构建个人云存储。这里主要介绍使用宝塔和nextCloud，个人服务器的搭建可以参考之前的blog 购买和配置域名之前的教程搭建的服务器，只能通过tqdm或者其他远程登录工具登录到服务器上，这里要构建成云存储服务器，最好给服务器购买一个域名。我这里是在阿里云上购买的，以下是购买域名的简单步骤。  首先到阿里云 上注册一个账号。 在上方搜索栏搜索“域名”，点击">
+<meta name="twitter:image" content="https://guozhiyao.github.io/images/阿里云域名注册.png">
 
 
 
@@ -115,7 +126,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/3557740931">
+  <link rel="canonical" href="https://guozhiyao.github.io/3940416281">
 
 
 
@@ -125,7 +136,7 @@
   };
 </script>
 
-  <title>leetcode_752：打开转盘锁 | LearningNote and LoveStory</title>
+  <title>个人服务器+宝塔+nextCloud——构建个人云 | LearningNote and LoveStory</title>
   
 
 
@@ -328,7 +339,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/3557740931.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/3940416281.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -345,7 +356,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode_752：打开转盘锁
+          <h1 class="post-title" itemprop="name headline">个人服务器+宝塔+nextCloud——构建个人云
 
               
             
@@ -373,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2019-05-01 20:40:31 / 修改时间：14:40:02" itemprop="dateCreated datePublished" datetime="2019-05-01T20:40:31Z">2019-05-01</time>
+              <time title="创建时间：2019-05-06 16:56:14 / 修改时间：08:56:14" itemprop="dateCreated datePublished" datetime="2019-05-06T16:56:14Z">2019-05-06</time>
             
 
             
@@ -395,14 +406,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
 
                 
                 
@@ -421,8 +425,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/3557740931.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/3557740931.html" itemprop="commentCount"></span>
+                <a href="/3940416281.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/3940416281.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -430,7 +434,7 @@
 
           
           
-            <span id="/3557740931.html" class="leancloud_visitors" data-flag-title="leetcode_752：打开转盘锁">
+            <span id="/3940416281.html" class="leancloud_visitors" data-flag-title="个人服务器+宝塔+nextCloud——构建个人云">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -455,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.6k</span>
+                <span title="本文字数">1.6k</span>
               
 
               
@@ -469,7 +473,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </div>
           
@@ -489,15 +493,42 @@
       
 
       
-        <p><strong>题目：</strong><br>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’ 。每个拨轮可以自由旋转：例如把 ‘9’ 变为  ‘0’，’0’ 变为 ‘9’ 。每次旋转都只能旋转一个拨轮的一位数字。<br>锁的初始数字为 ‘0000’ ，一个代表四个拨轮的数字的字符串。<br>列表 deadends 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。<br>字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。<br><a id="more"></a><br>示例 1:<br>输入：deadends = [“0201”,”0101”,”0102”,”1212”,”2002”], target = “0202”<br>输出：6<br>解释：<br>可能的移动序列为 “0000” -&gt; “1000” -&gt; “1100” -&gt; “1200” -&gt; “1201” -&gt; “1202” -&gt; “0202”。<br>注意 “0000” -&gt; “0001” -&gt; “0002” -&gt; “0102” -&gt; “0202” 这样的序列是不能解锁的，<br>因为当拨动到 “0102” 时这个锁就会被锁定。</p>
-<p>示例 2:<br>输入: deadends = [“8888”], target = “0009”<br>输出：1<br>解释：<br>把最后一位反向旋转一次即可 “0000” -&gt; “0009”。</p>
-<p>示例 3:<br>输入: deadends = [“8887”,”8889”,”8878”,”8898”,”8788”,”8988”,”7888”,”9888”], target = “8888”<br>输出：-1<br>解释：<br>无法旋转到目标数字且不被锁定。</p>
-<p>示例 4:<br>输入: deadends = [“0000”], target = “8888”<br>输出：-1</p>
-<p>提示：<br>死亡列表 deadends 的长度范围为 [1, 500]。<br>目标数字 target 不会在 deadends 之中。<br>每个 deadends 和 target 中的字符串的数字会在 10,000 个可能的情况 ‘0000’ 到 ‘9999’ 中产生。</p>
-<p><strong>思路：</strong><br>这题就是比较直观的BFS问题从初始状态“0000”开始探索，每次可以对4个位置的数字进行加1或减1操作，直接通过BFS找到最快的方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">openLock</span><span class="params">(self, deadends, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type deadends: List[str]</span></span><br><span class="line"><span class="string">        :type target: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"0000"</span> <span class="keyword">in</span> deadends <span class="keyword">or</span> target <span class="keyword">in</span> deadends:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        q = [[<span class="string">"0000"</span>,<span class="number">0</span>]]</span><br><span class="line">        </span><br><span class="line">        visited = &#123;<span class="string">"0000"</span>:<span class="number">1</span>&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> deadends:</span><br><span class="line">            visited[i] = <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">while</span> len(q)!=<span class="number">0</span>:</span><br><span class="line">            t = q[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">if</span> t[<span class="number">0</span>]==target:</span><br><span class="line">                <span class="keyword">return</span> t[<span class="number">1</span>]</span><br><span class="line">            q.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">-1</span>,<span class="number">2</span>,<span class="number">2</span>):</span><br><span class="line">                    new = list(t[<span class="number">0</span>])</span><br><span class="line">                    new[i] = str((int(t[<span class="number">0</span>][i])+j)%<span class="number">10</span>)</span><br><span class="line">                    new = <span class="string">""</span>.join(new)</span><br><span class="line">                    <span class="keyword">if</span> new <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                        q.append([new,t[<span class="number">1</span>]+<span class="number">1</span>])</span><br><span class="line">                        visited[new] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
-<p>消耗1428ms/13.1MB。这里之所以要记录这个方法是因为，如果我这里把<code>visited</code>定义为list类型，或者没有把deadends存成字典类型，就会超时（后来看评论，说是deadends里面包含很多重复元素……也是歪打正着了）。所以<u>要判断一个值是否访问过，定义成字典类型比较高效</u>这就涉及到了python里面dict、list和set的实现原理了。</p>
-<h1 id="python中dict、list和set的实现原理"><a href="#python中dict、list和set的实现原理" class="headerlink" title="python中dict、list和set的实现原理"></a>python中dict、list和set的实现原理</h1><p>首先，dict保存的是键值对，内部实现是使用哈希表实现的，而哈希表是以数组表示的，数组的索引就是键的哈希值，这样在从dict中根据键获取值时，是先通过哈希函数获取键对应的哈希值，再通过哈希值直接在数组中获得对应的值，但是因为内部实现是数组，所以存放的是一个连续空间，并且因为是使用哈希值作为索引，所以为了避免哈希冲突，当数组中只剩下不到1/3的“空的”空间时，就会对其进行扩容操作，所以会占用比较到的内存空间，用空间换时间。所以<strong>dict的特点是：</strong>查找和插入为O(1)，不受数据量的影响，但是会占用大量内存。<br>而set与dict类似，也是保存值对应的哈希值，只是没有保存value。<br>而list就是数据结构中的顺序表的形式，是以下标为索引的连续空间，当使用下标进行索引时，时间复杂度也是O(1)，但是如果要进行查找时，就要依次遍历数组中的所有元素来进行查找，时间复杂度为O(n)。<br>综上所述，如果是要<strong>查找</strong>，使用dict或者set，如果是<strong>根据下标进行索引</strong>，使用list。</p>
-<p><strong>参考：</strong><br><a href="https://www.jianshu.com/p/6363e3a6e2df" target="_blank" rel="noopener">dict内部实现</a><br><a href="https://blog.csdn.net/zhao_crystal/article/details/82620524" target="_blank" rel="noopener">set和dict的实现原理</a><br><a href="https://www.jianshu.com/p/J4U6rR" target="_blank" rel="noopener">list的实现原理</a><br><a href="https://www.cnblogs.com/tianyiliang/p/10330878.html" target="_blank" rel="noopener">判断值是否在list和set的对比以及set的实现原理</a></p>
+        <p>使用个人服务器、宝塔以及nextCloud构建个人云存储。这里主要介绍使用宝塔和nextCloud，个人服务器的搭建可以参考之前的<a href="https://guozhiyao.github.io/1615060877.html#more">blog</a></p>
+<h1 id="购买和配置域名"><a href="#购买和配置域名" class="headerlink" title="购买和配置域名"></a>购买和配置域名</h1><p>之前的教程搭建的服务器，只能通过tqdm或者其他远程登录工具登录到服务器上，这里要构建成云存储服务器，最好给服务器购买一个域名。我这里是在阿里云上购买的，以下是购买域名的简单步骤。</p>
+<ol>
+<li>首先到<a href="https://cn.aliyun.com/" target="_blank" rel="noopener">阿里云</a> 上注册一个账号。</li>
+<li>在上方搜索栏搜索“域名”，点击“域名注册”<br><img src="/images/阿里云域名注册.png" alt="阿里云域名注册"></li>
+<li>在以下界面查询并购买域名<br><img src="/images/阿里云购买域名.png" alt="阿里云购买域名"></li>
+<li>完成实名制认证和邮箱认证，大概需要花两天的事件。</li>
+<li>点击右上角的“控制台”，进入以下界面<br><img src="/images/阿里云控制台.png" alt="阿里云控制台"></li>
+<li>点击左侧”域名”进入以下界面，点击自己域名的解析<br><img src="/images/阿里云域名.png" alt="阿里云域名.png"></li>
+<li>然后按照下面配置域名<br><img src="/images/阿里云域名解析.jpg" alt="阿里云域名解析"></li>
+</ol>
+<h1 id="安装宝塔面板"><a href="#安装宝塔面板" class="headerlink" title="安装宝塔面板"></a>安装宝塔面板</h1><p><a href="https://www.bt.cn/" target="_blank" rel="noopener">宝塔面板</a> 是一个简单的Linux/Windows面板，能够一键创建网站、FTP、数据库；安全管理，文件管理，PHP多版本共存及切换；ASP+ASPX+PHP+MYSQL+MSSQL05/08+mariaDB+FTP、一键SSL，你能想到的，它都能做到！不需要多余的操作，只需安装一个宝塔面板，就能一键配置好服务器环境！<br>接下来在服务器上安装宝塔面板</p>
+<ol>
+<li><p>安装宝塔面板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Debian9</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh</span><br><span class="line"></span><br><span class="line">#CentOS</span><br><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh</span><br><span class="line"></span><br><span class="line">#Ubuntu/Deepin</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; sudo bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等几分钟后，如果安装成功，就能看到以下界面<br><img src="/images/宝塔面板安装.jpg" alt="宝塔面板安装"><br>注意保存图像中的那部分信息，它是用来登录宝塔面板的。</p>
+</li>
+<li>关闭安全登录入口<br><code>rm -f /www/server/panel/data/admin_path.pl</code></li>
+<li>在浏览器中打开<code>域名:8888</code>，并使用上面的账号密码登录</li>
+<li>进入后安装LNMP<br><img src="/images/宝塔面板安装LNMP.jpg" alt="宝塔面板安装LNMP"></li>
+<li>也可以修改登录账号密码等等。</li>
+</ol>
+<h1 id="NextCloud"><a href="#NextCloud" class="headerlink" title="NextCloud"></a>NextCloud</h1><p>Nextcloud 是一个免费专业的私有云存储网盘「开源」项目，可以让你简单快速地在个人/公司电脑、服务器甚至是树莓派等设备上架设一套属于自己或团队专属的云同步网盘，从而实现跨平台跨设备文件同步、共享、版本控制、团队协作等功能。</p>
+<h2 id="安装NextCloud"><a href="#安装NextCloud" class="headerlink" title="安装NextCloud"></a>安装NextCloud</h2><p>以下介绍安装NextCloud的方法</p>
+<ol>
+<li>进入宝塔面板，按照以下步骤输入<br><code>https://download.nextcloud.com/server/releases/nextcloud-15.0.2.zip</code><br>安装NextCloud<br><img src="/images/安装nextcloud.png" alt="安装nextcloud"></li>
+<li>然后直接将下载的压缩包点击“解压”</li>
+<li>点击“网站”——“添加站点”，然后按照下面的进行配置<br><img src="/images/nextcloud配置.png" alt="nextcloud配置"></li>
+<li>配置完成会，会出现“数据库账号资料”，注意，先不要关闭，后面需要用到</li>
+</ol>
+<h2 id="配置NextCloud"><a href="#配置NextCloud" class="headerlink" title="配置NextCloud"></a>配置NextCloud</h2><ol>
+<li>直接输入自己购买的域名，然后按照以下步骤进行配置<br><img src="/images/nextcloud安装后配置.jpg" alt="nextcloud安装后配置.jpg"><br>等几分钟后就完成配置了。</li>
+</ol>
+<h2 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h2><p>进入<a href="https://nextcloud.com/" target="_blank" rel="noopener">NextCloud官网</a> ，下载桌面版<br><img src="/images/nextcloud桌面版.png" alt="nextcloud桌面版"><br>在这里输入自己的域名（注意如果<code>https</code>不行就换成<code>http</code>）。<br>这里nextCloud的原理是在本地创建一个文件夹用来缓存文件，并且能够自动将文件夹的文件进行上传，你只要在本地将文件从文件夹中导入导出就可以了。</p>
+<p><strong>参考：</strong><br><a href="https://www.noobyy.com/173/" target="_blank" rel="noopener">使用NextCloud搭建个人网盘服务器</a><br><a href="https://blog.csdn.net/wf632856695/article/details/81072828" target="_blank" rel="noopener">手把手教你利用Nextcloud搭建个人网盘/私有云盘</a></p>
 
       
     </div>
@@ -519,12 +550,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/BFS/" rel="tag"># BFS</a>
-          
-        </div>
-      
 
       
       
@@ -534,8 +559,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/167032858.html" rel="next" title="leetcode_670：最大交换">
-                <i class="fa fa-chevron-left"></i> leetcode_670：最大交换
+              <a href="/2140475138.html" rel="next" title="leetcode_456：132模式">
+                <i class="fa fa-chevron-left"></i> leetcode_456：132模式
               </a>
             
           </div>
@@ -543,10 +568,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/3905940315.html" rel="prev" title="python——property">
-                python——property <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -735,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python中dict、list和set的实现原理"><span class="nav-number">1.</span> <span class="nav-text">python中dict、list和set的实现原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#购买和配置域名"><span class="nav-number">1.</span> <span class="nav-text">购买和配置域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装宝塔面板"><span class="nav-number">2.</span> <span class="nav-text">安装宝塔面板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NextCloud"><span class="nav-number">3.</span> <span class="nav-text">NextCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装NextCloud"><span class="nav-number">3.1.</span> <span class="nav-text">安装NextCloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NextCloud"><span class="nav-number">3.2.</span> <span class="nav-text">配置NextCloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装客户端"><span class="nav-number">3.3.</span> <span class="nav-text">安装客户端</span></a></li></ol></li></ol></div>
             
 
           </div>

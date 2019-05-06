@@ -564,6 +564,256 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/3940416281.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content="To recode the learning note and ongoing love story with LYX">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote and LoveStory">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/3940416281.html" class="post-title-link" itemprop="url">个人服务器+宝塔+nextCloud——构建个人云</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+			
+			  
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-06 16:56:14 / 修改时间：08:56:14" itemprop="dateCreated datePublished" datetime="2019-05-06T16:56:14Z">2019-05-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/3940416281.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/3940416281.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/3940416281.html" class="leancloud_visitors" data-flag-title="个人服务器+宝塔+nextCloud——构建个人云">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用个人服务器、宝塔以及nextCloud构建个人云存储。这里主要介绍使用宝塔和nextCloud，个人服务器的搭建可以参考之前的<a href="https://guozhiyao.github.io/1615060877.html#more">blog</a></p>
+<h1 id="购买和配置域名"><a href="#购买和配置域名" class="headerlink" title="购买和配置域名"></a>购买和配置域名</h1><p>之前的教程搭建的服务器，只能通过tqdm或者其他远程登录工具登录到服务器上，这里要构建成云存储服务器，最好给服务器购买一个域名。我这里是在阿里云上购买的，以下是购买域名的简单步骤。</p>
+<ol>
+<li>首先到<a href="https://cn.aliyun.com/" target="_blank" rel="noopener">阿里云</a> 上注册一个账号。</li>
+<li>在上方搜索栏搜索“域名”，点击“域名注册”<br><img src="/images/阿里云域名注册.png" alt="阿里云域名注册"></li>
+<li>在以下界面查询并购买域名<br><img src="/images/阿里云购买域名.png" alt="阿里云购买域名"></li>
+<li>完成实名制认证和邮箱认证，大概需要花两天的事件。</li>
+<li>点击右上角的“控制台”，进入以下界面<br><img src="/images/阿里云控制台.png" alt="阿里云控制台"></li>
+<li>点击左侧”域名”进入以下界面，点击自己域名的解析<br><img src="/images/阿里云域名.png" alt="阿里云域名.png"></li>
+<li>然后按照下面配置域名<br><img src="/images/阿里云域名解析.jpg" alt="阿里云域名解析"></li>
+</ol>
+<h1 id="安装宝塔面板"><a href="#安装宝塔面板" class="headerlink" title="安装宝塔面板"></a>安装宝塔面板</h1><p><a href="https://www.bt.cn/" target="_blank" rel="noopener">宝塔面板</a> 是一个简单的Linux/Windows面板，能够一键创建网站、FTP、数据库；安全管理，文件管理，PHP多版本共存及切换；ASP+ASPX+PHP+MYSQL+MSSQL05/08+mariaDB+FTP、一键SSL，你能想到的，它都能做到！不需要多余的操作，只需安装一个宝塔面板，就能一键配置好服务器环境！<br>接下来在服务器上安装宝塔面板</p>
+<ol>
+<li><p>安装宝塔面板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Debian9</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh</span><br><span class="line"></span><br><span class="line">#CentOS</span><br><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh</span><br><span class="line"></span><br><span class="line">#Ubuntu/Deepin</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; sudo bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等几分钟后，如果安装成功，就能看到以下界面<br><img src="/images/宝塔面板安装.jpg" alt="宝塔面板安装"><br>注意保存图像中的那部分信息，它是用来登录宝塔面板的。</p>
+</li>
+<li>关闭安全登录入口<br><code>rm -f /www/server/panel/data/admin_path.pl</code></li>
+<li>在浏览器中打开<code>域名:8888</code>，并使用上面的账号密码登录</li>
+<li>进入后安装LNMP<br><img src="/images/宝塔面板安装LNMP.jpg" alt="宝塔面板安装LNMP"></li>
+<li>也可以修改登录账号密码等等。</li>
+</ol>
+<h1 id="NextCloud"><a href="#NextCloud" class="headerlink" title="NextCloud"></a>NextCloud</h1><p>Nextcloud 是一个免费专业的私有云存储网盘「开源」项目，可以让你简单快速地在个人/公司电脑、服务器甚至是树莓派等设备上架设一套属于自己或团队专属的云同步网盘，从而实现跨平台跨设备文件同步、共享、版本控制、团队协作等功能。</p>
+<h2 id="安装NextCloud"><a href="#安装NextCloud" class="headerlink" title="安装NextCloud"></a>安装NextCloud</h2><p>以下介绍安装NextCloud的方法</p>
+<ol>
+<li>进入宝塔面板，按照以下步骤输入<br><code>https://download.nextcloud.com/server/releases/nextcloud-15.0.2.zip</code><br>安装NextCloud<br><img src="/images/安装nextcloud.png" alt="安装nextcloud"></li>
+<li>然后直接将下载的压缩包点击“解压”</li>
+<li>点击“网站”——“添加站点”，然后按照下面的进行配置<br><img src="/images/nextcloud配置.png" alt="nextcloud配置"></li>
+<li>配置完成会，会出现“数据库账号资料”，注意，先不要关闭，后面需要用到</li>
+</ol>
+<h2 id="配置NextCloud"><a href="#配置NextCloud" class="headerlink" title="配置NextCloud"></a>配置NextCloud</h2><ol>
+<li>直接输入自己购买的域名，然后按照以下步骤进行配置<br><img src="/images/nextcloud安装后配置.jpg" alt="nextcloud安装后配置.jpg"><br>等几分钟后就完成配置了。</li>
+</ol>
+<h2 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h2><p>进入<a href="https://nextcloud.com/" target="_blank" rel="noopener">NextCloud官网</a> ，下载桌面版<br><img src="/images/nextcloud桌面版.png" alt="nextcloud桌面版"><br>在这里输入自己的域名（注意如果<code>https</code>不行就换成<code>http</code>）。<br>这里nextCloud的原理是在本地创建一个文件夹用来缓存文件，并且能够自动将文件夹的文件进行上传，你只要在本地将文件从文件夹中导入导出就可以了。</p>
+<p><strong>参考：</strong><br><a href="https://www.noobyy.com/173/" target="_blank" rel="noopener">使用NextCloud搭建个人网盘服务器</a><br><a href="https://blog.csdn.net/wf632856695/article/details/81072828" target="_blank" rel="noopener">手把手教你利用Nextcloud搭建个人网盘/私有云盘</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2140475138.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2378,234 +2628,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/167032858.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GuoZhiyao">
-      <meta itemprop="description" content="To recode the learning note and ongoing love story with LYX">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LearningNote and LoveStory">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/167032858.html" class="post-title-link" itemprop="url">leetcode_670：最大交换</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-			
-			  
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-01 18:13:40 / 修改时间：14:39:27" itemprop="dateCreated datePublished" datetime="2019-05-01T18:13:40Z">2019-05-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/167032858.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/167032858.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/167032858.html" class="leancloud_visitors" data-flag-title="leetcode_670：最大交换">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">969</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>题目：</strong><br>给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/167032858.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2652,7 +2674,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2784,7 +2806,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">33k</span>
+    <span title="站点总字数">34k</span>
   
 
   
@@ -2793,7 +2815,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">30 分钟</span>
+    <span title="站点阅读时长">31 分钟</span>
   
 </div>
 
