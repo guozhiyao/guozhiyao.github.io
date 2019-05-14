@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="LearningNote and LoveStory">
 <meta property="og:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-06T09:33:24.124Z">
+<meta property="og:updated_time" content="2019-05-14T05:10:49.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensorflow_tricks">
 <meta name="twitter:description" content="tensorflow用久了，感觉有些实现方法还是比较有技巧的，先记录一下。">
@@ -390,7 +390,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-06 09:33:24" itemprop="dateModified" datetime="2019-05-06T09:33:24Z">2019-05-06</time>
+                <time title="修改时间：2019-05-14 05:10:49" itemprop="dateModified" datetime="2019-05-14T05:10:49Z">2019-05-14</time>
               
             
           </span>
@@ -407,14 +407,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习框架/" itemprop="url" rel="index"><span itemprop="name">深度学习框架</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/技巧/" itemprop="url" rel="index"><span itemprop="name">技巧</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习框架/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习框架/tensorflow/技巧/" itemprop="url" rel="index"><span itemprop="name">技巧</span></a></span>
 
                 
                 
@@ -467,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.5k</span>
+                <span title="本文字数">4.8k</span>
               
 
               
@@ -481,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -508,6 +515,15 @@
 <p>来获得某个预测值，然后在训练的每个epoch中，都调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(model.prop)</span><br></pre></td></tr></table></figure></p>
 <p>来获得预测值，这样同样也会造成内存溢出。而正确使用@property的方法应该是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prop = model.prop</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(NUM_EPOCH):</span><br><span class="line">	sess.run(prop)</span><br></pre></td></tr></table></figure></p>
 <p>需要将定义网络结构和训练过程分开来。</p>
+<h2 id="2-slim-learning-create-train-op"><a href="#2-slim-learning-create-train-op" class="headerlink" title="2. slim.learning.create_train_op"></a>2. slim.learning.create_train_op</h2><p>先看代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_train_op</span><span class="params">(total_loss,</span></span></span><br><span class="line"><span class="function"><span class="params">                    optimizer,</span></span></span><br><span class="line"><span class="function"><span class="params">                    global_step=_USE_GLOBAL_STEP,</span></span></span><br><span class="line"><span class="function"><span class="params">                    update_ops=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                    variables_to_train=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                    clip_gradient_norm=<span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                    summarize_gradients=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                    gate_gradients=tf_optimizer.Optimizer.GATE_OP,</span></span></span><br><span class="line"><span class="function"><span class="params">                    aggregation_method=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                    colocate_gradients_with_ops=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                    gradient_multipliers=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                    check_numerics=True)</span>:</span></span><br><span class="line">  <span class="string">"""Creates an `Operation` that evaluates the gradients and returns the loss.</span></span><br><span class="line"><span class="string">  Args:</span></span><br><span class="line"><span class="string">    total_loss: A `Tensor` representing the total loss.</span></span><br><span class="line"><span class="string">    optimizer: A tf.Optimizer to use for computing the gradients.</span></span><br><span class="line"><span class="string">    global_step: A `Tensor` representing the global step variable. If left as</span></span><br><span class="line"><span class="string">      `_USE_GLOBAL_STEP`, then tf.contrib.framework.global_step() is used.</span></span><br><span class="line"><span class="string">    update_ops: An optional list of updates to execute. If `update_ops` is</span></span><br><span class="line"><span class="string">      `None`, then the update ops are set to the contents of the</span></span><br><span class="line"><span class="string">      `tf.GraphKeys.UPDATE_OPS` collection. If `update_ops` is not `None`, but</span></span><br><span class="line"><span class="string">      it doesn't contain all of the update ops in `tf.GraphKeys.UPDATE_OPS`, a</span></span><br><span class="line"><span class="string">      warning will be displayed.</span></span><br><span class="line"><span class="string">    variables_to_train: an optional list of variables to train. If None, it will</span></span><br><span class="line"><span class="string">      default to all tf.compat.v1.trainable_variables().</span></span><br><span class="line"><span class="string">    clip_gradient_norm: If greater than 0 then the gradients would be clipped by</span></span><br><span class="line"><span class="string">      it.</span></span><br><span class="line"><span class="string">    summarize_gradients: Whether or not add summaries for each gradient.</span></span><br><span class="line"><span class="string">    gate_gradients: How to gate the computation of gradients. See tf.Optimizer.</span></span><br><span class="line"><span class="string">    aggregation_method: Specifies the method used to combine gradient terms.</span></span><br><span class="line"><span class="string">      Valid values are defined in the class `AggregationMethod`.</span></span><br><span class="line"><span class="string">    colocate_gradients_with_ops: Whether or not to try colocating the gradients</span></span><br><span class="line"><span class="string">      with the ops that generated them.</span></span><br><span class="line"><span class="string">    gradient_multipliers: A dictionary of either `Variables` or `Variable` op</span></span><br><span class="line"><span class="string">      names to the coefficient by which the associated gradient should be</span></span><br><span class="line"><span class="string">      scaled.</span></span><br><span class="line"><span class="string">    check_numerics: Whether or not we apply check_numerics.</span></span><br><span class="line"><span class="string">  Returns:</span></span><br><span class="line"><span class="string">    A `Tensor` that when evaluated, computes the gradients and returns the total</span></span><br><span class="line"><span class="string">      loss value.</span></span><br><span class="line"><span class="string">  """</span></span><br></pre></td></tr></table></figure></p>
+<p>看源码可以大概流程<br>①如果存在<code>gradient_multipliers</code>就创建<code>multiply_gradients</code>对象，如果存在<code>clip_gradient_norm</code>，就创建<code>clip_gradient_norms</code>对象。<br>②使用<code>optimizer.compute_gradients</code>计算出损失<br>③使用<code>multiply_gradients</code>对梯度放缩，使用<code>clip_gradient_norms</code>对梯度进行裁剪<br>④使用<code>optimizer.apply_gradients</code>对参数进行更新<br>⑤返回更新后的损失，所以该方法返回的是损失值，在用<code>sess.run(train_op)</code>时，会自动更新参数。<br><strong>坑：</strong><br>我这里主要遇到的一个坑是使用<code>multiply_gradients</code>。我想要<u>对某几个参数的梯度进行放缩，达到对不同参数使用不同的学习率</u>，写以下代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gradient_multipliers = &#123;v1: <span class="number">1.2</span>,</span><br><span class="line">                        v2: <span class="number">3.4</span>,</span><br><span class="line">                       &#125;</span><br><span class="line">train_op = slim.learning.create_train_op(</span><br><span class="line">      total_loss,</span><br><span class="line">      optimizer,</span><br><span class="line">      gradient_multipliers=gradient_multipliers)</span><br></pre></td></tr></table></figure></p>
+<p>调用源码并<code>sess.run</code>后看都没有问题，但是参数的更新就不是梯度的倍数关系，不管怎么调整<code>gradient_multipliers</code>，参数的更新都是一样的。<br>后来发现，我这里使用的是二阶优化器<code>Adam</code>，它这里会根据参数计算出来的梯度的平方去更新学习率，所以如果我在这里直接调整<code>gradient_multipliers</code>对梯度放缩，经过二阶动量后，又被还原了，所以后来改成一阶优化器<code>SGD</code>,就成功了。</p>
+<h2 id="小点"><a href="#小点" class="headerlink" title="小点"></a>小点</h2><ol>
+<li>使用索引后，那个维度就会消失，比如对维度为<code>[128,10,1024]</code>的参数a使用<code>b = a[:,0,:]</code>，得到的b的维度为<code>[128,1024]</code></li>
+<li>如果a的维度为<code>[0,1024]</code>，b的维度为<code>[1,1024]</code>，两者相加得到的维度为<code>[0,1024</code>]，如果再使用softmax就会报错，所以要用条件判断<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans = tf.cond(tf.greater(tf.shape(a)[<span class="number">0</span>],<span class="number">0</span>),a+b,b)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里就表示，如果a的第一个维度大于0，比如为n，就直接让a+b，得到的维度就为<code>[n,1024]</code>，否则就直接输出b。这样能保证输出的维度不包含0，不然softmax中会报错。</p>
 <h1 id="二、-特殊操作"><a href="#二、-特殊操作" class="headerlink" title="二、 特殊操作"></a>二、 特殊操作</h1><h2 id="1-将索引变成mask形式"><a href="#1-将索引变成mask形式" class="headerlink" title="1. 将索引变成mask形式"></a>1. 将索引变成mask形式</h2><p>在我的代码中，会先获得一个索引值，比如<code>index=[1,4,2]</code>，而我修改tensor a上这些位置的值，tensorflow里面无法像numpy那样，直接通过<code>a[index]=v</code>，查看手册，发现<code>tf.where()</code>操作比较类似，但是它传入的是要mask值，就需要把索引变成mask的形式。我的做法如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num = tf.shape(a)[<span class="number">0</span>]</span><br><span class="line">one_hot = tf.one_hot(index,num) <span class="comment">#得到的是维度为[3,num]的one-hot编码</span></span><br><span class="line">mask = tf.cast(tf.reduce_sum(one_hot,axis=<span class="number">0</span>),tf.bool)</span><br></pre></td></tr></table></figure></p>
 <p>由此就能够从索引变成mask的形式了。</p>
 <h2 id="2-排序重新索引"><a href="#2-排序重新索引" class="headerlink" title="2. 排序重新索引"></a>2. 排序重新索引</h2><p>比如有一个排序索引是<code>2,0,1,3,6,7,5,4</code>，表示排第一个的是索引为2的元素，排第二个的是索引为0的元素，以此类推。如果你对元素进行了<code>shuffle</code>操作后，比如<code>shuffle</code>的索引为<code>3,1,2,0,4,7,6,5</code>，表示第一个元素变成索引为3的元素，第二个元素变成索引为1的元素，以此类推。<br>如果要修改排序索引，应该按照<code>shuffle</code>索引，比如原来排第二个的元素为索引<code>0</code>，通过shuffle操作后，索引为0的元素变成了索引为<code>3</code>，以此类推。比较快的方法可以如下操作<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = tf.nn.top_k(-shuffle_index,k=tf.shape(sort_index)[<span class="number">0</span>])[<span class="number">1</span>]</span><br><span class="line">after_index = tf.gather(index,sort_index)</span><br></pre></td></tr></table></figure></p>
@@ -633,7 +649,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -666,7 +682,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -713,7 +735,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -751,7 +775,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-坑"><span class="nav-number">2.</span> <span class="nav-text">一、 坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-内存溢出"><span class="nav-number">2.1.</span> <span class="nav-text">1. 内存溢出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-特殊操作"><span class="nav-number">3.</span> <span class="nav-text">二、 特殊操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-将索引变成mask形式"><span class="nav-number">3.1.</span> <span class="nav-text">1. 将索引变成mask形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-排序重新索引"><span class="nav-number">3.2.</span> <span class="nav-text">2. 排序重新索引</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-坑"><span class="nav-number">2.</span> <span class="nav-text">一、 坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-内存溢出"><span class="nav-number">2.1.</span> <span class="nav-text">1. 内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-slim-learning-create-train-op"><span class="nav-number">2.2.</span> <span class="nav-text">2. slim.learning.create_train_op</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小点"><span class="nav-number">2.3.</span> <span class="nav-text">小点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-特殊操作"><span class="nav-number">3.</span> <span class="nav-text">二、 特殊操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-将索引变成mask形式"><span class="nav-number">3.1.</span> <span class="nav-text">1. 将索引变成mask形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-排序重新索引"><span class="nav-number">3.2.</span> <span class="nav-text">2. 排序重新索引</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -784,7 +808,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">38k</span>
+    <span title="站点总字数">44k</span>
   
 
   
@@ -793,7 +817,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">35 分钟</span>
+    <span title="站点阅读时长">40 分钟</span>
   
 </div>
 
