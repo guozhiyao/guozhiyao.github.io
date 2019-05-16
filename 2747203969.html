@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="LearningNote and LoveStory">
 <meta property="og:description" content="一些使用pytorch的注意点">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-14T08:06:54.102Z">
+<meta property="og:updated_time" content="2019-05-14T08:26:02.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytoch_trick">
 <meta name="twitter:description" content="一些使用pytorch的注意点">
@@ -373,7 +373,7 @@
                 
               
 
-              <time title="创建时间：2019-05-14 12:24:53 / 修改时间：08:06:54" itemprop="dateCreated datePublished" datetime="2019-05-14T12:24:53Z">2019-05-14</time>
+              <time title="创建时间：2019-05-14 12:24:53 / 修改时间：08:26:02" itemprop="dateCreated datePublished" datetime="2019-05-14T12:24:53Z">2019-05-14</time>
             
 
             
@@ -516,7 +516,7 @@
 </ol>
 <p><strong>参考：</strong><br><a href="https://blog.csdn.net/u013548568/article/details/84311099" target="_blank" rel="noopener">pytorch model.named_parameters() ,model.parameters() ,model.state_dict().items()</a></p>
 <h2 id="调整网络结构后导入预训练模型"><a href="#调整网络结构后导入预训练模型" class="headerlink" title="调整网络结构后导入预训练模型"></a>调整网络结构后导入预训练模型</h2><p>当你修改了模型后，想要导入预训练模型，可能会出现参数维度不相同的错误，可以使用以下方法导入<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_pretrained_model</span><span class="params">(pretrained_state_dict, model)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	pretrained_state_dict: 预训练的模型</span></span><br><span class="line"><span class="string">	model: 自己的模型</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	model_state = model.state_dict()</span><br><span class="line">	filter_state_dict = &#123;&#125;	<span class="comment">#保存筛选后的state_dict</span></span><br><span class="line">	new_k = []	<span class="comment">#保存model与pretrained_state_dict不符合的参数名</span></span><br><span class="line">	<span class="keyword">for</span> k,v <span class="keyword">in</span> pretrained_state_dict.items():</span><br><span class="line">		<span class="comment">#如果预训练的state_dict中的参数存在于模型中，并且两者的维度相同，才会用预训练的参数初始化模型的参数，否则就将其保存在new_k中</span></span><br><span class="line">		<span class="keyword">if</span> k <span class="keyword">in</span> model_state <span class="keyword">and</span> pretrained_state_dict[k].size()==model_state[k].size():</span><br><span class="line">			filter_state_dict[k]=v</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			new_k.append(k)</span><br><span class="line">	</span><br><span class="line">	model_state.update(filter_state_dict)	<span class="comment">#使用筛选后的state_dict更新</span></span><br><span class="line">	model.load_state_dict(model_state)	<span class="comment">#载入预训练参数</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#对于不包含在预训练参数中的参数，使其可以学习，其余的冻结起来</span></span><br><span class="line">	<span class="keyword">for</span> name,param <span class="keyword">in</span> model.named_parameters():</span><br><span class="line">		<span class="keyword">if</span> name <span class="keyword">in</span> new_k:</span><br><span class="line">			param.requires_grad = <span class="literal">True</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			param.requires_grad = <span class="literal">False</span></span><br><span class="line">	<span class="keyword">return</span> model</span><br></pre></td></tr></table></figure></p>
-<h1 id="查看模型结构"><a href="#查看模型结构" class="headerlink" title="查看模型结构"></a>查看模型结构</h1><p>使用的是第三方工具torchsummary，可以用以下命令下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install torchsummary</span><br><span class="line">git clone https://github.com/sksq96/pytorch-summary</span><br></pre></td></tr></table></figure></p>
+<h1 id="查看模型结构"><a href="#查看模型结构" class="headerlink" title="查看模型结构"></a>查看模型结构</h1><p>使用的是第三方工具torchsummary，可以用以下命令下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Bond-SYSU/pytorch-summary</span><br></pre></td></tr></table></figure></p>
 <p>使用方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchsummary <span class="keyword">import</span> summary</span><br><span class="line">summary(your_model, input_size=(C,H,W))</span><br></pre></td></tr></table></figure></p>
 <p>得到的就类似Keras的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">----------------------------------------------------------------</span><br><span class="line">        Layer (type)               Output Shape         Param #</span><br><span class="line">================================================================</span><br><span class="line">            Conv2d-1           [-1, 10, 24, 24]             260</span><br><span class="line">            Conv2d-2             [-1, 20, 8, 8]           5,020</span><br><span class="line">         Dropout2d-3             [-1, 20, 8, 8]               0</span><br><span class="line">            Linear-4                   [-1, 50]          16,050</span><br><span class="line">            Linear-5                   [-1, 10]             510</span><br><span class="line">================================================================</span><br><span class="line">Total params: 21,840</span><br><span class="line">Trainable params: 21,840</span><br><span class="line">Non-trainable params: 0</span><br><span class="line">----------------------------------------------------------------</span><br><span class="line">Input size (MB): 0.00</span><br><span class="line">Forward/backward pass size (MB): 0.06</span><br><span class="line">Params size (MB): 0.08</span><br><span class="line">Estimated Total Size (MB): 0.15</span><br><span class="line">----------------------------------------------------------------</span><br></pre></td></tr></table></figure></p>
 <p><strong>参考：</strong><br><a href="https://github.com/sksq96/pytorch-summary" target="_blank" rel="noopener">pytorch-summary</a></p>
@@ -565,6 +565,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/74708972.html" rel="prev" title="免费使用google的GPU">
+                免费使用google的GPU <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -637,7 +641,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -676,7 +680,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -796,7 +804,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">45k</span>
+    <span title="站点总字数">51k</span>
   
 
   
@@ -805,7 +813,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">41 分钟</span>
+    <span title="站点阅读时长">46 分钟</span>
   
 </div>
 
