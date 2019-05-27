@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="LearningNote">
 <meta property="og:description" content="一些使用pytorch的注意点">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-14T08:26:02.081Z">
+<meta property="og:updated_time" content="2019-05-27T07:31:38.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytoch_trick">
 <meta name="twitter:description" content="一些使用pytorch的注意点">
@@ -373,12 +373,24 @@
                 
               
 
-              <time title="创建时间：2019-05-14 12:24:53 / 修改时间：08:26:02" itemprop="dateCreated datePublished" datetime="2019-05-14T12:24:53Z">2019-05-14</time>
+              <time title="创建时间：2019-05-14 12:24:53" itemprop="dateCreated datePublished" datetime="2019-05-14T12:24:53Z">2019-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-27 07:31:38" itemprop="dateModified" datetime="2019-05-27T07:31:38Z">2019-05-27</time>
               
             
           </span>
@@ -462,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.7k</span>
+                <span title="本文字数">7.5k</span>
               
 
               
@@ -476,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -502,6 +514,10 @@
 </li>
 </ol>
 <p>如果在训练时候，直接使用<code>to(&#39;cuda:0&#39;)</code>，可能保存为list的参数无法导入到GPU上，使得参数分布在不同的device，所以需要加上<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">m</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_dim, output_dims)</span>:</span></span><br><span class="line">		device = torch.device(<span class="string">'cuda:0'</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line">		self.linear = [torch.nn.Linear(input_dim, i).to(device) <span class="keyword">for</span> i <span class="keyword">in</span> output_dims]</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>对于维度数目大于2的特征图交换维度时，要使用permute，transpose只适用于二维特征图。</li>
+<li>使用DataLoader载入数据时，通常在一个epoch的最后一部分的数据无法构成一个完整的batch，我在这也经常快跑完一个epoch时候就报错，说维度不正确。<br>比较暴力的方法是设置<code>DataLoader</code>里面的<code>drop_last=True</code>，这样最后一部分数据就会丢掉，因为设置了<code>shuffle=True</code>，所以每次丢掉的样本也不相同。</li>
+</ol>
 <h1 id="加载预训练模型"><a href="#加载预训练模型" class="headerlink" title="加载预训练模型"></a>加载预训练模型</h1><p>pytorch中已经封装了一系列预训练好的模型，可以使用以下语句导入模型结构，并且设置<code>pretrained=True</code>来导入预训练模型<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision <span class="keyword">import</span> models</span><br><span class="line"><span class="comment">#resnet</span></span><br><span class="line">model = models.resnet152(pretrained=<span class="literal">True</span>)</span><br><span class="line"><span class="comment">#desnet</span></span><br><span class="line">model = models.desnet121(pretrained=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
 <p>如果还需要在这个模型基础上进行操作，还需要以下步骤</p>
 <h2 id="冻结网络"><a href="#冻结网络" class="headerlink" title="冻结网络"></a>冻结网络</h2><p>冻结网络，需要将参数的<code>requires_grad</code>属性设置为<code>False</code>，可以使用以下方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():</span><br><span class="line">	param.requires_grad = <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
@@ -520,6 +536,32 @@
 <p>使用方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchsummary <span class="keyword">import</span> summary</span><br><span class="line">summary(your_model, input_size=(C,H,W))</span><br></pre></td></tr></table></figure></p>
 <p>得到的就类似Keras的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">----------------------------------------------------------------</span><br><span class="line">        Layer (type)               Output Shape         Param #</span><br><span class="line">================================================================</span><br><span class="line">            Conv2d-1           [-1, 10, 24, 24]             260</span><br><span class="line">            Conv2d-2             [-1, 20, 8, 8]           5,020</span><br><span class="line">         Dropout2d-3             [-1, 20, 8, 8]               0</span><br><span class="line">            Linear-4                   [-1, 50]          16,050</span><br><span class="line">            Linear-5                   [-1, 10]             510</span><br><span class="line">================================================================</span><br><span class="line">Total params: 21,840</span><br><span class="line">Trainable params: 21,840</span><br><span class="line">Non-trainable params: 0</span><br><span class="line">----------------------------------------------------------------</span><br><span class="line">Input size (MB): 0.00</span><br><span class="line">Forward/backward pass size (MB): 0.06</span><br><span class="line">Params size (MB): 0.08</span><br><span class="line">Estimated Total Size (MB): 0.15</span><br><span class="line">----------------------------------------------------------------</span><br></pre></td></tr></table></figure></p>
 <p><strong>参考：</strong><br><a href="https://github.com/sksq96/pytorch-summary" target="_blank" rel="noopener">pytorch-summary</a></p>
+<h1 id="提取计算中间的特征图"><a href="#提取计算中间的特征图" class="headerlink" title="提取计算中间的特征图"></a>提取计算中间的特征图</h1><p>当我们使用封装好的模型去提取中间的特征图时，由于pytorch会自动舍弃图计算的中间结果，所以想要获取这些数值就需要使用钩子函数，包含对于Variable的钩子函数和对Module的钩子函数，这里主要说对于Module的。<br>对于Module的钩子函数，主要包含两种，一个是<code>register_forward_hook</code>和<code>register_backward_hook</code>，显而易见，第一个是用来钩取前向传播时候的特征图，第二个是用来钩取反向传播的梯度。</p>
+<p><code>register_forward_hook</code>：具有以下形式<code>hook(module, input, output)-&gt;None</code>，这里的<code>module</code>就是你钩取的模块，<code>input</code>就是这个模块对应的输入特征图，<code>output</code>就是模块对应的输出特征图。<br><code>register_backward_hook</code>：具有以下形式<code>hook(module, grad_input, grad_output)-&gt;Tensor or None</code>。</p>
+<p><strong>注意：</strong>钩子函数不应修改输入和输出，并且在使用后应及时删除，以避免每次都运行钩子增加运行负载。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>比如你使用预训练好的Resnet201<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models</span><br><span class="line">model = models.resnet201(pretrained=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>此时假设你要做对于输入图像的attention，就需要提取其中<code>14*14</code>的特征图，通过使用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchsummary <span class="keyword">import</span> summary</span><br><span class="line">model.cuda()</span><br><span class="line">summary(model,(<span class="number">3</span>,<span class="number">224</span>,<span class="number">224</span>))</span><br></pre></td></tr></table></figure></p>
+<p>可以查看到各层的特征图大小，可以发现这个特征图是<code>&#39;RELU-483</code>的输出，并且通过查看<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.children()</span><br></pre></td></tr></table></figure></p>
+<p>可以知道该特征图是对应<code>model.layer3</code>的输出，此时，我们就可以用钩子函数来钩取这个的输出，以下为代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Temp</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">		super(Temp,self).__init__()</span><br><span class="line">		self.resnet = models.resnet152(pretrained=<span class="literal">True</span>)</span><br><span class="line">		self.handler = self.resnet.layer3.register_forward_hook(self.hook)</span><br><span class="line">		self.pick = <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">hook</span><span class="params">(self, module, inputdata, output)</span>:</span></span><br><span class="line">		self.pick = output</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, images)</span></span></span><br><span class="line">		features = self.resnet(images)</span><br><span class="line">		self.handler.remove()</span><br><span class="line">		<span class="keyword">return</span> self.pick</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>首先对于你要钩取的模块，使用<code>register_forward_hook()</code>方法，并且传入自己写的钩取函数<code>hook()</code>用来指定对于钩取到的模块的操作</li>
+<li>我这里的<code>hook()</code>函数就是将钩取的模块的输出保存到<code>self.pick</code>中，然后直接通过调用<code>self.pick</code>就能得到想要的特征图。</li>
+<li>注意钩取完后要调用<code>remove()</code>将其删除，以避免每次都运行钩子增加运行负载。</li>
+</ol>
+<p><strong>问题：</strong><br>对于用<code>nn.Sequential()</code>封住的模块，不知道要怎么设置钩子函数。</p>
+<p><strong>参考：</strong><br><a href="https://www.cnblogs.com/hellcat/p/8512090.html" target="_blank" rel="noopener">『PyTorch』第十六弹_hook技术</a></p>
+<h1 id="实验结果可重复性"><a href="#实验结果可重复性" class="headerlink" title="实验结果可重复性"></a>实验结果可重复性</h1><p>模型训练时候，里面会含有大量的随机数，每次训练相同的模型，也可能因为随机数的不同和而是结果略有差异，就无法知道模型效果是否有提升，所以需要固定模型的随机数，使得实验结果可复现。</p>
+<h2 id="CUDNN"><a href="#CUDNN" class="headerlink" title="CUDNN"></a>CUDNN</h2><p>cudnn中对卷积操作进行了优化，牺牲了精度来换取计算效率。如果需要保证可重复性，可以使用如下设置:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.backends <span class="keyword">import</span> cudnn</span><br><span class="line">cudnn.benchmark = <span class="literal">False</span></span><br><span class="line">cudnn.deterministic = <span class="literal">True</span></span><br></pre></td></tr></table></figure></p>
+<p>当设置<code>cudnn.backends=True</code>，则让内置的cudnn的auto-tuner自动寻找最合适当前配置的高效算法，来达到优化运行效率的问题，①如果网络的输入数据维度或类型变化不到时可以使用；②如果网络的输入数据在每次迭代都变化时，会导致cudnn每次都去寻找依次最优配置，范围降低运行效率。(<a href="https://www.pytorchtutorial.com/when-should-we-set-cudnn-benchmark-to-true/" target="_blank" rel="noopener">参考</a> )<br>当设置<code>cudnn.deterministic = True</code>时，会确保实验可重复性。<br>不过实际上这个设置对精度影响不大，仅仅是小数点后几位的差别。所以如果不是对精度要求极高，其实不太建议修改，因为会使计算效率降低。</p>
+<h2 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.manual_seed(seed)            <span class="comment"># 为CPU设置随机种子</span></span><br><span class="line">torch.cuda.manual_seed(seed)       <span class="comment"># 为当前GPU设置随机种子</span></span><br><span class="line">torch.cuda.manual_seed_all(seed)   <span class="comment"># 为所有GPU设置随机种子</span></span><br></pre></td></tr></table></figure>
+<h2 id="python-amp-numpy"><a href="#python-amp-numpy" class="headerlink" title="python &amp; numpy"></a>python &amp; numpy</h2><p>如果读取数据的过程采用了随机预处理(如RandomCrop、RandomHorizontalFlip等)，那么对python、numpy的随机数生成器也需要设置种子。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">random.seed(seed)</span><br><span class="line">np.random.seed(seed)</span><br></pre></td></tr></table></figure></p>
+<h2 id="dataloader"><a href="#dataloader" class="headerlink" title="dataloader"></a>dataloader</h2><p>注意，如果dataloader采用了多线程(num_workers &gt; 1), 那么由于读取数据的顺序不同，最终运行结果也会有差异。也就是说，改变num_workers参数，也会对实验结果产生影响。目前暂时没有发现解决这个问题的方法，但是只要固定num_workers数目（线程数）不变，基本上也能够重复实验结果。</p>
+<p>对于不同线程的随机数种子设置，主要通过DataLoader的worker_init_fn参数来实现。默认情况下使用线程ID作为随机数种子。如果需要自己设定，可以参考以下代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GLOBAL_SEED = <span class="number">1</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_seed</span><span class="params">(seed)</span>:</span></span><br><span class="line">    random.seed(seed)</span><br><span class="line">    np.random.seed(seed)</span><br><span class="line">    torch.manual_seed(seed)</span><br><span class="line">    torch.cuda.manual_seed(seed)</span><br><span class="line">    torch.cuda.manual_seed_all(seed)</span><br><span class="line"> </span><br><span class="line">GLOBAL_WORKER_ID = <span class="literal">None</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">worker_init_fn</span><span class="params">(worker_id)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> GLOBAL_WORKER_ID</span><br><span class="line">    GLOBAL_WORKER_ID = worker_id</span><br><span class="line">    set_seed(GLOBAL_SEED + worker_id)</span><br><span class="line"> </span><br><span class="line">dataloader = DataLoader(dataset, batch_size=<span class="number">16</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">2</span>, worker_init_fn=worker_init_fn)</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置位置"><a href="#设置位置" class="headerlink" title="设置位置"></a>设置位置</h2><p>为了保证能将整个模型的随机数都固定住，需要在你的train.py的前几行设置这些FLAG，然后再import模型的其他部分。<br><strong>参考：</strong><br><a href="https://blog.csdn.net/hyk_1996/article/details/84307108" target="_blank" rel="noopener">PyTorch的可重复性问题 （如何使实验结果可复现）</a><br><a href="https://blog.csdn.net/qq_16234613/article/details/81356876" target="_blank" rel="noopener">关于随机种子random.seed()测试 pytorch完全设置随机种子</a><br><strong>其他：</strong><br>可能还有其他设置了<code>cudnn.deterministic = True</code>时还是无法复现实验，可以参考<a href="https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/issues/12207%23issuecomment-425746601" target="_blank" rel="noopener">这里</a> 。</p>
+<h1 id="children与modeules的区别"><a href="#children与modeules的区别" class="headerlink" title="children与modeules的区别"></a>children与modeules的区别</h1><p>占坑<br><strong>参考：</strong><br><a href="https://blog.csdn.net/lxx516/article/details/79016980" target="_blank" rel="noopener">pytorch Module里的children()与modules()的区别</a></p>
+<h1 id="pack-padded-sequence和pad-packed-sequence"><a href="#pack-padded-sequence和pad-packed-sequence" class="headerlink" title="pack_padded_sequence和pad_packed_sequence"></a>pack_padded_sequence和pad_packed_sequence</h1><p>占坑<br><strong>参考：</strong><br><a href="https://blog.csdn.net/lssc4205/article/details/79474735" target="_blank" rel="noopener">pytorch里的pack_padded_sequence和pad_packed_sequence解析</a><br><a href="https://zhuanlan.zhihu.com/p/59772104" target="_blank" rel="noopener">PyTorch 训练 RNN 时，序列长度不固定怎么办？</a></p>
+<h1 id="好东西"><a href="#好东西" class="headerlink" title="好东西"></a>好东西</h1><p><a href="https://zhuanlan.zhihu.com/p/39752167" target="_blank" rel="noopener">Pytorch 提速指南</a><br><a href="https://oldpan.me/archives/how-to-use-memory-pytorch" target="_blank" rel="noopener">牺牲速度降低显存</a></p>
+<h1 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h1><p>之前使用pytorch时候，根据我的显卡版本在官网上选择了conda的安装指令<br><code>conda install pytorch torchvision cudatoolkit=8.0 -c pytorch</code><br>但是安装后，显示的<code>torch.cuda.is_available</code>总是False，也尝试降低<code>cudatoolkit</code>的版本，也是不行，最终找到问题是没有在<code>~/.bashrc</code>中配置cuda环境，贼搞笑。<br>配置的详细过程可以参考下面的连接。<br><strong>参考：</strong><br><a href="https://blog.csdn.net/yimingsilence/article/details/79631567" target="_blank" rel="noopener">使用GPU</a></p>
 
       
     </div>
@@ -641,7 +683,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -684,7 +726,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -771,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">1.</span> <span class="nav-text">小点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载预训练模型"><span class="nav-number">2.</span> <span class="nav-text">加载预训练模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冻结网络"><span class="nav-number">2.1.</span> <span class="nav-text">冻结网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整网络结构后导入预训练模型"><span class="nav-number">2.2.</span> <span class="nav-text">调整网络结构后导入预训练模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看模型结构"><span class="nav-number">3.</span> <span class="nav-text">查看模型结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小点"><span class="nav-number">1.</span> <span class="nav-text">小点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载预训练模型"><span class="nav-number">2.</span> <span class="nav-text">加载预训练模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冻结网络"><span class="nav-number">2.1.</span> <span class="nav-text">冻结网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整网络结构后导入预训练模型"><span class="nav-number">2.2.</span> <span class="nav-text">调整网络结构后导入预训练模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看模型结构"><span class="nav-number">3.</span> <span class="nav-text">查看模型结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提取计算中间的特征图"><span class="nav-number">4.</span> <span class="nav-text">提取计算中间的特征图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">4.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验结果可重复性"><span class="nav-number">5.</span> <span class="nav-text">实验结果可重复性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CUDNN"><span class="nav-number">5.1.</span> <span class="nav-text">CUDNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch"><span class="nav-number">5.2.</span> <span class="nav-text">pytorch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-amp-numpy"><span class="nav-number">5.3.</span> <span class="nav-text">python &amp; numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dataloader"><span class="nav-number">5.4.</span> <span class="nav-text">dataloader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置位置"><span class="nav-number">5.5.</span> <span class="nav-text">设置位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#children与modeules的区别"><span class="nav-number">6.</span> <span class="nav-text">children与modeules的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pack-padded-sequence和pad-packed-sequence"><span class="nav-number">7.</span> <span class="nav-text">pack_padded_sequence和pad_packed_sequence</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#好东西"><span class="nav-number">8.</span> <span class="nav-text">好东西</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用GPU"><span class="nav-number">9.</span> <span class="nav-text">使用GPU</span></a></li></ol></div>
             
 
           </div>
@@ -804,7 +850,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">50k</span>
+    <span title="站点总字数">58k</span>
   
 
   
@@ -813,7 +859,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">46 分钟</span>
+    <span title="站点阅读时长">53 分钟</span>
   
 </div>
 
