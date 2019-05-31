@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="英文文本预处理">
+<meta property="og:url" content="https://guozhiyao.github.io/2884993509.html">
+<meta property="og:site_name" content="LearningNote">
+<meta property="og:description" content="主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess1.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess2.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess3.png">
+<meta property="og:updated_time" content="2019-05-31T12:18:58.856Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="英文文本预处理">
+<meta name="twitter:description" content="主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。">
+<meta name="twitter:image" content="https://guozhiyao.github.io/images/nlppreprocess1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://guozhiyao.github.io/2884993509">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>英文文本预处理 | LearningNote</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LearningNote</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2884993509.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content="To recode the learning note">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">英文文本预处理
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+			
+			  
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-29 21:54:45" itemprop="dateCreated datePublished" datetime="2019-05-29T21:54:45Z">2019-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-31 12:18:58" itemprop="dateModified" datetime="2019-05-31T12:18:58Z">2019-05-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nlp/" itemprop="url" rel="index"><span itemprop="name">nlp</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2884993509.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2884993509.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2884993509.html" class="leancloud_visitors" data-flag-title="英文文本预处理">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当我们对英文文本进行训练时，可能收集到的文本数据包含很多噪音，比如标点符号、缩略词或者拼写错误等等问题，并且包含一些意义比较不大的停词，而且英文每个单词有很多不同的形式，可以对其进行化简来简化训练。本文主要对以上问题进行预处理，来得到比较赶紧的数据进行后续训练。<br>本文主要基于nltk对文本进行处理。</p>
+<h1 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h1><h2 id="缩略词展开和去除特殊符号"><a href="#缩略词展开和去除特殊符号" class="headerlink" title="缩略词展开和去除特殊符号"></a>缩略词展开和去除特殊符号</h2><p>这里的缩略词指的是<code>I am</code>缩略成 <code>I&#39;m</code>的形式，我们这里首先要对其进行展开。而且的特殊符号比如<code>/</code>表示<code>or</code>，而<code>&amp;</code>表示<code>and</code>，这里也要对其进行修改。<br>这里使用正则表达式进行处理。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow."</span></span><br><span class="line"><span class="comment">#先去除特殊符号</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">s = s.replace(<span class="string">'/'</span>,<span class="string">' or '</span>).replace(<span class="string">'&amp;'</span>,<span class="string">' and '</span>)</span><br><span class="line"><span class="comment">#设置缩略词的正则表达式</span></span><br><span class="line">pat_is = re.compile(<span class="string">"(it|he|she|that|this|there|here)(\'s)"</span>,re.I)</span><br><span class="line">pat_s = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'s"</span>)</span><br><span class="line">pat_s2 = re.compile(<span class="string">"(?&lt;=s)\'s?"</span>)</span><br><span class="line">pat_not = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'t"</span>)</span><br><span class="line">pat_would = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'d"</span>)</span><br><span class="line">pat_will = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ll"</span>)</span><br><span class="line">pat_am = re.compile(<span class="string">"(?&lt;=[I|i])\'m"</span>)</span><br><span class="line">pat_are = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'re"</span>)</span><br><span class="line">pat_ve = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ve"</span>)</span><br><span class="line"><span class="comment">#使用正则表达式进行展开</span></span><br><span class="line">new_text = pat_is.sub(<span class="string">r"\1 is"</span>, s)</span><br><span class="line">new_text = pat_s.sub(<span class="string">""</span>,new_text)</span><br><span class="line">new_text = pat_s2.sub(<span class="string">""</span>,new_text)</span><br><span class="line">new_text = pat_not.sub(<span class="string">" not"</span>,new_text)</span><br><span class="line">new_text = pat_would.sub(<span class="string">" would"</span>,new_text)</span><br><span class="line">new_text = pat_will.sub(<span class="string">" will"</span>,new_text)</span><br><span class="line">new_text = pat_am.sub(<span class="string">" am"</span>,new_text)</span><br><span class="line">new_text = pat_are.sub(<span class="string">" are"</span>,new_text)</span><br><span class="line">new_text = pat_ve.sub(<span class="string">" have"</span>,new_text)</span><br><span class="line">new_text = new_text.replace(<span class="string">'\''</span>,<span class="string">' '</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><p>分词的意思是将一句话划分成一个个单词的形式，然后再对单词进行处理，而英文本身一个比较好的特点就是单词之间是包含空格的，我们可以直接简单的使用以下命令对文本进行分词<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow ."</span></span><br><span class="line">s = s.split(<span class="string">" "</span>).lower()</span><br></pre></td></tr></table></figure></p>
+<p>但是这里有个问题是，对于一些标点符号，可能写成<code>snow pants,</code>的形式，贴在单词旁边，就没办法进行准确的分词了。<br>所以这里使用nltk工具进行分词，代码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.tokenize <span class="keyword">import</span> word_tokenize</span><br><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow ."</span></span><br><span class="line">token_s = word_tokenize(s)</span><br></pre></td></tr></table></figure></p>
+<p>这样就能得到一个单词和标点符号的list了，而这里要先进行缩略词展开的原因是，使用nltk分词时，对于像<code>I&#39;m</code>会分成<code>[I,&#39;m]</code>的形式，所以要先进行缩略词展开。<br>如果还要进行分句，可以考虑用以下代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.tokenize <span class="keyword">import</span> sent_tokenize</span><br><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow ."</span></span><br><span class="line">s = sent_tokenize(s)</span><br></pre></td></tr></table></figure></p>
+<p>它这里就会根据句号来对其划分，得到一个list。</p>
+<h2 id="去除数字"><a href="#去除数字" class="headerlink" title="去除数字"></a>去除数字</h2><p>对于一般的nlp任务，可能不会太关注句子中出现的具体数字，所以可以去掉句子中的数字，用特殊符号表示<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new_s = []</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> tokens:</span><br><span class="line">	<span class="keyword">if</span> c.isdigit():</span><br><span class="line">		new_s.append(<span class="string">'#number'</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		new_s.append(c)</span><br></pre></td></tr></table></figure></p>
+<h2 id="去除标点符号"><a href="#去除标点符号" class="headerlink" title="去除标点符号"></a>去除标点符号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">new_s = []</span><br><span class="line">for c in tokens:</span><br><span class="line">	if c not in string.punctuation:</span><br><span class="line">		new_s.append(c)</span><br></pre></td></tr></table></figure>
+<p><code>string.punctuation</code>中包含的标点符号有<br><img src="/images/nlppreprocess1.png" alt="nlppreprocess1"></p>
+<h2 id="去除停词"><a href="#去除停词" class="headerlink" title="去除停词"></a>去除停词</h2><p>可以直接从nltk获得对应语言的停词，代码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.corpus <span class="keyword">import</span> stopwords</span><br><span class="line">stopword = stopwords.words(<span class="string">'english'</span>)</span><br><span class="line">new_s = []</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> tokens:</span><br><span class="line">	<span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> stopword:</span><br><span class="line">		new_s.append(c)</span><br></pre></td></tr></table></figure></p>
+<h2 id="单词还原"><a href="#单词还原" class="headerlink" title="单词还原"></a>单词还原</h2><p>一个英语单词包含很多不同的形式，这些形式可能蕴含相同的含义，所以就需要找到单词的原始形式。主要包含两种方法词干提取（stemming）和词型还原（lemmatization），这两者的区别主要在于，词干提取会比较激进，提取出来的词干可能不是一个单词，而词型还原就相对保守一点，它一般只对能够还原成一个正确的词进行处理，还原出来的也是正确的单词。<br>可以使用nltk进行词干提取和词型还原，词干提取主要的方法有PorterStemmer，LancasterStemmer和SnowballStemmer。个人推荐使用SnowballStemmer，比如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.stem <span class="keyword">import</span> SnowballStemmer</span><br><span class="line">stemmer = SnowballStemmer(<span class="string">"english"</span>)</span><br><span class="line">stemmer.stem(<span class="string">"countries"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这里使用SnowballStemmer词干提取countries的词干，得到的结果为<code>contri</code>，并不是一个单词。<br>词型还原主要使用WordNetLemmatizer类，比如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.stem <span class="keyword">import</span> WordNetLemmatizer</span><br><span class="line">wnl = WordNetLemmatizer()</span><br><span class="line">wnl.lemmatize(<span class="string">"countries"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这里得到的就是<code>country</code>，是一个有意义的单词。</p>
+<h2 id="提取词性"><a href="#提取词性" class="headerlink" title="提取词性"></a>提取词性</h2><p>但是我们单词的不同词性可能就会使得它还原的结果不同，比如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.stem <span class="keyword">import</span> WordNetLemmatizer</span><br><span class="line">wnl = WordNetLemmatizer()</span><br><span class="line"></span><br><span class="line">print(wnl.lemmatize(<span class="string">'ate'</span>, <span class="string">'v'</span>))	<span class="comment">#eat</span></span><br><span class="line">print(wnl.lemmatize(<span class="string">'fancier'</span>, <span class="string">'a'</span>))	<span class="comment">#fancy</span></span><br><span class="line"></span><br><span class="line">print(wnl.lemmatize(<span class="string">'ate'</span>, <span class="string">'n'</span>))	<span class="comment">#ate</span></span><br><span class="line">print(wnl.lemmatize(<span class="string">'fancier'</span>, <span class="string">'v'</span>))	<span class="comment">#fancier</span></span><br></pre></td></tr></table></figure></p>
+<p>所以在进行词型还原时，最好要指定单词对应的词性再进行还原会比较准确。<br>这里就需要用到NLP中的Parts of speech技术实现了，在nltk中，可以直接使用<code>nltk.pos_tag()</code>获得单词在句子中的词性，比如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sentence = <span class="string">'The brown fox is quick and he is jumping over the lazy dog'</span></span><br><span class="line"><span class="keyword">import</span> nltk</span><br><span class="line">tokens = nltk.word_tokenize(sentence)</span><br><span class="line">tagged_sent = nltk.pos_tag(tokens)</span><br><span class="line">print(tagged_sent)</span><br></pre></td></tr></table></figure></p>
+<p>就能得到以下结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(&apos;The&apos;, &apos;DT&apos;), (&apos;brown&apos;, &apos;JJ&apos;), (&apos;fox&apos;, &apos;NN&apos;), (&apos;is&apos;, &apos;VBZ&apos;), (&apos;quick&apos;, &apos;JJ&apos;), (&apos;and&apos;, &apos;CC&apos;), (&apos;he&apos;, &apos;PRP&apos;), (&apos;is&apos;, &apos;VBZ&apos;), (&apos;jumping&apos;, &apos;VBG&apos;), (&apos;over&apos;, &apos;IN&apos;), (&apos;the&apos;, &apos;DT&apos;), (&apos;lazy&apos;, &apos;JJ&apos;), (&apos;dog&apos;, &apos;NN&apos;)]</span><br></pre></td></tr></table></figure></p>
+<p>关于上述词性的说明，可以参考下表：<br><img src="/images/nlppreprocess2.png" alt="nlppreprocess2.png"><br><img src="/images/nlppreprocess3.png" alt="nlppreprocess3.png"><br>由此我们将提取单词词性和词型还原结合起来，就能比较准确地还原单词了，以下为代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> word_tokenize, pos_tag</span><br><span class="line"><span class="keyword">from</span> nltk.corpus <span class="keyword">import</span> wordnet</span><br><span class="line"><span class="keyword">from</span> nltk.stem <span class="keyword">import</span> WordNetLemmatizer</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取单词的词性</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_wordnet_pos</span><span class="params">(tag)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> tag.startswith(<span class="string">'J'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.ADJ</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'V'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.VERB</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'N'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.NOUN</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'R'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.ADV</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'football is a family of team sports that involve, to varying degrees, kicking a ball to score a goal.'</span></span><br><span class="line">tokens = word_tokenize(sentence)  <span class="comment"># 分词</span></span><br><span class="line">tagged_sent = pos_tag(tokens)     <span class="comment"># 获取单词词性</span></span><br><span class="line"></span><br><span class="line">wnl = WordNetLemmatizer()</span><br><span class="line">lemmas_sent = []</span><br><span class="line"><span class="keyword">for</span> tag <span class="keyword">in</span> tagged_sent:</span><br><span class="line">    wordnet_pos = get_wordnet_pos(tag[<span class="number">1</span>]) <span class="keyword">or</span> wordnet.NOUN</span><br><span class="line">    lemmas_sent.append(wnl.lemmatize(tag[<span class="number">0</span>], pos=wordnet_pos)) <span class="comment"># 词形还原</span></span><br><span class="line"></span><br><span class="line">print(lemmas_sent)</span><br></pre></td></tr></table></figure></p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> word_tokenize, pos_tag</span><br><span class="line"><span class="keyword">from</span> nltk.corpus <span class="keyword">import</span> wordnet</span><br><span class="line"><span class="keyword">from</span> nltk.stem <span class="keyword">import</span> WordNetLemmatizer</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> autocorrect <span class="keyword">import</span> spell</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> nltk.corpus <span class="keyword">import</span> stopwords</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">restore_common_abbr</span><span class="params">(caption)</span>:</span></span><br><span class="line">    <span class="comment"># 还原常见缩写单词</span></span><br><span class="line">    pat_is = re.compile(<span class="string">"(it|he|she|that|this|there|here)(\'s)"</span>, re.I)</span><br><span class="line">    pat_s = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'s"</span>)  <span class="comment"># 找出字母后面的字母</span></span><br><span class="line">    pat_s2 = re.compile(<span class="string">"(?&lt;=s)\'s?"</span>)</span><br><span class="line">    pat_not = re.compile(<span class="string">"(?&lt;=[a-zA-Z])n\'t"</span>)  <span class="comment"># not的缩写</span></span><br><span class="line">    pat_would = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'d"</span>)  <span class="comment"># would的缩写</span></span><br><span class="line">    pat_will = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ll"</span>)  <span class="comment"># will的缩写</span></span><br><span class="line">    pat_am = re.compile(<span class="string">"(?&lt;=[I|i])\'m"</span>)  <span class="comment"># am的缩写</span></span><br><span class="line">    pat_are = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'re"</span>)  <span class="comment"># are的缩写</span></span><br><span class="line">    pat_ve = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ve"</span>)  <span class="comment"># have的缩写</span></span><br><span class="line"></span><br><span class="line">    new_text = caption</span><br><span class="line">    new_text = pat_is.sub(<span class="string">r"\1 is"</span>, new_text)</span><br><span class="line">    new_text = pat_s.sub(<span class="string">""</span>, new_text)</span><br><span class="line">    new_text = pat_s2.sub(<span class="string">""</span>, new_text)</span><br><span class="line">    new_text = pat_not.sub(<span class="string">" not"</span>, new_text)</span><br><span class="line">    new_text = pat_would.sub(<span class="string">" would"</span>, new_text)</span><br><span class="line">    new_text = pat_will.sub(<span class="string">" will"</span>, new_text)</span><br><span class="line">    new_text = pat_am.sub(<span class="string">" am"</span>, new_text)</span><br><span class="line">    new_text = pat_are.sub(<span class="string">" are"</span>, new_text)</span><br><span class="line">    new_text = pat_ve.sub(<span class="string">" have"</span>, new_text)</span><br><span class="line">    new_text = new_text.replace(<span class="string">'\''</span>, <span class="string">' '</span>)</span><br><span class="line">    <span class="keyword">return</span> new_text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取单词的词性</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_wordnet_pos</span><span class="params">(tag)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> tag.startswith(<span class="string">'J'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.ADJ</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'V'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.VERB</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'N'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.NOUN</span><br><span class="line">    <span class="keyword">elif</span> tag.startswith(<span class="string">'R'</span>):</span><br><span class="line">        <span class="keyword">return</span> wordnet.ADV</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">		</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare</span><span class="params">(caption,stopword,lemmatizer)</span>:</span></span><br><span class="line">    caption = caption.replace(<span class="string">'/'</span>, <span class="string">' or '</span>).replace(<span class="string">'&amp;'</span>, <span class="string">' and '</span>)</span><br><span class="line">    caption = <span class="string">" "</span>.join(caption.split()).lower()  <span class="comment"># replace multiple spaces</span></span><br><span class="line">    caption = restore_common_abbr(caption)</span><br><span class="line"></span><br><span class="line">    doc = word_tokenize(caption)</span><br><span class="line">    doc = [spell(c) <span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> string.punctuation <span class="keyword">else</span> c <span class="keyword">for</span> c <span class="keyword">in</span> doc]</span><br><span class="line">    <span class="keyword">if</span> doc[<span class="number">-1</span>] != <span class="string">'.'</span>:</span><br><span class="line">        doc.append(<span class="string">'.'</span>)</span><br><span class="line">    tagged_sent = pos_tag(doc)  <span class="comment"># 获取单词词性</span></span><br><span class="line"></span><br><span class="line">    new_s = []</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> tagged_sent:</span><br><span class="line">        <span class="keyword">if</span> c[<span class="number">0</span>].isdigit():</span><br><span class="line">            new_s.append(<span class="string">"#number"</span>)</span><br><span class="line">        <span class="keyword">elif</span> c[<span class="number">0</span>] <span class="keyword">not</span> <span class="keyword">in</span> string.punctuation:</span><br><span class="line">            <span class="keyword">if</span> c[<span class="number">0</span>] <span class="keyword">not</span> <span class="keyword">in</span> stopword:</span><br><span class="line">                wordnet_pos = get_wordnet_pos(c[<span class="number">1</span>]) <span class="keyword">or</span> wordnet.NOUN</span><br><span class="line">                new_s.append(lemmatizer.lemmatize(c[<span class="number">0</span>], pos=wordnet_pos))  <span class="comment"># 词形还原</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">" "</span>.join(new_s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    stopword = stopwords.words(<span class="string">'english'</span>)</span><br><span class="line">    lemmatizer = WordNetLemmatizer()</span><br><span class="line">    caption = <span class="string">"I'm playwing basketballf, while the wether gets badd."</span> <span class="comment">#包含缩写、错别字</span></span><br><span class="line"></span><br><span class="line">    caption = prepare(caption, stopword, lemmatizer)</span><br><span class="line">    print(caption)</span><br></pre></td></tr></table></figure>
+<p><strong>参考：</strong><br><a href="https://www.jianshu.com/p/9d232e4a3c28" target="_blank" rel="noopener">NLTK英文分词尝试</a><br><a href="https://www.jianshu.com/p/4fb3e3c9bd69" target="_blank" rel="noopener">NLTK（一）：英文分词分句</a><br><a href="https://www.jianshu.com/p/a738fa6ee40e" target="_blank" rel="noopener">Python入门：NLTK（一）安装和Tokenizer</a><br><a href="https://www.cnblogs.com/jclian91/p/9898511.html" target="_blank" rel="noopener">NLP入门（三）词形还原（Lemmatization）</a><br><a href="https://www.cnblogs.com/pinard/p/6756534.html" target="_blank" rel="noopener">英文文本挖掘预处理流程总结</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/1336303576.html" rel="next" title="R-FCN_Object Detection via Region-based Fully Convolutional Networks">
+                <i class="fa fa-chevron-left"></i> R-FCN_Object Detection via Region-based Fully Convolutional Networks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">GuoZhiyao</p>
+              <div class="site-description motion-element" itemprop="description">To recode the learning note</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预处理"><span class="nav-number">2.</span> <span class="nav-text">预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缩略词展开和去除特殊符号"><span class="nav-number">2.1.</span> <span class="nav-text">缩略词展开和去除特殊符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分词"><span class="nav-number">2.2.</span> <span class="nav-text">分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去除数字"><span class="nav-number">2.3.</span> <span class="nav-text">去除数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去除标点符号"><span class="nav-number">2.4.</span> <span class="nav-text">去除标点符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去除停词"><span class="nav-number">2.5.</span> <span class="nav-text">去除停词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词还原"><span class="nav-number">2.6.</span> <span class="nav-text">单词还原</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取词性"><span class="nav-number">2.7.</span> <span class="nav-text">提取词性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码"><span class="nav-number">3.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuoZhiyao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">66k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'JUzzK5xpdFaEXELmjt5SEQRy-gzGzoHsz',
+    appKey: 'WCtWmzBiyev0hUF8afIuLCuh',
+    placeholder: 'Just go go',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz',
+                'X-LC-Key': 'hlcodrMmu7eeKpdvsymRe7Vk',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
