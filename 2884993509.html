@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess1.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess2.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/nlppreprocess3.png">
-<meta property="og:updated_time" content="2019-05-31T12:18:58.856Z">
+<meta property="og:updated_time" content="2019-05-31T13:43:19.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="英文文本预处理">
 <meta name="twitter:description" content="主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。">
@@ -393,7 +393,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-31 12:18:58" itemprop="dateModified" datetime="2019-05-31T12:18:58Z">2019-05-31</time>
+                <time title="修改时间：2019-05-31 13:43:19" itemprop="dateModified" datetime="2019-05-31T13:43:19Z">2019-05-31</time>
               
             
           </span>
@@ -498,7 +498,7 @@
 
       
         <p>主要介绍英文文本预处理，包含：分词、去标点符号、缩略词展开、拼写检测、去停词、词干还原或词性还原。<br><a id="more"></a></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当我们对英文文本进行训练时，可能收集到的文本数据包含很多噪音，比如标点符号、缩略词或者拼写错误等等问题，并且包含一些意义比较不大的停词，而且英文每个单词有很多不同的形式，可以对其进行化简来简化训练。本文主要对以上问题进行预处理，来得到比较赶紧的数据进行后续训练。<br>本文主要基于nltk对文本进行处理。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当我们对英文文本进行训练时，可能收集到的文本数据包含很多噪音，比如标点符号、缩略词或者拼写错误等等问题，并且包含一些意义比较不大的停词，而且英文每个单词有很多不同的形式，可以对其进行化简来简化训练。本文主要对以上问题进行预处理，来得到比较干净的数据进行后续训练。<br>本文主要基于nltk对文本进行处理。</p>
 <h1 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h1><h2 id="缩略词展开和去除特殊符号"><a href="#缩略词展开和去除特殊符号" class="headerlink" title="缩略词展开和去除特殊符号"></a>缩略词展开和去除特殊符号</h2><p>这里的缩略词指的是<code>I am</code>缩略成 <code>I&#39;m</code>的形式，我们这里首先要对其进行展开。而且的特殊符号比如<code>/</code>表示<code>or</code>，而<code>&amp;</code>表示<code>and</code>，这里也要对其进行修改。<br>这里使用正则表达式进行处理。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow."</span></span><br><span class="line"><span class="comment">#先去除特殊符号</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">s = s.replace(<span class="string">'/'</span>,<span class="string">' or '</span>).replace(<span class="string">'&amp;'</span>,<span class="string">' and '</span>)</span><br><span class="line"><span class="comment">#设置缩略词的正则表达式</span></span><br><span class="line">pat_is = re.compile(<span class="string">"(it|he|she|that|this|there|here)(\'s)"</span>,re.I)</span><br><span class="line">pat_s = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'s"</span>)</span><br><span class="line">pat_s2 = re.compile(<span class="string">"(?&lt;=s)\'s?"</span>)</span><br><span class="line">pat_not = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'t"</span>)</span><br><span class="line">pat_would = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'d"</span>)</span><br><span class="line">pat_will = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ll"</span>)</span><br><span class="line">pat_am = re.compile(<span class="string">"(?&lt;=[I|i])\'m"</span>)</span><br><span class="line">pat_are = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'re"</span>)</span><br><span class="line">pat_ve = re.compile(<span class="string">"(?&lt;=[a-zA-Z])\'ve"</span>)</span><br><span class="line"><span class="comment">#使用正则表达式进行展开</span></span><br><span class="line">new_text = pat_is.sub(<span class="string">r"\1 is"</span>, s)</span><br><span class="line">new_text = pat_s.sub(<span class="string">""</span>,new_text)</span><br><span class="line">new_text = pat_s2.sub(<span class="string">""</span>,new_text)</span><br><span class="line">new_text = pat_not.sub(<span class="string">" not"</span>,new_text)</span><br><span class="line">new_text = pat_would.sub(<span class="string">" would"</span>,new_text)</span><br><span class="line">new_text = pat_will.sub(<span class="string">" will"</span>,new_text)</span><br><span class="line">new_text = pat_am.sub(<span class="string">" am"</span>,new_text)</span><br><span class="line">new_text = pat_are.sub(<span class="string">" are"</span>,new_text)</span><br><span class="line">new_text = pat_ve.sub(<span class="string">" have"</span>,new_text)</span><br><span class="line">new_text = new_text.replace(<span class="string">'\''</span>,<span class="string">' '</span>)</span><br></pre></td></tr></table></figure></p>
 <h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><p>分词的意思是将一句话划分成一个个单词的形式，然后再对单词进行处理，而英文本身一个比较好的特点就是单词之间是包含空格的，我们可以直接简单的使用以下命令对文本进行分词<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow ."</span></span><br><span class="line">s = s.split(<span class="string">" "</span>).lower()</span><br></pre></td></tr></table></figure></p>
 <p>但是这里有个问题是，对于一些标点符号，可能写成<code>snow pants,</code>的形式，贴在单词旁边，就没办法进行准确的分词了。<br>所以这里使用nltk工具进行分词，代码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk.tokenize <span class="keyword">import</span> word_tokenize</span><br><span class="line">s = <span class="string">"a young boy in a blue coat and black snow pants , stading on a pail of skis in the snow ."</span></span><br><span class="line">token_s = word_tokenize(s)</span><br></pre></td></tr></table></figure></p>
@@ -556,6 +556,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/1963609163.html" rel="prev" title="GNN">
+                GNN <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -628,7 +632,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -677,7 +681,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -797,7 +803,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">66k</span>
+    <span title="站点总字数">69k</span>
   
 
   
@@ -806,7 +812,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:03</span>
   
 </div>
 

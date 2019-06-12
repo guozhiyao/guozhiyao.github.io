@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="The graph neural network model论文：https://ieeexplore.ieee.org/document/4700287">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GNN">
+<meta property="og:url" content="https://guozhiyao.github.io/1963609163.html">
+<meta property="og:site_name" content="LearningNote">
+<meta property="og:description" content="The graph neural network model论文：https://ieeexplore.ieee.org/document/4700287">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN1.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN2.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN4.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN3.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN5.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN6.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN7.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN8.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN9.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN10.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN11.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN12.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN13.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GNN14.png">
+<meta property="og:updated_time" content="2019-06-12T12:13:22.283Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GNN">
+<meta name="twitter:description" content="The graph neural network model论文：https://ieeexplore.ieee.org/document/4700287">
+<meta name="twitter:image" content="https://guozhiyao.github.io/images/GNN1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://guozhiyao.github.io/1963609163">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>GNN | LearningNote</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LearningNote</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/1963609163.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content="To recode the learning note">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GNN
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+			
+			  
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-12 18:13:32 / 修改时间：12:13:22" itemprop="dateCreated datePublished" datetime="2019-06-12T18:13:32Z">2019-06-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/graph/" itemprop="url" rel="index"><span itemprop="name">graph</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/1963609163.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/1963609163.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/1963609163.html" class="leancloud_visitors" data-flag-title="GNN">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>The graph neural network model<br>论文：<a href="https://ieeexplore.ieee.org/document/4700287" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/4700287</a><br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这篇论文主要是扩展了当时现有的神经网络方法来处理graph领域的数据，可以用来处理有环、无环、有向或者无向的graph。学习了一个函数，可以将graph G和节点n投影到m维的空间中。<br>首先，graph领域中主要有两方面的应用，分别是<code>graph-focused</code>和<code>node-focused</code>，graph-focused指的是学习一个独立于节点n的函数，在graph结构数据集实现一个分类器或者回归器，比如分子结构可以表示成graph结构，顶点表示原子，边表示化学键，则可以学习对分子的理化性质进行分类或者回归。而node-focused则是学习一个依赖于节点n的函数，则分类器或者回归器就依赖于每个节点的性质了，比如物体检测或者网页分类等等。<br>这篇文章中，会提出一种监督学习方法，同时适用于graph-focused和node-focused应用，并且将递归神经网络（recursive neural networks）和随机游走（random walk）统一了起来。</p>
+<h1 id="GNN"><a href="#GNN" class="headerlink" title="GNN"></a>GNN</h1><h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><p>graph表示成$G=(N,E)$的形式，其中N是顶点集合，E是边集合。而集合$ne[n]$表示顶点n的邻接顶点，$co[n]$表示顶点n的边。顶点和边都有实数向量表示的标签，顶点n的标签表示为$l_n$，顶点n$l_(n1,n2)$。令$\mathbf{l}$表示graph中所有标签的堆叠，则$\mathbf{l}<em>{ne[n]}$表示顶点n的所有邻接顶点的标签集合。标签通常包含顶点项链的物体的特征和两者之间的关系。<br>对于边的类型，可以使用有向边或者无向边，这个也很容易实现，只要附加合适的标签给每条边就行，也就是说，不同的边的类型可以通过不同的标签类型来指定。<br>而graph的类型也可以分成<code>positioinal</code>或者<code>nonposotopnal</code>两种，两者的差别在于，positioinal会考虑顶点n的邻接顶点的位置信息，通过对顶点n每个邻接顶点制定一个唯一的整数来表示其位置，而nonposotopnal不会考虑位置信息。公式化来说，在positioinal中，对于顶点n，有一个<code>injuctive function</code>$v</em>{n}:ne[n]\rightarrow {1,…,|N|}$，也就是给每个邻接顶点u赋予了一个常数。位置信息通常都会隐含一些有用的信息。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>该方法的一个<strong>直觉</strong>是：graph中的顶点表示物体或者概念，而边表示他们的关系。<br>而每个概念可以自然地通过它的特征和相关的概念进行定义，所以额外为每个顶点n添加了一个state $x_n$，基于顶点n的邻接顶点的信息来确定的。$x_n$包含了顶点n表示的概念，并且可以用来产生输出$o_n$，也就是决定概念的内容。<br><img src="/images/GNN1.png" alt="GNN1"><br>定义两个函数，<code>local transition function</code> $f_w$，描述顶点n和其邻接顶点的依赖性；<code>local output function</code> $g_w$用来决定顶点n的输出是什么。则$x_n$和$o_n$可以通过以下来定义：<br><img src="/images/GNN2.png" alt="GNN2"><br><strong>注意：</strong></p>
+<ol>
+<li>可以使用不同的邻接顶点。比如去掉$l_{ne[n]}$，因为$x_{ne[n]}$可能已经隐含了标签的信息，或者使用更远距离的邻接顶点的信息。</li>
+<li>公式1针对的是无向graph，也可以修改$f_w$来扩展到有向graph。</li>
+<li>公式1中，所有顶点都共享相同的参数，但是实际上，对于不同类型的顶点和边，其实可以使用不同的参数。<br>并且这个公式可以处理positional和nonpositional graph。比如对于positional graph，$f_w$就一定要接收邻接顶点的位置作为额外的输入，实际上，可以让$x_{ne[n]}$，$l_{co[n]}$和$l_{ne[n]}$按照邻接顶点的顺序进行存储，并且对于不存在的邻接顶点通过特殊符号进行填补。<br>而对于nonpositional graph，可以将公式1中的$f_w$替换成<br><img src="/images/GNN4.png" alt="GNN4"><br>这样，就不会受到邻接顶点的顺序的影响了。<br>公式3就表示nonposition form，而公式1就表示positional form。</li>
+</ol>
+<p>将上述的所有状态、输出和标签都堆叠起来，可以重写成<br><img src="/images/GNN3.png" alt="GNN3"><br>其中，$F_w$为<code>global transition function</code>，是$|N|$个$f_w$的堆叠，而$G_w$为<code>global output function</code>，是$|N|$个$g_w$的堆叠。<br><strong>注意：</strong>本文中，作者想要求解的是$F_w$的不动点（fixed-point），即求得各个顶点稳定的状态。要先确定这个想法，后面的才看得懂。<br>我们想要求解$F_w$的不动点，而通过<code>Banach fixed point theorem</code>可知<a href="https://en.wikipedia.org/wiki/Banach_fixed-point_theorem" target="_blank" rel="noopener">1</a> ，公式2含有唯一解的充分条件为：$F_w$是相对于状态的<code>contraction map</code>，也就是说，存在$\mu,0 \le \mu &lt; 1$使得$|F_w(x,l)-F_w(y,l)| \le \mu|x-y|$。目前先假设$F_w$是相对于状态的<code>contraction map</code>，这样就能保证GNN是可微的，并且能高效计算其导数。</p>
+<h2 id="状态的计算"><a href="#状态的计算" class="headerlink" title="状态的计算"></a>状态的计算</h2><p>根据<code>Banach’s fixed point theorem</code>，可以使用经典的迭代方法来求解状态<br><img src="/images/GNN5.png" alt="GNN5"><br>其中，$x(t)$表示迭代第t次时的状态x。公式4对于任意的初始值，都会会以指数的速度收敛到公式2的解。所以可以重写为<br><img src="/images/GNN6.png" alt="GNN6"></p>
+<h2 id="学习算法"><a href="#学习算法" class="headerlink" title="学习算法"></a>学习算法</h2><p>学习GNN中的参数w，使得$\varphi_w$近似训练数据中的结果<br><img src="/images/GNN7.png" alt="GNN7"><br>学习任务可以看成是最小化以下损失<br><img src="/images/GNN8.png" alt="GNN8"><br>其中，$t_{i,j}$表示数据集的标签。<br>学习算法的细节可以看表1<br><img src="/images/GNN9.png" alt="GNN9"><br>其中包含两部分，一个是前传部分，通过迭代的方法求解$F_w$的不动点，而反向传播部分是论文中推导的高效的方法。<br><strong>注意：</strong>GNN是一个动态结构，因为层的数目是动态确定的，而且权重是根据输入graph的拓扑结构来进行部分共享的，所以一些为静态网络设计的二阶学习算法、减脂和growing学习算法不能使用。</p>
+<h2 id="transition和output-function实现"><a href="#transition和output-function实现" class="headerlink" title="transition和output function实现"></a>transition和output function实现</h2><p>$g_w$的实现不需要额外的限制，可以使用多层的前传网络实现。<br>而$f_w$需要比较严格的限制，因为前面的推导都假设$F_w$是相对于状态的<code>contraction map</code>。<br>文中设计了两种网络结构，可以使用不同策略满足这个要求。</p>
+<h3 id="linear-nonpositional-GNN"><a href="#linear-nonpositional-GNN" class="headerlink" title="linear (nonpositional) GNN"></a>linear (nonpositional) GNN</h3><p>因为是线性的，所以公式3可以变成<br><img src="/images/GNN10.png" alt="GNN10"><br>其中，bn是s维向量，而$A_{n,u}$是$s \times s$维矩阵，分别使用两个前传网络$\rho_w$和$\phi_w$来定义。<br><img src="/images/GNN11.png" alt="GNN11"><br>其中，$\mu \in(0,1)$，而$\Xi=resize(\phi_w(l_n,l_{n,u},l_u))$。<br>接下来要证明$F_w$是相对于状态的<code>contraction map</code>。<br>这里可以得到<br><img src="/images/GNN12.png" alt="GNN12"><br>其中b是所有bn的堆叠，而A是所有$A_{n,u}$的堆叠。<br><img src="/images/GNN13.png" alt="GNN13"></p>
+<h3 id="nonlinear-nonpositional-GNN"><a href="#nonlinear-nonpositional-GNN" class="headerlink" title="nonlinear (nonpositional) GNN"></a>nonlinear (nonpositional) GNN</h3><p>这里就是让$h_w$为多层的前传网络，但是同时也要保证$F_w$是相对于状态的<code>contraction map</code>，所以加了一个额外的约束<br><img src="/images/GNN14.png" alt="GNN14"></p>
+<p><strong>参考：</strong><br><a href="https://blog.csdn.net/tsq292978891/article/details/78619384" target="_blank" rel="noopener">弹性反向传播(RProp)</a><br><a href="https://austingwalters.com/jacobi-method/" target="_blank" rel="noopener">jacobi method</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2884993509.html" rel="next" title="英文文本预处理">
+                <i class="fa fa-chevron-left"></i> 英文文本预处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">GuoZhiyao</p>
+              <div class="site-description motion-element" itemprop="description">To recode the learning note</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GNN"><span class="nav-number">2.</span> <span class="nav-text">GNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#符号"><span class="nav-number">2.1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态的计算"><span class="nav-number">2.3.</span> <span class="nav-text">状态的计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习算法"><span class="nav-number">2.4.</span> <span class="nav-text">学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transition和output-function实现"><span class="nav-number">2.5.</span> <span class="nav-text">transition和output function实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linear-nonpositional-GNN"><span class="nav-number">2.5.1.</span> <span class="nav-text">linear (nonpositional) GNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonlinear-nonpositional-GNN"><span class="nav-number">2.5.2.</span> <span class="nav-text">nonlinear (nonpositional) GNN</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuoZhiyao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">69k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:03</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'JUzzK5xpdFaEXELmjt5SEQRy-gzGzoHsz',
+    appKey: 'WCtWmzBiyev0hUF8afIuLCuh',
+    placeholder: 'Just go go',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz',
+                'X-LC-Key': 'hlcodrMmu7eeKpdvsymRe7Vk',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
