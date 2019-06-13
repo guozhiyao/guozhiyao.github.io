@@ -120,7 +120,28 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN15.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN16.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN17.png">
-<meta property="og:updated_time" content="2019-06-13T06:07:28.058Z">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN18.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN19.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN20.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN21.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN22.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN23.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN24.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN17.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN25.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN26.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN27.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN28.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN29.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN30.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN31.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN32.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN33.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN34.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN35.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN36.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/GCN37.png">
+<meta property="og:updated_time" content="2019-06-13T12:48:44.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCN">
 <meta name="twitter:description" content="简单介绍GCN的推导，涉及graph拉普拉斯算子推导、graph傅里叶变换推导。">
@@ -390,7 +411,7 @@
                 
               
 
-              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：06:07:28" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
+              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：12:48:44" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
             
 
             
@@ -465,7 +486,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.4k</span>
+                <span title="本文字数">4.2k</span>
               
 
               
@@ -479,7 +500,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -509,9 +530,22 @@
 <h2 id="拉普拉斯算子与拉普拉斯矩阵"><a href="#拉普拉斯算子与拉普拉斯矩阵" class="headerlink" title="拉普拉斯算子与拉普拉斯矩阵"></a>拉普拉斯算子与拉普拉斯矩阵</h2><p>拉普拉斯算子的定义为函数的梯度的散度，表示每个点上的梯度的增加或减少，所以在图函数中，对于每个节点，我们可以直接用从该节点射出的梯度，减去射入该节点的梯度，来表示该节点的散度，这样能够表示该节点梯度总的变化。<br>我们可以再定义一个矩阵$K’_G$：每一行代表一个点，每一列代表一条边，如果该条边从该点发射出去，则将矩阵中对应的这一元素置为 +1 ，如果该条边指向该点，则将对应的元素置为 -1 。<br>将该矩阵左乘梯度，可以得到<br><img src="/images/GCN7.png" alt="GCN7"><br>这样就能得到图G对应于图函数$F_G$在各个节点上的散度了。<br>那么<br><img src="/images/GCN8.png" alt="GCN8"><br>我们就能得到图论函数的拉普拉斯算子，也就是拉普拉斯矩阵<br><img src="/images/GCN9.png" alt="GCN9"><br>我们可以发现，拉普拉斯矩阵的值与图中每一条边的方向无关，所以拉普拉斯矩阵一般用来描述无向图。<br>我们计算上面社交网络图谱对应的拉普拉斯矩阵<br><img src="/images/GCN10.png" alt="GCN10"><br>可以发现，这是一个对称矩阵，对角线就是每个节点的度，而其余元素就是负的邻接矩阵，所以可以写成拉普拉斯矩阵经典的形式：<br>$$L = D - A$$<br>对其进行标准化得到<br><img src="/images/GCN11.png" alt="GCN11"></p>
 <h1 id="graph傅里叶变换"><a href="#graph傅里叶变换" class="headerlink" title="graph傅里叶变换"></a>graph傅里叶变换</h1><p>以上介绍了图论中的拉普拉斯算子，这个在后面推导图论中的傅里叶变换有用，接下来先介绍实数域上的傅里叶变换和卷及操作的关系，然后推导graph上的傅里叶变换。</p>
 <h2 id="实数域上的傅里叶变换和卷积"><a href="#实数域上的傅里叶变换和卷积" class="headerlink" title="实数域上的傅里叶变换和卷积"></a>实数域上的傅里叶变换和卷积</h2><p>我们知道卷及操作的数学定义为<br><img src="/images/GCN12.png" alt="GCN12"><br>这里f为输入，而g为卷积核，相当于是将g关于t翻转后，在f上进行平移，将覆盖到的区域相乘并累加作为t处的值。其实和我们在CNN中使用的卷积操作有一些区别，多了将卷积核进行翻转的操作。</p>
-<p>傅里叶变换为<br><img src="/images/GCN13.png" alt="GCN13"><br>逆傅里叶变换为<br><img src="/images/GCN14.png" alt="GCN14"><br>接下来证明卷积和傅里叶变换之间的关系<br>我们有输入f和卷积核g，对应 的输出h为<br><img src="/images/GCN15.png" alt="GCN15"><br>然后对该卷积操作进行傅里叶变换<br><img src="/images/GCN16.png" alt="GCN16"><br>最后在两侧同时作用傅里叶逆变换，就能得到卷积和傅里叶变换之间的关系<br><img src="/images/GCN17.png" alt="GCN17"></p>
-<p>未完待续</p>
-<p><strong>参考：</strong><br><a href="https://zhuanlan.zhihu.com/p/67336297" target="_blank" rel="noopener">【其实贼简单】拉普拉斯算子和拉普拉斯矩阵</a><br><a href="https://zhuanlan.zhihu.com/p/54505069" target="_blank" rel="noopener">图卷积网络(GCN)新手村完全指南</a></p>
+<p>傅里叶变换为<br><img src="/images/GCN13.png" alt="GCN13"><br>逆傅里叶变换为<br><img src="/images/GCN14.png" alt="GCN14"><br>接下来证明卷积和傅里叶变换之间的关系<br>我们有输入f和卷积核g，对应 的输出h为<br><img src="/images/GCN15.png" alt="GCN15"><br>然后对该卷积操作进行傅里叶变换<br><img src="/images/GCN16.png" alt="GCN16"><br>最后在两侧同时作用傅里叶逆变换，就能得到卷积和傅里叶变换之间的关系<br><img src="/images/GCN17.png" alt="GCN17"><br>由此可以看出，卷积操作可以通过傅里叶变换和傅里叶逆变换推导过来，所以我们只要求得graph上的傅里叶变换和傅里叶反变换的形式，通过以上公式就能得到GCN的形式。</p>
+<h2 id="graph上傅里叶变换和傅里叶反变换"><a href="#graph上傅里叶变换和傅里叶反变换" class="headerlink" title="graph上傅里叶变换和傅里叶反变换"></a>graph上傅里叶变换和傅里叶反变换</h2><p>首先，我们需要知道，傅里叶变换的基其实就是拉普拉斯矩阵的特征向量。比如在实数域中，拉普拉斯算子表示为：<br><img src="/images/GCN18.png" alt="GCN18"><br>则拉普拉斯算子对应的特征方程为：<br><img src="/images/GCN19.png" alt="GCN19"><br>通过带入傅里叶变换的基<br><img src="/images/GCN20.png" alt="GCN20"><br>可以知道傅里叶变换的基其实就是拉普拉斯矩阵的特征向量，而且频率w和拉普拉斯矩阵的特征值密切相关。所以我们只需要求得graph上拉普拉斯算子对应的特征向量，就知道graph傅里叶变换对应的基，而且通过选择拉普拉斯矩阵的特征值，就是选择傅里叶变换对应的基。<br>对于graph上的拉普拉斯矩阵，我们可以对其进行特征分解，得到<br>$$L=U\Lambda U^T$$<br>其中，U为L特征向量构成的矩阵，而$\Lambda$为L特征值构成的对角矩阵。<br>我们可以对比传统傅里叶变换和graph傅里叶变换的区别<br><img src="/images/GCN21.png" alt="GCN21"><br>通过类比实数域上的傅里叶变换，我们只需要将频率w换成拉普拉斯矩阵的特征值$\lambda_l$，将傅里叶变换的基换成拉普拉斯矩阵对应的特征向量u，将其作用在图函数上，并将graph上所有顶点的结果累加起来就能得到graph上的傅里叶变换<br><img src="/images/GCN22.png" alt="GCN22"><br>其中，$f(i)$表示第i个节点对应的函数值，$u_{l}^{*}(i)$表示第i个节点在$\Lambda_l$对应的特征向量上的值。<br>将其写成矩阵形式<br><img src="/images/GCN23.png" alt="GCN23"><br>其中，x是graph上所有顶点对应的函数值的向量。<br>类似的graph傅里叶逆变换为<br><img src="/images/GCN24.png" alt="GCN24"></p>
+<h1 id="推导图卷积"><a href="#推导图卷积" class="headerlink" title="推导图卷积"></a>推导图卷积</h1><h2 id="第一代图卷积"><a href="#第一代图卷积" class="headerlink" title="第一代图卷积"></a>第一代图卷积</h2><p><a href="http://yann.lecun.com/exdb/publis/orig/bruna-iclr-14.pdf" target="_blank" rel="noopener">Spectral Networks and Locally Connected Networks on Graphs</a><br>接下来我们使用公式<br><img src="/images/GCN17.png" alt="GCN17"><br>和上面推导到的graph傅里叶变换和傅里叶逆变换，可以得到图的卷积公式<br><img src="/images/GCN25.png" alt="GCN25"><br>其中，g表示卷积核，而x为graph上各个顶点对应的函数值。<br>我们希望图卷积也具有邻域效应，值考虑邻接顶点的信息，所以可以把g定义为一个拉普拉斯矩阵的函数$g(L)$，因为在graph上作用一次拉普拉斯算子，相当于在graph上传播了一次邻接顶点。更进一步，我们可以将$U^{T}g$看成$g_{\theta}(\lambda)$，其中参数为$\lambda$。<br>所以可以得到第一代图卷积的形式了，将$g_{\theta}(\lambda)$表示成参数$\lambda$的对角矩阵，表示卷及操作的参数，就能得到以下形式<br><img src="/images/GCN26.png" alt="GCN26"><br>但是第一代图卷积还具有一些缺点：</p>
+<ol>
+<li>计算量比较大，每次卷积运算都需要对拉普拉斯矩阵进行特征分解，并且要进行大量的矩阵相乘复杂度为顶点数的三次方。</li>
+<li>没有空间邻域的特点，每次卷积都考虑所有节点。</li>
+<li>参数个数为O(N)。</li>
+</ol>
+<h2 id="第二代图卷积"><a href="#第二代图卷积" class="headerlink" title="第二代图卷积"></a>第二代图卷积</h2><p><a href="http://pdfs.semanticscholar.org/c29d/6dc86a4e28165601b2b37492ec551dd68fe0.pdf" target="_blank" rel="noopener">Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering</a><br>针对以上问题，第二代图卷积首先将$g_{\theta}(\lambda)$修改为以下形式<br><img src="/images/GCN27.png" alt="GCN27"><br>应用特征分解的性质<br><img src="/images/GCN28.png" alt="GCN28"><br>将其代入原来的公式中，可以得到以下形式<br><img src="/images/GCN29.png" alt="GCN29"><br>其中$L^k$表示拉普拉斯矩阵的k次方，物理意义就是在graph上进行k-hop的邻域，也就是说这里的感受野为K。我们可以实现计算好$L^k$，这样就减少了特征分解的步骤，并且引入了空间邻域的特点。</p>
+<p>而且更进一步，可以使用Chebyshev多项式将$L^k$进行展开。Chebyshev多项式展开公式为：<br><img src="/images/GCN30.png" alt="GCN30"><br>则代入Chebyshev多项式可得<br>$y==\sigma (\sum_k=0}^{K-1} \theta_k T_k (\TILDE{L}x))$<br>其中，<img src="/images/GCN31.png" alt="GCN31"> ，这是为了将L的特征值约束到[-1,1]，防止连乘的爆炸。</p>
+<h2 id="第三代图卷积"><a href="#第三代图卷积" class="headerlink" title="第三代图卷积"></a>第三代图卷积</h2><p><a href="https://classes.cs.uoregon.edu/17S/cis607bddl/papers/ICLR2017.pdf" target="_blank" rel="noopener">Semi-supervisedclassification with graph convolutional networks</a><br>第三代中，修改不是很多</p>
+<ol>
+<li>令K=1，使得每层卷积只考虑直接邻域</li>
+<li>增加深度，减小宽度<br>对于上述公式，令$\lambda_max = 2, K = 1$，可以得到<br><img src="/images/GCN32.png" alt="GCN32"><br>进一步化简，假设<img src="/images/GCN33.png" alt="GCN33"> ，则可以表示为<br><img src="/images/GCN34.png" alt="GCN34"><br>因为上述的特征值范围为[0,2]，会造成数值不稳定和梯度梯度消失或者爆炸，所以进一步约束为<br><img src="/images/GCN35.png" alt="GCN35"><br>此时可以得到最终的图卷积形式<br><img src="/images/GCN36.png" alt="GCN36"><br>再加上激活函数，可以得到最终的GCN公式<br><img src="/images/GCN37.png" alt="GCN37"></li>
+</ol>
+<p><strong>参考：</strong><br><a href="https://zhuanlan.zhihu.com/p/67336297" target="_blank" rel="noopener">【其实贼简单】拉普拉斯算子和拉普拉斯矩阵</a><br><a href="https://zhuanlan.zhihu.com/p/54505069" target="_blank" rel="noopener">图卷积网络(GCN)新手村完全指南</a><br><a href="https://zhuanlan.zhihu.com/p/43972372" target="_blank" rel="noopener">Graph Neural Network Review</a></p>
 
       
     </div>
@@ -761,7 +795,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">graph拉普拉斯算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始拉普拉斯算子"><span class="nav-number">2.1.</span> <span class="nav-text">原始拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图论中的函数"><span class="nav-number">2.2.</span> <span class="nav-text">图论中的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图函数的梯度"><span class="nav-number">2.3.</span> <span class="nav-text">图函数的梯度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉普拉斯算子与拉普拉斯矩阵"><span class="nav-number">2.4.</span> <span class="nav-text">拉普拉斯算子与拉普拉斯矩阵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph傅里叶变换"><span class="nav-number">3.</span> <span class="nav-text">graph傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实数域上的傅里叶变换和卷积"><span class="nav-number">3.1.</span> <span class="nav-text">实数域上的傅里叶变换和卷积</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">graph拉普拉斯算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始拉普拉斯算子"><span class="nav-number">2.1.</span> <span class="nav-text">原始拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图论中的函数"><span class="nav-number">2.2.</span> <span class="nav-text">图论中的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图函数的梯度"><span class="nav-number">2.3.</span> <span class="nav-text">图函数的梯度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉普拉斯算子与拉普拉斯矩阵"><span class="nav-number">2.4.</span> <span class="nav-text">拉普拉斯算子与拉普拉斯矩阵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph傅里叶变换"><span class="nav-number">3.</span> <span class="nav-text">graph傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实数域上的傅里叶变换和卷积"><span class="nav-number">3.1.</span> <span class="nav-text">实数域上的傅里叶变换和卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graph上傅里叶变换和傅里叶反变换"><span class="nav-number">3.2.</span> <span class="nav-text">graph上傅里叶变换和傅里叶反变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推导图卷积"><span class="nav-number">4.</span> <span class="nav-text">推导图卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一代图卷积"><span class="nav-number">4.1.</span> <span class="nav-text">第一代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二代图卷积"><span class="nav-number">4.2.</span> <span class="nav-text">第二代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三代图卷积"><span class="nav-number">4.3.</span> <span class="nav-text">第三代图卷积</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -794,7 +828,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">73k</span>
   
 
   
@@ -803,7 +837,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:05</span>
+    <span title="站点阅读时长">1:06</span>
   
 </div>
 
