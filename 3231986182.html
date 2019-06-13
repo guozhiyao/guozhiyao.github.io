@@ -141,7 +141,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN35.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN36.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN37.png">
-<meta property="og:updated_time" content="2019-06-13T12:48:44.761Z">
+<meta property="og:updated_time" content="2019-06-13T12:53:55.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCN">
 <meta name="twitter:description" content="简单介绍GCN的推导，涉及graph拉普拉斯算子推导、graph傅里叶变换推导。">
@@ -411,7 +411,7 @@
                 
               
 
-              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：12:48:44" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
+              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：12:53:55" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
             
 
             
@@ -522,7 +522,7 @@
       
         <p>简单介绍GCN的推导，涉及graph拉普拉斯算子推导、graph傅里叶变换推导。<br><a id="more"></a></p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在CNN网络中，能够使用卷积操作有效地提取出视觉信息，但是普通的卷积操作只能用在网格类的数据上，像graph这种类型的数据就无法使用，而GCN就是将卷积操作扩展到graph类型的数据上，能够有效地在节点上进行卷积操作，提取出领域信息。<br>本文组织的思路为：因为卷积操作可以写成傅里叶变换的形式，所以我们可以通过推导graph上的傅里叶变换来得到graph上的卷积操作，并且由于傅里叶变换中的基为拉普拉斯矩阵的特征向量，所以我们还需要介绍graph上拉普拉斯矩阵的推导。<br>所以先推导graph上拉普拉斯变换，然后推导graph上的傅里叶变换，然后再介绍graph上的卷积操作。</p>
-<h1 id="graph拉普拉斯算子"><a href="#graph拉普拉斯算子" class="headerlink" title="graph拉普拉斯算子"></a>graph拉普拉斯算子</h1><h2 id="原始拉普拉斯算子"><a href="#原始拉普拉斯算子" class="headerlink" title="原始拉普拉斯算子"></a>原始拉普拉斯算子</h2><p>根据定义，函数f的拉普拉斯算子为$\bigtriangledown^2 f$，也就是被定义为函数f的梯度的散度，这又是什么意思呢？<br>我们知道函数f的梯度表示函数f在各个方向上的一阶导数，也就是在各个方向上的变化程度。而散度是用来衡量一个点处的向量场是被发射还是吸收，对于散度为正的点，散度越大，意味着相应的向量场越强烈第在此处发散，而对于散度为负的点，意味着向量场在此处汇聚。而这里求梯度的散度，就是看梯度的汇聚程度，如果拉普拉斯算子在某处为负，表示梯度在此处倾向于增加，而拉普拉斯在某处为正，表示梯度在此处倾向于减少。所以对于一个函数，拉普拉斯算子实际上衡量了空间中的每一个点，该函数梯度是倾向于增加还是减少。<br>所以拉普拉斯算子其实是笛卡尔坐标系$x_i$中的所有非混合二阶偏导数之和，表示改点梯度总的变化。对于n维笛卡尔坐标系，其表达式为：<br>$\Delta=\sum_{i=1}^n \frac{\partial^2}{\partial x_{i}^2}$</p>
+<h1 id="graph拉普拉斯算子"><a href="#graph拉普拉斯算子" class="headerlink" title="graph拉普拉斯算子"></a>graph拉普拉斯算子</h1><h2 id="原始拉普拉斯算子"><a href="#原始拉普拉斯算子" class="headerlink" title="原始拉普拉斯算子"></a>原始拉普拉斯算子</h2><p>根据定义，函数f的拉普拉斯算子为$\bigtriangledown^2 f$，也就是被定义为函数f的梯度的散度，这又是什么意思呢？<br>我们知道函数f的梯度表示函数f在各个方向上的一阶导数，也就是在各个方向上的变化程度。而散度是用来衡量一个点处的向量场是被发射还是吸收，对于散度为正的点，散度越大，意味着相应的向量场越强烈第在此处发散，而对于散度为负的点，意味着向量场在此处汇聚，或者散度可以认为是某个区域内流通量的总和。而这里求梯度的散度，就是看梯度的汇聚程度，如果拉普拉斯算子在某处为负，表示梯度在此处倾向于增加，而拉普拉斯在某处为正，表示梯度在此处倾向于减少。所以对于一个函数，拉普拉斯算子实际上衡量了空间中的每一个点，该函数梯度是倾向于增加还是减少。<br>所以拉普拉斯算子其实是笛卡尔坐标系$x_i$中的所有非混合二阶偏导数之和，表示改点梯度总的变化。对于n维笛卡尔坐标系，其表达式为：<br>$\Delta=\sum_{i=1}^n \frac{\partial^2}{\partial x_{i}^2}$</p>
 <p>所以要推导graph中的拉普拉斯算子，还需要先定义图论中的函数，图函数的梯度，然后最终得到graph中的拉普拉斯算子。</p>
 <h2 id="图论中的函数"><a href="#图论中的函数" class="headerlink" title="图论中的函数"></a>图论中的函数</h2><p>对于实数域上的函数$y=f(x)$，可以看成是对x的映射，将每个x映射到对应的y上。<br>相应的，我们可以定义一个图函数$F_G :V-&gt;R$，使得图上的每个节点%v \in V%都能映射到一个实数R上。这里就将图中的顶点看成是x。<br>比如对于一个社交网络图谱<br><img src="/images/GCN1.png" alt="GCN1"><br>图中的边的权重表示两个人之之间信息的流通程度，我们可以定义一个图函数$F_G$来表示每个人的活跃程度，比如<br><img src="/images/GCN2.png" alt="GCN2"><br>所以就得到了以下的社交网络图谱<br><img src="/images/GCN3.png" alt="GCN3"></p>
 <h2 id="图函数的梯度"><a href="#图函数的梯度" class="headerlink" title="图函数的梯度"></a>图函数的梯度</h2><p>梯度的意义在于，衡量函数在每一个点上，在每个正交方向上的变化。在二维平面上，就是求函数f在x轴方向和y轴方向上的变化。<br>同理可的，在图论中，我们认为一个接地点沿着每一条边通向它们的邻接节点，并且两条边直接没有关系，所以对于每个节点，它的每一条边都是正交的，也就对应于实数域上的轴。<br>而在图论中的，在各个轴上的变化量可以表示成<br>$$(F_G(v0)-F_G(v0))*e_{01}$$<br>就是邻接两个顶点的函数变化量，再通过边的权重进行平衡，如果边的权重越大，表示两个邻接顶点的流通程度越大，就使得其梯度越大。</p>
@@ -1077,6 +1077,13 @@
   
 
   
+  
+
+  
+  
+
+  
+
 
   
 
