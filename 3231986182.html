@@ -142,7 +142,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN35.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN36.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN37.png">
-<meta property="og:updated_time" content="2019-06-13T13:33:21.718Z">
+<meta property="og:updated_time" content="2019-06-13T14:03:34.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCN">
 <meta name="twitter:description" content="简单介绍GCN的推导，涉及graph拉普拉斯算子推导、graph傅里叶变换推导。">
@@ -412,7 +412,7 @@
                 
               
 
-              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：13:33:21" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
+              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：14:03:34" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
             
 
             
@@ -532,7 +532,7 @@
 <h1 id="graph傅里叶变换"><a href="#graph傅里叶变换" class="headerlink" title="graph傅里叶变换"></a>graph傅里叶变换</h1><p>以上介绍了图论中的拉普拉斯算子，这个在后面推导图论中的傅里叶变换有用，接下来先介绍实数域上的傅里叶变换和卷及操作的关系，然后推导graph上的傅里叶变换。</p>
 <h2 id="实数域上的傅里叶变换和卷积"><a href="#实数域上的傅里叶变换和卷积" class="headerlink" title="实数域上的傅里叶变换和卷积"></a>实数域上的傅里叶变换和卷积</h2><p>我们知道卷及操作的数学定义为<br><img src="/images/GCN12.png" alt="GCN12"><br>这里f为输入，而g为卷积核，相当于是将g关于t翻转后，在f上进行平移，将覆盖到的区域相乘并累加作为t处的值。其实和我们在CNN中使用的卷积操作有一些区别，多了将卷积核进行翻转的操作。</p>
 <p>傅里叶变换为<br><img src="/images/GCN13.png" alt="GCN13"><br>逆傅里叶变换为<br><img src="/images/GCN14.png" alt="GCN14"><br>接下来证明卷积和傅里叶变换之间的关系<br>我们有输入f和卷积核g，对应 的输出h为<br><img src="/images/GCN15.png" alt="GCN15"><br>然后对该卷积操作进行傅里叶变换<br><img src="/images/GCN16.png" alt="GCN16"><br>最后在两侧同时作用傅里叶逆变换，就能得到卷积和傅里叶变换之间的关系<br><img src="/images/GCN17.png" alt="GCN17"><br>由此可以看出，卷积操作可以通过傅里叶变换和傅里叶逆变换推导过来，所以我们只要求得graph上的傅里叶变换和傅里叶反变换的形式，通过以上公式就能得到GCN的形式。</p>
-<h2 id="graph上傅里叶变换和傅里叶反变换"><a href="#graph上傅里叶变换和傅里叶反变换" class="headerlink" title="graph上傅里叶变换和傅里叶反变换"></a>graph上傅里叶变换和傅里叶反变换</h2><p>首先，我们需要知道，傅里叶变换的基其实就是拉普拉斯矩阵的特征向量。比如在实数域中，拉普拉斯算子表示为：<br><img src="/images/GCN18.png" alt="GCN18"><br>则拉普拉斯算子对应的特征方程为：<br><img src="/images/GCN19.png" alt="GCN19"><br>通过带入傅里叶变换的基<br><img src="/images/GCN20.png" alt="GCN20"><br>可以知道傅里叶变换的基其实就是拉普拉斯矩阵的特征向量，而且频率w和拉普拉斯矩阵的特征值密切相关。所以我们只需要求得graph上拉普拉斯算子对应的特征向量，就知道graph傅里叶变换对应的基，而且通过选择拉普拉斯矩阵的特征值，就是选择傅里叶变换对应的基。<br>对于graph上的拉普拉斯矩阵，我们可以对其进行特征分解，得到<br>$$L=U\Lambda U^T$$<br>其中，U为L特征向量构成的矩阵，而$\Lambda$为L特征值构成的对角矩阵。<br>我们可以对比传统傅里叶变换和graph傅里叶变换的区别<br><img src="/images/GCN21.png" alt="GCN21"><br>通过类比实数域上的傅里叶变换，我们只需要将频率w换成拉普拉斯矩阵的特征值$\lambda_l$，将傅里叶变换的基换成拉普拉斯矩阵对应的特征向量u，将其作用在图函数上，并将graph上所有顶点的结果累加起来就能得到graph上的傅里叶变换<br><img src="/images/GCN22.png" alt="GCN22"><br>其中，$f(i)$表示第i个节点对应的函数值，$u_{l}^{*}(i)$表示第i个节点在$\Lambda_l$对应的特征向量上的值。<br>将其写成矩阵形式<br><img src="/images/GCN23.png" alt="GCN23"><br>其中，x是graph上所有顶点对应的函数值的向量。<br>类似的graph傅里叶逆变换为<br><img src="/images/GCN24.png" alt="GCN24"></p>
+<h2 id="graph上傅里叶变换和傅里叶反变换"><a href="#graph上傅里叶变换和傅里叶反变换" class="headerlink" title="graph上傅里叶变换和傅里叶反变换"></a>graph上傅里叶变换和傅里叶反变换</h2><p>首先，我们需要知道，傅里叶变换的基其实就是拉普拉斯矩阵的特征向量。比如在实数域中，拉普拉斯算子表示为：<br><img src="/images/GCN18.png" alt="GCN18"><br>则拉普拉斯算子对应的特征方程为：<br><img src="/images/GCN19.png" alt="GCN19"><br>通过带入傅里叶变换的基<br><img src="/images/GCN20.png" alt="GCN20"><br>可以知道傅里叶变换的基其实就是拉普拉斯矩阵的特征向量，而且频率w和拉普拉斯矩阵的特征值密切相关。所以我们只需要求得graph上拉普拉斯算子对应的特征向量，就知道graph傅里叶变换对应的基，而且通过选择拉普拉斯矩阵的特征值，就是选择傅里叶变换对应的基。<br>对于graph上的拉普拉斯矩阵，我们可以对其进行特征分解，得到<br>$$L=U\Lambda U^T$$<br>其中，U为L特征向量构成的矩阵，而$\Lambda$为L特征值构成的对角矩阵。<br>我们可以对比传统傅里叶变换和graph傅里叶变换的区别<br><img src="/images/GCN21.png" alt="GCN21"><br>通过类比实数域上的傅里叶变换，我们只需要将频率w换成拉普拉斯矩阵的特征值$\lambda_l$，将傅里叶变换的基换成拉普拉斯矩阵对应的特征向量u，将其作用在图函数上，并将graph上所有顶点的结果累加起来就能得到graph上的傅里叶变换<br><img src="/images/GCN22.png" alt="GCN22"><br>其中，$f(i)$表示第i个节点对应的函数值，$u_{l}^{*}(i)$表示第i个节点在$u_l$对应的特征向量上的值。<br>将其写成矩阵形式<br><img src="/images/GCN23.png" alt="GCN23"><br>其中，x是graph上所有顶点对应的函数值的向量。<br>类似的graph傅里叶逆变换为<br><img src="/images/GCN24.png" alt="GCN24"></p>
 <h1 id="推导图卷积"><a href="#推导图卷积" class="headerlink" title="推导图卷积"></a>推导图卷积</h1><h2 id="第一代图卷积"><a href="#第一代图卷积" class="headerlink" title="第一代图卷积"></a>第一代图卷积</h2><p><a href="http://yann.lecun.com/exdb/publis/orig/bruna-iclr-14.pdf" target="_blank" rel="noopener">Spectral Networks and Locally Connected Networks on Graphs</a><br>接下来我们使用公式<br><img src="/images/GCN17.png" alt="GCN17"><br>和上面推导到的graph傅里叶变换和傅里叶逆变换，可以得到图的卷积公式<br><img src="/images/GCN25.png" alt="GCN25"><br>其中，g表示卷积核，而x为graph上各个顶点对应的函数值。<br>我们希望图卷积也具有邻域效应，值考虑邻接顶点的信息，所以可以把g定义为一个拉普拉斯矩阵的函数$g(L)$，因为在graph上作用一次拉普拉斯算子，相当于在graph上传播了一次邻接顶点。更进一步，我们可以将$U^{T}g$看成$g_{\theta}(\lambda)$，其中参数为$\lambda$。<br>所以可以得到第一代图卷积的形式了，将$g_{\theta}(\lambda)$表示成参数$\lambda$的对角矩阵，表示卷及操作的参数，就能得到以下形式<br><img src="/images/GCN26.png" alt="GCN26"><br>但是第一代图卷积还具有一些缺点：</p>
 <ol>
 <li>计算量比较大，每次卷积运算都需要对拉普拉斯矩阵进行特征分解，并且要进行大量的矩阵相乘复杂度为顶点数的三次方。</li>
@@ -586,6 +586,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/1212924403.html" rel="prev" title="Graph Neural Networks_A Review of Methods and Applications">
+                Graph Neural Networks_A Review of Methods and Applications <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -658,7 +662,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -829,7 +833,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">73k</span>
+    <span title="站点总字数">81k</span>
   
 
   
@@ -838,7 +842,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">1:14</span>
   
 </div>
 
