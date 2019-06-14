@@ -152,7 +152,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev46.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev47.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev48.png">
-<meta property="og:updated_time" content="2019-06-14T07:49:18.941Z">
+<meta property="og:updated_time" content="2019-06-14T08:23:00.983Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graph Neural Networks_A Review of Methods and Applications">
 <meta name="twitter:description" content="graph综述论文">
@@ -422,7 +422,7 @@
                 
               
 
-              <time title="创建时间：2019-06-14 09:51:54 / 修改时间：07:49:18" itemprop="dateCreated datePublished" datetime="2019-06-14T09:51:54Z">2019-06-14</time>
+              <time title="创建时间：2019-06-14 09:51:54 / 修改时间：08:23:00" itemprop="dateCreated datePublished" datetime="2019-06-14T09:51:54Z">2019-06-14</time>
             
 
             
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.2k</span>
+                <span title="本文字数">11k</span>
               
 
               
@@ -511,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -538,9 +538,9 @@
 <li>第二个动机来自于graph embedding，它想要学习graph节点、边或者子图的低维表示。根据representation learning和word embedding，DeepWalk、node2vec、LINE、TADW都被提出来了，但是这些方法有两个问题：a. 节点之间没有进行全治共享，就会带来计算和效率问题，参数数目随着节点数目增加而线性增长；b. 直接嵌入方法缺少泛化能力，无法处理动态graph或者泛化到新的graph。<br>所以基于CNN和graph embedding， GNN被提出来聚合graph结构的信息，并且，GNN同时可以使用RNN核来对graph上的扩散进行建模。<h2 id="GNN其他值得被他探索的原因"><a href="#GNN其他值得被他探索的原因" class="headerlink" title="GNN其他值得被他探索的原因"></a>GNN其他值得被他探索的原因</h2></li>
 <li>CNN和RNN无法处理graph输入，他们会按照特定顺序堆叠graph顶点，然而graph没有特定的节点顺序，所以为了完整地表示graph，就要探索所有可能的顺序，就会造成冗余的计算。<br>解决：GNN就在每个节点上独立地传播，就忽略了顶点输入的顺序。也就是让GNN的输出对任意的输入顺序是不变的。</li>
 <li>graph中的边表示顶点之间的依赖关系，然而标准网络将依赖信息看成顶点的特征。<br>解决：GNN可以通过网络结构来指导传播，而不是将其当做特征的一部分。也就是说，GNN使用节点的邻接节点特征的加权和来更新顶点特征。也就是用边来指导信息传播。</li>
-<li>传统的方法能够通过学习数据分布来生成图像和文本，但是还没办法学习推理graph结构，然后GNN能够隵从非结构化数据生成graph结构。<h2 id="现有的graph综述"><a href="#现有的graph综述" class="headerlink" title="现有的graph综述"></a>现有的graph综述</h2>[1]给出了较早的GNN方法的形式化定义<br>[2]演示了图神经网络的近似性质和计算能力<br>[3]提出了一个统一的框架，MoNet，将CNN架构推广到非欧几里得域（图和流形）<br>[4]提供了几何深度学习的全面回顾，提出了它的问题，困难，解决方案，应用和未来方向<br>[5]提出了消息传递神经网络（MPNN），它可以推广几种图形神经网络和图形卷积网络方法。它介绍了通过神经网络的消息的定义，并展示了它在量子化学中的应用。<br>[6]提出了非局部神经网络（NLNN），它统一了几种“自我关注”式的方法。但是，该模型未在原始论文的图表中明确定义。<br>[5]和[6]只给出了如何使用他们的框架推广其他模型的例子，他们没有提供对其他图神经网络模型的评论。<br>[7]提出了图形网络（GN）框架。该框架具有很强的推广其他模型的能力，其关系归纳偏差促进了组合泛化，这被认为是AI的首要任务。然而，[27]是部分立场文件，部分审查和部分统一，它只给出了应用程序的粗略分类。<br><a href="F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini, “The graph neural network model,” IEEE TNN 2009">1</a><br><a href="“Computational capabilities of graph neural networks,” IEEE TNN 2009">2</a><br><a href="F. Monti, D. Boscaini, J. Masci, E. Rodola, J. Svoboda, and M. M.
-Bronstein, “Geometric deep learning on graphs and manifolds using mixture model cnns,” CVPR 2017">3</a><br><a href="M. M. Bronstein, J. Bruna, Y. LeCun, A. Szlam, and P. Vandergheynst, “Geometric deep learning: going beyond euclidean data,” IEEE SPM 2017">4</a><br><a href="J. Gilmer, S. S. Schoenholz, P. F. Riley, O. Vinyals, and G. E. Dahl, “Neural message passing for quantum chemistry,”">5</a><br><a href="X. Wang, R. Girshick, A. Gupta, and K. He, “Non-local neural networks,”">6</a><br><a href="P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti, D. Raposo, A. Santoro, R. Faulkner et al., “Relational inductive biases, deep learning, and graph networks,”">7</a></li>
+<li>传统的方法能够通过学习数据分布来生成图像和文本，但是还没办法学习推理graph结构，然后GNN能够隵从非结构化数据生成graph结构。<h2 id="现有的graph综述"><a href="#现有的graph综述" class="headerlink" title="现有的graph综述"></a>现有的graph综述</h2>[1]给出了较早的GNN方法的形式化定义<br>[2]演示了图神经网络的近似性质和计算能力<br>[3]提出了一个统一的框架，MoNet，将CNN架构推广到非欧几里得域（图和流形）<br>[4]提供了几何深度学习的全面回顾，提出了它的问题，困难，解决方案，应用和未来方向<br>[5]提出了消息传递神经网络（MPNN），它可以推广几种图形神经网络和图形卷积网络方法。它介绍了通过神经网络的消息的定义，并展示了它在量子化学中的应用。<br>[6]提出了非局部神经网络（NLNN），它统一了几种“自我关注”式的方法。但是，该模型未在原始论文的图表中明确定义。<br>[5]和[6]只给出了如何使用他们的框架推广其他模型的例子，他们没有提供对其他图神经网络模型的评论。<br>[7]提出了图形网络（GN）框架。该框架具有很强的推广其他模型的能力，其关系归纳偏差促进了组合泛化，这被认为是AI的首要任务。然而，[27]是部分立场文件，部分审查和部分统一，它只给出了应用程序的粗略分类。</li>
 </ol>
+<p>1：F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini, “The graph neural network model,” IEEE TNN 2009<br>2：“Computational capabilities of graph neural networks,” IEEE TNN 2009<br>3：F. Monti, D. Boscaini, J. Masci, E. Rodola, J. Svoboda, and M. M. Bronstein, “Geometric deep learning on graphs and manifolds using mixture model cnns,” CVPR 2017<br>4：M. M. Bronstein, J. Bruna, Y. LeCun, A. Szlam, and P. Vandergheynst, “Geometric deep learning: going beyond euclidean data,” IEEE SPM 2017<br>5：J. Gilmer, S. S. Schoenholz, P. F. Riley, O. Vinyals, and G. E. Dahl, “Neural message passing for quantum chemistry,”<br>6：X. Wang, R. Girshick, A. Gupta, and K. He, “Non-local neural networks,”<br>7：P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti, D. Raposo, A. Santoro, R. Faulkner et al., “Relational inductive biases, deep learning, and graph networks,”</p>
 <h1 id="2-模型"><a href="#2-模型" class="headerlink" title="2.模型"></a>2.模型</h1><p>2.1中介绍原始的GNN，然后说明其局限；2.2介绍几种解决这个局限的变体；2.3介绍三种框架MPNN、NLNN和GN。</p>
 <h2 id="2-1-graph-neural-networks"><a href="#2-1-graph-neural-networks" class="headerlink" title="2.1 graph neural networks"></a>2.1 graph neural networks</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在一个graph中，论文中说方法可以扩展到有向、无向、有环、无环的graph。每个顶点是由其特征和相邻节点来定义的。GNN的目标是为每个节点学习一个state embedding $h_v$来包含其邻接顶点的信息。对于每个节点v，会含有一个state emebdding $h_v$，表示其特征，还有一个输出$o_v$来表示其标签。定义两个函数，f为<code>local transition function</code>，在所有节点上共享参数，并且根据输入邻接顶点来更新节点的state embedding。g为<code>local output function</code>用来描述图和产生输出。所以$h_v$和$o_v$如下产生<br><img src="/images/rev1.png" alt="rev1"><br>将所有顶点的特征和state embedding都堆叠起来，可以得到以下形式<br><img src="/images/rev2.png" alt="rev2"><br>其中，F是<code>global transition function</code>，G是<code>gloabl output function</code>，是所有节点的f和g的堆叠。<br>GNN一个主要的想法：对于公式3，它认为H的值是函数F的不动点。<br>由此，它用到了<code>Banach&#39;s fixed point theorem</code>，里面提出了一个该函数有唯一解的充分条件，即F是contraction map。并且提出了求解函数F解的方法，通过不断迭代<br><img src="/images/rev3.png" alt="rev3"><br>这样对于任意初始化，就能以指数的速度收敛到公式3的解。<br>然后这里通过监督学习的方法来学到f和g的参数<br><img src="/images/rev4.png" alt="rev4"><br>其中，t为标签，p为顶点数目。使用梯度下降算法进行学习。</p>
 <p><strong>注意：</strong>通常将公式3的过程称为<code>propagation</code>，也就是传播过程。</p>
@@ -589,30 +589,7 @@ Bronstein, “Geometric deep learning on graphs and manifolds using mixture mode
 <li><strong>计算步骤</strong><br>①计算每条边e的更新值<br><img src="/images/rev39.png" alt="rev39"><br>②将所有射入顶点i的边集合起来<br><img src="/images/rev40.png" alt="rev40"><br>③对顶点i的入射边的特征做聚合，相当于表示顶点i接收到的边的信息<br><img src="/images/rev41.png" alt="rev41"><br>④通过接收到的边信息和原始的顶点特征对顶点i进行更新<br><img src="/images/rev42.png" alt="rev42"><br>⑤将更新后的所有顶点汇集起来<br><img src="/images/rev43.png" alt="rev43"><br>⑥得到系统中所有顶点的信息<br><img src="/images/rev44.png" alt="rev44"><br>⑦将更新后的所有边汇集起来<br><img src="/images/rev45.png" alt="rev45"><br>⑧得到系统中所有边的信息<br><img src="/images/rev46.png" alt="rev46"><br>⑨通过系统的整体信息对全局特征进行更新<br><img src="/images/rev47.png" alt="rev47"><br>这些计算顺序不是强制的，可以任意调整。</li>
 <li><strong>设计原则</strong><br>设计GN包含三条原则：灵活的表示，可配置的块内结构和可组合的多块体系结构。<br><strong>灵活的表示</strong>：全局、顶点和边属性可以使用任意的表示，可以有edge-focused、nodek-focused和graph-focused的GN。<br><strong>可配置的块内结构</strong>：GN块中的函数及其输入可以具有不同的设置，以便GN框架提供块内结构配置的灵活性。<br><strong>可组合的多块体系结构</strong>：可以组成GN块来构建复杂的体系结构。 任意数量的GN块可以按共享或非共享参数顺序组成。 [27]利用GN块来构建编码处理 - 解码架构和基于GN的循环架构。 这些体系结构如图3所示。构建基于GN架构的其他技术也很有用，例如跳跃，LSTM或GRU样式的门控方案等。<br><img src="/images/rev48.png" alt="rev48"></li>
 </ol>
-<p><a href="M. Kampffmeyer, Y. Chen, X. Liang, H. Wang, Y. Zhang, and E. P.
-Xing, “Rethinking knowledge graph propagation for zero-shot
-learning,” arXiv preprint arXiv:1805.11724, 2018">ADGPM</a><br><a href="Y. Zhang, Y. Xiong, X. Kong, S. Li, J. Mi, and Y. Zhu, “Deep
-collective classification in heterogeneous information networks,”
-in WWW 2018, 2018, pp. 399–408.">GraphInception</a><br><a href="D. Beck, G. Haffari, and T. Cohn, “Graph-to-sequence learning
-using gated graph neural networks,” in ACL 2018, 2018, pp. 273–
-283.">G2S</a><br><a href="M. Schlichtkrull, T. N. Kipf, P. Bloem, R. van den Berg, I. Titov,
-and M. Welling, “Modeling relational data with graph convolutional networks,” in ESWC 2018. Springer, 2018, pp. 593–607.">r-GCN</a><br><a href="D. K. Duvenaud, D. Maclaurin, J. Aguileraiparraguirre,
-R. Gomezbombarelli, T. D. Hirzel, A. Aspuruguzik, and R. P.
-Adams, “Convolutional networks on graphs for learning molecular fingerprints,” NIPS 2015, pp. 2224–2232, 2015.">1</a><br><a href="J. Atwood and D. Towsley, “Diffusion-convolutional neural networks,” in NIPS 2016, 2016, pp. 1993–2001.">DCNN</a><br><a href="M. Niepert, M. Ahmed, and K. Kutzkov, “Learning convolutional
-neural networks for graphs,” in ICML 2016, 2016, pp. 2014–2023.">CNN4G</a><br><a href="J. Chang, J. Gu, L. Wang, G. Meng, S. Xiang, and C. Pan,
-“Structure-aware convolutional neural networks,” in NeurIPS
-2018, 2018, pp. 11–20.">SACNN</a><br><a href="Y. Li, D. Tarlow, M. Brockschmidt, and R. S. Zemel, “Gated graph
-sequence neural networks,” arXiv: Learning, 2016.">GGNN</a><br><a href="K. S. Tai, R. Socher, and C. D. Manning, “Improved semantic
-representations from tree-structured long short-term memory
-networks,” IJCNLP 2015, pp. 1556–1566, 2015.">2</a><br><a href="N. Peng, H. Poon, C. Quirk, K. Toutanova, and W.-t. Yih,
-“Cross-sentence n-ary relation extraction with graph lstms,”
-arXiv preprint arXiv:1708.03743, 2017.">Graph LSTM</a><br><a href="V. Zayats and M. Ostendorf, “Conversation modeling on reddit
-using a graph-structured lstm,” TACL 2018, vol. 6, pp. 121–132,
-2018.">graph-structured LSTM</a><br><a href="X. Liang, X. Shen, J. Feng, L. Lin, and S. Yan, “Semantic object
-parsing with graph lstm,” ECCV 2016, pp. 125–143, 2016">3</a><br><a href="P. Velickovic, G. Cucurull, A. Casanova, A. Romero, P. Lio, and
-Y. Bengio, “Graph attention networks,” ICLR 2018, 2018.">GAT</a><br><a href="J. Chen, T. Ma, and C. Xiao, “Fastgcn: fast learning with graph
-convolutional networks via importance sampling,” arXiv preprint
-arXiv:1801.10247, 2018.">FastGCN</a></p>
+<p>ADGPM：M. Kampffmeyer, Y. Chen, X. Liang, H. Wang, Y. Zhang, and E. P. Xing, “Rethinking knowledge graph propagation for zero-shot learning,” arXiv preprint arXiv:1805.11724, 2018<br>GraphInception：Y. Zhang, Y. Xiong, X. Kong, S. Li, J. Mi, and Y. Zhu, “Deep collective classification in heterogeneous information networks,” in WWW 2018, 2018, pp. 399–408.)<br>G2S：D. Beck, G. Haffari, and T. Cohn, “Graph-to-sequence learning using gated graph neural networks,” in ACL 2018, 2018, pp. 273– 283.<br>r-GCN：M. Schlichtkrull, T. N. Kipf, P. Bloem, R. van den Berg, I. Titov, and M. Welling, “Modeling relational data with graph convolutional networks,” in ESWC 2018. Springer, 2018, pp. 593–607.<br>1：D. K. Duvenaud, D. Maclaurin, J. Aguileraiparraguirre, R. Gomezbombarelli, T. D. Hirzel, A. Aspuruguzik, and R. P. Adams, “Convolutional networks on graphs for learning molecular fingerprints,” NIPS 2015, pp. 2224–2232, 2015.<br>DCNN：J. Atwood and D. Towsley, “Diffusion-convolutional neural networks,” in NIPS 2016, 2016, pp. 1993–2001.<br>CNN4G：M. Niepert, M. Ahmed, and K. Kutzkov, “Learning convolutional neural networks for graphs,” in ICML 2016, 2016, pp. 2014–2023.<br>SACNN：J. Chang, J. Gu, L. Wang, G. Meng, S. Xiang, and C. Pan, “Structure-aware convolutional neural networks,” in NeurIPS 2018, 2018, pp. 11–20.<br>GGNN：Y. Li, D. Tarlow, M. Brockschmidt, and R. S. Zemel, “Gated graph sequence neural networks,” arXiv: Learning, 2016.<br>2：K. S. Tai, R. Socher, and C. D. Manning, “Improved semantic representations from tree-structured long short-term memory networks,” IJCNLP 2015, pp. 1556–1566, 2015.<br>Graph LSTM：N. Peng, H. Poon, C. Quirk, K. Toutanova, and W.-t. Yih, “Cross-sentence n-ary relation extraction with graph lstms,” arXiv preprint arXiv:1708.03743, 2017.<br>graph-structured LSTM：V. Zayats and M. Ostendorf, “Conversation modeling on reddit using a graph-structured lstm,” TACL 2018, vol. 6, pp. 121–132, 2018.<br>3：X. Liang, X. Shen, J. Feng, L. Lin, and S. Yan, “Semantic object parsing with graph lstm,” ECCV 2016, pp. 125–143, 2016<br>GAT：P. Velickovic, G. Cucurull, A. Casanova, A. Romero, P. Lio, and Y. Bengio, “Graph attention networks,” ICLR 2018, 2018.<br>FastGCN：J. Chen, T. Ma, and C. Xiao, “Fastgcn: fast learning with graph convolutional networks via importance sampling,” arXiv preprint arXiv:1801.10247, 2018.</p>
 
       
     </div>
@@ -895,7 +872,7 @@ arXiv:1801.10247, 2018.">FastGCN</a></p>
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">81k</span>
+    <span title="站点总字数">84k</span>
   
 
   
@@ -904,7 +881,7 @@ arXiv:1801.10247, 2018.">FastGCN</a></p>
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:14</span>
+    <span title="站点阅读时长">1:17</span>
   
 </div>
 
