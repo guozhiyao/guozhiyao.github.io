@@ -111,13 +111,13 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge6.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge7.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge8.png">
-<meta property="og:image" content="https://guozhiyao.github.io/images/ge9.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge9.jpg">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge10.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge11.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge12.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge13.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge14.png">
-<meta property="og:updated_time" content="2019-06-15T03:11:43.632Z">
+<meta property="og:updated_time" content="2019-06-15T03:20:39.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="graph_embedding对比">
 <meta name="twitter:description" content="主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。">
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-06-15 08:43:46 / 修改时间：03:11:43" itemprop="dateCreated datePublished" datetime="2019-06-15T08:43:46Z">2019-06-15</time>
+              <time title="创建时间：2019-06-15 08:43:46 / 修改时间：03:20:39" itemprop="dateCreated datePublished" datetime="2019-06-15T08:43:46Z">2019-06-15</time>
             
 
             
@@ -502,22 +502,36 @@
 <h1 id="模型介绍"><a href="#模型介绍" class="headerlink" title="模型介绍"></a>模型介绍</h1><h2 id="DeepWalk"><a href="#DeepWalk" class="headerlink" title="DeepWalk"></a>DeepWalk</h2><p>DeepWalk应该是第一篇使用深度学习方法来解决GE问题的论文，它主要借鉴了word2vec的思想。<br>word2vec是一种常用的word embedding方法，word2vec通过语料库中的句子序列来描述词与词的共现关系，进而学习到词语的向量表示。主要包含了两种方法：SkipGram模型和CBOW模型，两者的区别在于，SkipGram使用中间单词来预测其上下文，而CBOW使用上下文来预测中间的单词。<br><img src="/images/ge1.png" alt="ge1"><br>DeepWalk就借鉴了SkipGram的思路，先使用<strong>随机游走</strong>的方式在图中对节点进行采样，得到一些固定长度的节点轨迹序列作为“句子”，将整个采样结果作为“语料库”，使用SkipGram进行序列，由此来学习节点之间的共现关系。<br><strong>随机游走</strong>是一种可访问重复节点的DFS，给定当前访问的起始节点后，如果graph是带权图，那邻接顶点的访问概率就是边权重的归一化概率，如果是无权图，就随机访问邻接顶点。将随机采样到的邻接顶点作为下一个节点，重复此过程，直到访问序列长度到达指定长度。<br>DeepWalk主要包含两个步骤：①对节点进行打乱，从网络中的每个节点开始分别进行随机游走采样，得到局部相关联的训练数据；②使用Word2vec进行学习，将离散的网络节点表示成向量化，最大化节点共现，使用Hierarchical Softmax来做超大规模分类的分类器。</p>
 <h2 id="LINE"><a href="#LINE" class="headerlink" title="LINE"></a>LINE</h2><p>LINE是基于BFS邻域进行计算的。<br>LINE中首先定义两个层次的相似性度量方式：</p>
 <ol>
-<li>一阶相似度<br>用来描述图中成对顶点的相似局部相似度，如果两个节点之间没有边相连，相似度为0，如果有边相连，相似度就为边的权重。</li>
-<li>二阶相似度<br>用来描述图中成对顶点的邻接顶点的相似度，可以先得到各个顶点对于其它顶点的一些相似度向量，然后度量两个顶点之间向量的相似度，就能知道这两个顶点的邻接顶点的相似度了。<br>但是在定义优化目标时候，并不是像上面那样定义的。<br>优化目标也分成了两种：</li>
-<li>一阶优化目标<br>度量两个节点的联合概率$P(v_i,v_j)=sigmoid(u_i \times u_j)$，其中$u_i$和$u_j$为顶点i和j的低维表示。计算度量概率分布与真实分布之间的KL散度来得到之间的距离，通过最小化KL散度来进行优化。<br>而节点i和j之间的真实联合概率表示为$w_{ij}/W$，其中$w_{ij}$为边的权重，而W为图的总的权重。<br>所以优化目标为<br><img src="/images/ge2.png" alt="ge2"><br>注意，它只能用于无向图中</li>
-<li>二阶优化目标<br>度量的是两个节点的条件概率$P(v_j|v_i)=softmax(c_j \times u_i)$，其中，每个节点含有两个embedding向量，一个是节点自身的表示向量u，一个是作为其他顶点上下文的表示向量c。<br>也同样是最小化和真实分布的KL散度进行训练，而顶点i和j的真实条件概率分布定义为$w_{ij}/d_i$，$d_i$是顶点i的出度。<br>所以优化目标为<br><img src="/images/ge3.png" alt="ge3"></li>
+<li>一阶相似度</li>
 </ol>
+<p>用来描述图中成对顶点的相似局部相似度，如果两个节点之间没有边相连，相似度为0，如果有边相连，相似度就为边的权重。</p>
+<ol start="2">
+<li>二阶相似度</li>
+</ol>
+<p>用来描述图中成对顶点的邻接顶点的相似度，可以先得到各个顶点对于其它顶点的一些相似度向量，然后度量两个顶点之间向量的相似度，就能知道这两个顶点的邻接顶点的相似度了。<br>但是在定义优化目标时候，并不是像上面那样定义的。<br>优化目标也分成了两种：</p>
+<ol>
+<li>一阶优化目标</li>
+</ol>
+<p>度量两个节点的联合概率$P(v_i,v_j)=sigmoid(u_i \times u_j)$，其中$u_i$和$u_j$为顶点i和j的低维表示。计算度量概率分布与真实分布之间的KL散度来得到之间的距离，通过最小化KL散度来进行优化。<br>而节点i和j之间的真实联合概率表示为$w_{ij}/W$，其中$w_{ij}$为边的权重，而W为图的总的权重。<br>所以优化目标为<br><img src="/images/ge2.png" alt="ge2"><br>注意，它只能用于无向图中</p>
+<ol start="2">
+<li>二阶优化目标</li>
+</ol>
+<p>度量的是两个节点的条件概率$P(v_j|v_i)=softmax(c_j \times u_i)$，其中，每个节点含有两个embedding向量，一个是节点自身的表示向量u，一个是作为其他顶点上下文的表示向量c。<br>也同样是最小化和真实分布的KL散度进行训练，而顶点i和j的真实条件概率分布定义为$w_{ij}/d_i$，$d_i$是顶点i的出度。<br>所以优化目标为<br><img src="/images/ge3.png" alt="ge3"></p>
 <p>论文中建议两个优化目标分开来优化，将节点i最终的$v_i$和$u_i$拼接起来作为它的低维表示。</p>
 <h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ol>
 <li>当graph节点很多时，使用softmax计算概率时，分布计算量很大， 要遍历graph上的所有节点，可以通过负采样的技术进行化简，目标函数变成<br><img src="/images/ge4.png" alt="ge4"><br>具体来说，就是直接最大化相关节点之间的概率，而最小化采样出来的不相关节点之间的概率。训练中，先最大化节点i和节点j之间的值，也就是第一项，然后依次随机采样出另一个节点n，和节点i构成负样本，然后最小化节点i和节点u之间的值，也就是第二项。</li>
 </ol>
 <h2 id="node2vec"><a href="#node2vec" class="headerlink" title="node2vec"></a>node2vec</h2><p>node2vec是一种综合考虑DFS邻域和BFS邻域的graph embedding方法。简单来说，可以看作是deepwalk的一种扩展，是结合了DFS和BFS随机游走的deepwalk。<br>定义了两个参数，分别为<code>return parameter</code>p和<code>in-out parameter</code>q，用来控制访问重复节点的概率和向外游走的概率。<br>具体来说，当出我们经过$e_{tv}$从顶点t到达顶点v后，需要对下一个节点进行采样，就需要v邻接顶点的概率，表示为<br><img src="/images/ge5.png" alt="ge5"><br>而其中的$\pi$表示顶点v和顶点x之间未归一化的转移概率，形式为<br><img src="/images/ge6.png" alt="ge6"><br>其中w为权重，而我们主要通过%\alpha%来控制访问重复节点和向外游走的概率。<br><img src="/images/ge7.png" alt="ge7"><br>如果将v的下一个邻接顶点表示为x，如果t和x的最短路近距离为0，表示从节点v又返回到了节点t，就乘上1/p来控制返回概率，如果t和x的距离为1，表示v访问的下一个节点还是相对于顶点t在同一个层次，并且没有向外游走；如果t和x的距离大于1，表示相对于t向外游走了，需要乘上1/q来控制向外游走概率。<br><img src="/images/ge8.png" alt="ge8"></p>
 <p>然后和DeepWalk相同的方法，采样出一堆节点轨迹序列，然后使用word2vec进行训练。</p>
-<h2 id="SDNE"><a href="#SDNE" class="headerlink" title="SDNE"></a>SDNE</h2><p><img src="/images/ge9.png" alt="ge9"><br>使用自编码器的方法，输入顶点在邻接矩阵A中的值%s_i%，然后通过自编码器来重构$s_i$，其中自编码器中间的瓶颈层就是该节点对应的低维表示。<br>损失主要包含两部分：</p>
+<h2 id="SDNE"><a href="#SDNE" class="headerlink" title="SDNE"></a>SDNE</h2><p><img src="/images/ge9.jpg" alt="ge9"><br>使用自编码器的方法，输入顶点在邻接矩阵A中的值%s_i%，然后通过自编码器来重构$s_i$，其中自编码器中间的瓶颈层就是该节点对应的低维表示。<br>损失主要包含两部分：</p>
 <ol>
-<li>重构损失<br>主要度量自编码器的重构损失，由于邻接矩阵含有大量的零元素，所以需要对其进行平衡<br><img src="/images/ge10.png" alt="ge10"></li>
-<li>相似度量<br>以上的重构损失只是度量了节点的结构性信息，但是还需要度量节点的相似度信息，就是让两个相邻节点在瓶颈层的低维表示尽可能接近<br><img src="/images/ge11.png" alt="ge11"><br><img src="/images/ge12.png" alt="ge12"></li>
+<li>重构损失</li>
 </ol>
+<p>主要度量自编码器的重构损失，由于邻接矩阵含有大量的零元素，所以需要对其进行平衡<br><img src="/images/ge10.png" alt="ge10"></p>
+<ol start="2">
+<li>相似度量</li>
+</ol>
+<p>以上的重构损失只是度量了节点的结构性信息，但是还需要度量节点的相似度信息，就是让两个相邻节点在瓶颈层的低维表示尽可能接近<br><img src="/images/ge11.png" alt="ge11"><br><img src="/images/ge12.png" alt="ge12"></p>
 <p>直接优化上面的函数就能学到顶点的嵌入。</p>
 <h2 id="struc2vec"><a href="#struc2vec" class="headerlink" title="struc2vec"></a>struc2vec</h2><p>这个方法注重的是度量顶点的结构相似性，通过度量该节点的有序度序列来得到该节点的结构。<br>首先，需要计算顶点对之间的距离，然后通过该距离计算权重。<br>其中，顶点对距离的计算是分层次的，对于顶点u和v，使用距离顶点为k的邻接顶点的有序度序列分别表示u和v的结构，然后使用距离度量方法DTW来计算距离，并且距离是按层次叠加起来的<br><img src="/images/ge13.png" alt="ge13"><br>其中，$f_k(u,v)$是顶点u和v之间距离为k的环路上的结构距离；$s(R_{k}(u))$表示距离顶点u距离为k的邻接顶点的有序度序列；g表示有序度序列之间的距离函数，使用DTW。<br><img src="/images/ge14.png" alt="ge14"><br>使用DTW的原因在于：①顶点对的有序度序列的长度可能不相同；②DTW倾向于选择度较大的节点。<br>然后通过以上计算出来的各个层次的距离来计算权重，然后根据权重采样顶点轨迹，然后使用word2vec进行训练。</p>
 <h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>可以看出，以上方法可分成两种，基于随机游走的DeepWalk、node2vec和struc2vec，以及不基于随机游走的LINE和SDNE。</p>
@@ -1060,6 +1074,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
