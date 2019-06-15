@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="graph_embedding对比">
+<meta property="og:url" content="https://guozhiyao.github.io/2564890905.html">
+<meta property="og:site_name" content="LearningNote">
+<meta property="og:description" content="主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge1.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge2.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge3.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge4.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge5.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge6.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge7.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge8.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge9.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge10.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge11.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge12.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge13.png">
+<meta property="og:image" content="https://guozhiyao.github.io/images/ge14.png">
+<meta property="og:updated_time" content="2019-06-15T03:11:43.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="graph_embedding对比">
+<meta name="twitter:description" content="主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。">
+<meta name="twitter:image" content="https://guozhiyao.github.io/images/ge1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://guozhiyao.github.io/2564890905">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>graph_embedding对比 | LearningNote</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LearningNote</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/2564890905.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GuoZhiyao">
+      <meta itemprop="description" content="To recode the learning note">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LearningNote">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">graph_embedding对比
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+			
+			  
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-15 08:43:46 / 修改时间：03:11:43" itemprop="dateCreated datePublished" datetime="2019-06-15T08:43:46Z">2019-06-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/graph/" itemprop="url" rel="index"><span itemprop="name">graph</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2564890905.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2564890905.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2564890905.html" class="leancloud_visitors" data-flag-title="graph_embedding对比">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>graph embedding主要学习的是graph中节点的低维稠密向量表示的方法，使得在graph上相似（不同方法对相似的定义不同）的节点，在低维空间中也是相似的。得到节点的表示后，可以用于后续的下游任务，如节点分类，链接预测，可视化或重构原始图等。</p>
+<p>本文主要是在看完知乎@浅梦的专栏后，对DeepWalk、LINE、node2vec、SDNE和struc2vec进行概括性的介绍，并且进行对比。具体的模型介绍可以看该作者的专栏，该作者对模型解释的很清晰，链接在此处：<a href="https://zhuanlan.zhihu.com/p/56380812" target="_blank" rel="noopener">DeepWalk</a>、<a href="https://zhuanlan.zhihu.com/p/56478167" target="_blank" rel="noopener">LINE</a>、<a href="https://zhuanlan.zhihu.com/p/56542707" target="_blank" rel="noopener">node2vec</a>、<a href="https://zhuanlan.zhihu.com/p/56637181" target="_blank" rel="noopener">SDNE</a>和<a href="https://zhuanlan.zhihu.com/p/56733145" target="_blank" rel="noopener">struc2vec</a> 。</p>
+<h1 id="模型介绍"><a href="#模型介绍" class="headerlink" title="模型介绍"></a>模型介绍</h1><h2 id="DeepWalk"><a href="#DeepWalk" class="headerlink" title="DeepWalk"></a>DeepWalk</h2><p>DeepWalk应该是第一篇使用深度学习方法来解决GE问题的论文，它主要借鉴了word2vec的思想。<br>word2vec是一种常用的word embedding方法，word2vec通过语料库中的句子序列来描述词与词的共现关系，进而学习到词语的向量表示。主要包含了两种方法：SkipGram模型和CBOW模型，两者的区别在于，SkipGram使用中间单词来预测其上下文，而CBOW使用上下文来预测中间的单词。<br><img src="/images/ge1.png" alt="ge1"><br>DeepWalk就借鉴了SkipGram的思路，先使用<strong>随机游走</strong>的方式在图中对节点进行采样，得到一些固定长度的节点轨迹序列作为“句子”，将整个采样结果作为“语料库”，使用SkipGram进行序列，由此来学习节点之间的共现关系。<br><strong>随机游走</strong>是一种可访问重复节点的DFS，给定当前访问的起始节点后，如果graph是带权图，那邻接顶点的访问概率就是边权重的归一化概率，如果是无权图，就随机访问邻接顶点。将随机采样到的邻接顶点作为下一个节点，重复此过程，直到访问序列长度到达指定长度。<br>DeepWalk主要包含两个步骤：①对节点进行打乱，从网络中的每个节点开始分别进行随机游走采样，得到局部相关联的训练数据；②使用Word2vec进行学习，将离散的网络节点表示成向量化，最大化节点共现，使用Hierarchical Softmax来做超大规模分类的分类器。</p>
+<h2 id="LINE"><a href="#LINE" class="headerlink" title="LINE"></a>LINE</h2><p>LINE是基于BFS邻域进行计算的。<br>LINE中首先定义两个层次的相似性度量方式：</p>
+<ol>
+<li>一阶相似度<br>用来描述图中成对顶点的相似局部相似度，如果两个节点之间没有边相连，相似度为0，如果有边相连，相似度就为边的权重。</li>
+<li>二阶相似度<br>用来描述图中成对顶点的邻接顶点的相似度，可以先得到各个顶点对于其它顶点的一些相似度向量，然后度量两个顶点之间向量的相似度，就能知道这两个顶点的邻接顶点的相似度了。<br>但是在定义优化目标时候，并不是像上面那样定义的。<br>优化目标也分成了两种：</li>
+<li>一阶优化目标<br>度量两个节点的联合概率$P(v_i,v_j)=sigmoid(u_i \times u_j)$，其中$u_i$和$u_j$为顶点i和j的低维表示。计算度量概率分布与真实分布之间的KL散度来得到之间的距离，通过最小化KL散度来进行优化。<br>而节点i和j之间的真实联合概率表示为$w_{ij}/W$，其中$w_{ij}$为边的权重，而W为图的总的权重。<br>所以优化目标为<br><img src="/images/ge2.png" alt="ge2"><br>注意，它只能用于无向图中</li>
+<li>二阶优化目标<br>度量的是两个节点的条件概率$P(v_j|v_i)=softmax(c_j \times u_i)$，其中，每个节点含有两个embedding向量，一个是节点自身的表示向量u，一个是作为其他顶点上下文的表示向量c。<br>也同样是最小化和真实分布的KL散度进行训练，而顶点i和j的真实条件概率分布定义为$w_{ij}/d_i$，$d_i$是顶点i的出度。<br>所以优化目标为<br><img src="/images/ge3.png" alt="ge3"></li>
+</ol>
+<p>论文中建议两个优化目标分开来优化，将节点i最终的$v_i$和$u_i$拼接起来作为它的低维表示。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ol>
+<li>当graph节点很多时，使用softmax计算概率时，分布计算量很大， 要遍历graph上的所有节点，可以通过负采样的技术进行化简，目标函数变成<br><img src="/images/ge4.png" alt="ge4"><br>具体来说，就是直接最大化相关节点之间的概率，而最小化采样出来的不相关节点之间的概率。训练中，先最大化节点i和节点j之间的值，也就是第一项，然后依次随机采样出另一个节点n，和节点i构成负样本，然后最小化节点i和节点u之间的值，也就是第二项。</li>
+</ol>
+<h2 id="node2vec"><a href="#node2vec" class="headerlink" title="node2vec"></a>node2vec</h2><p>node2vec是一种综合考虑DFS邻域和BFS邻域的graph embedding方法。简单来说，可以看作是deepwalk的一种扩展，是结合了DFS和BFS随机游走的deepwalk。<br>定义了两个参数，分别为<code>return parameter</code>p和<code>in-out parameter</code>q，用来控制访问重复节点的概率和向外游走的概率。<br>具体来说，当出我们经过$e_{tv}$从顶点t到达顶点v后，需要对下一个节点进行采样，就需要v邻接顶点的概率，表示为<br><img src="/images/ge5.png" alt="ge5"><br>而其中的$\pi$表示顶点v和顶点x之间未归一化的转移概率，形式为<br><img src="/images/ge6.png" alt="ge6"><br>其中w为权重，而我们主要通过%\alpha%来控制访问重复节点和向外游走的概率。<br><img src="/images/ge7.png" alt="ge7"><br>如果将v的下一个邻接顶点表示为x，如果t和x的最短路近距离为0，表示从节点v又返回到了节点t，就乘上1/p来控制返回概率，如果t和x的距离为1，表示v访问的下一个节点还是相对于顶点t在同一个层次，并且没有向外游走；如果t和x的距离大于1，表示相对于t向外游走了，需要乘上1/q来控制向外游走概率。<br><img src="/images/ge8.png" alt="ge8"></p>
+<p>然后和DeepWalk相同的方法，采样出一堆节点轨迹序列，然后使用word2vec进行训练。</p>
+<h2 id="SDNE"><a href="#SDNE" class="headerlink" title="SDNE"></a>SDNE</h2><p><img src="/images/ge9.png" alt="ge9"><br>使用自编码器的方法，输入顶点在邻接矩阵A中的值%s_i%，然后通过自编码器来重构$s_i$，其中自编码器中间的瓶颈层就是该节点对应的低维表示。<br>损失主要包含两部分：</p>
+<ol>
+<li>重构损失<br>主要度量自编码器的重构损失，由于邻接矩阵含有大量的零元素，所以需要对其进行平衡<br><img src="/images/ge10.png" alt="ge10"></li>
+<li>相似度量<br>以上的重构损失只是度量了节点的结构性信息，但是还需要度量节点的相似度信息，就是让两个相邻节点在瓶颈层的低维表示尽可能接近<br><img src="/images/ge11.png" alt="ge11"><br><img src="/images/ge12.png" alt="ge12"></li>
+</ol>
+<p>直接优化上面的函数就能学到顶点的嵌入。</p>
+<h2 id="struc2vec"><a href="#struc2vec" class="headerlink" title="struc2vec"></a>struc2vec</h2><p>这个方法注重的是度量顶点的结构相似性，通过度量该节点的有序度序列来得到该节点的结构。<br>首先，需要计算顶点对之间的距离，然后通过该距离计算权重。<br>其中，顶点对距离的计算是分层次的，对于顶点u和v，使用距离顶点为k的邻接顶点的有序度序列分别表示u和v的结构，然后使用距离度量方法DTW来计算距离，并且距离是按层次叠加起来的<br><img src="/images/ge13.png" alt="ge13"><br>其中，$f_k(u,v)$是顶点u和v之间距离为k的环路上的结构距离；$s(R_{k}(u))$表示距离顶点u距离为k的邻接顶点的有序度序列；g表示有序度序列之间的距离函数，使用DTW。<br><img src="/images/ge14.png" alt="ge14"><br>使用DTW的原因在于：①顶点对的有序度序列的长度可能不相同；②DTW倾向于选择度较大的节点。<br>然后通过以上计算出来的各个层次的距离来计算权重，然后根据权重采样顶点轨迹，然后使用word2vec进行训练。</p>
+<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>可以看出，以上方法可分成两种，基于随机游走的DeepWalk、node2vec和struc2vec，以及不基于随机游走的LINE和SDNE。</p>
+<h2 id="基于随机游走"><a href="#基于随机游走" class="headerlink" title="基于随机游走"></a>基于随机游走</h2><p>基于随机游走的方法，都是先定义访问邻接顶点的概率，然后基于该概率进行随机游走，采样出一系列顶点序列后，使用word2vec进行嵌入学习。方法的不同主要在于概率设置的方法不同。<br><strong>DeepWalk</strong>是基于DFS邻域的，主要侧重于“同质性”，得到的embedding会更侧重于graph的内容。对于无权图就是完全随机的，而对于有权图，那邻接顶点的访问概率就是边权重的归一化概率。<br><strong>node2vec</strong>是对DFS和BFS的统一，使用额外超参数来控制访问重复节点和向外游走的概率。<br><strong>struc2vec</strong>主要侧重于度量graph的结构信息，而结构信息通过节点的有序度序列表示。以上方法只是对相邻顶点进行相似度度量，但是对于远距离的顶点也可能具有很高的相似性，上面的方法就无法捕捉了。struc2vec根据顶点距离将权重分为了k层，每一层考察的结构范围是不同的，第k层表示的是度量距离顶点k的结构。主要包含了三种权重，层内游走权重，切换到上一层的权重以及切换到下一层的权重，而层内游走权重，主要根据两个节点的有序度序列的相似度进行计算的，如果有序度序列越相似，表示两个顶点在该层次的结构月相似，则权重越高。<br>通过在上面构造的层次权重图上游走，会使得结构相似的顶点采样到一起，使其具有更相似的embedding。</p>
+<h2 id="不基于随机游走"><a href="#不基于随机游走" class="headerlink" title="不基于随机游走"></a>不基于随机游走</h2><p>不基于随机方法主要有LINE和SDNE。<br><strong>LINE</strong>通过构造显示的两阶相似度进行优化的，一阶相似度是两个顶点的联合概率，只用于无向图，二阶相似度就是两个顶点的条件概率。训练中使得相邻的节点的相似度越高越好，两个相似度是分开优化的，最后将两个embedding拼接起来作为节点的低维嵌入。<br><strong>SDNE</strong>可以看成是LINE的扩展，它使用自编码器直接同时优化1阶和2阶相似度，通过重构邻接矩阵来优化二阶相似度，通过优化相邻顶点瓶颈层的MSE来优化一阶相似度，而LINE是显示构造相似度，并分开优化的。SDNE学习得到的向量表示能够保留局部和全局结构，并且对稀疏网络具有鲁棒性。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/27234078" target="_blank" rel="noopener">理解 Word2Vec 之 Skip-Gram 模型</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/1212924403.html" rel="next" title="Graph Neural Networks_A Review of Methods and Applications">
+                <i class="fa fa-chevron-left"></i> Graph Neural Networks_A Review of Methods and Applications
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">GuoZhiyao</p>
+              <div class="site-description motion-element" itemprop="description">To recode the learning note</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型介绍"><span class="nav-number">2.</span> <span class="nav-text">模型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepWalk"><span class="nav-number">2.1.</span> <span class="nav-text">DeepWalk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LINE"><span class="nav-number">2.2.</span> <span class="nav-text">LINE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.2.1.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node2vec"><span class="nav-number">2.3.</span> <span class="nav-text">node2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDNE"><span class="nav-number">2.4.</span> <span class="nav-text">SDNE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struc2vec"><span class="nav-number">2.5.</span> <span class="nav-text">struc2vec</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比"><span class="nav-number">3.</span> <span class="nav-text">对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于随机游走"><span class="nav-number">3.1.</span> <span class="nav-text">基于随机游走</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不基于随机游走"><span class="nav-number">3.2.</span> <span class="nav-text">不基于随机游走</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GuoZhiyao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">88k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:20</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'JUzzK5xpdFaEXELmjt5SEQRy-gzGzoHsz',
+    appKey: 'WCtWmzBiyev0hUF8afIuLCuh',
+    placeholder: 'Just go go',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'LokSnuG7d5scPcPdaIQi5rgJ-gzGzoHsz',
+                'X-LC-Key': 'hlcodrMmu7eeKpdvsymRe7Vk',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
