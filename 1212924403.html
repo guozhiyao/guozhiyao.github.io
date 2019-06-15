@@ -152,7 +152,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev46.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev47.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev48.png">
-<meta property="og:updated_time" content="2019-06-14T08:23:35.267Z">
+<meta property="og:updated_time" content="2019-06-15T06:49:18.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graph Neural Networks_A Review of Methods and Applications">
 <meta name="twitter:description" content="graph综述论文">
@@ -422,12 +422,24 @@
                 
               
 
-              <time title="创建时间：2019-06-14 09:51:54 / 修改时间：08:23:35" itemprop="dateCreated datePublished" datetime="2019-06-14T09:51:54Z">2019-06-14</time>
+              <time title="创建时间：2019-06-14 09:51:54" itemprop="dateCreated datePublished" datetime="2019-06-14T09:51:54Z">2019-06-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-15 06:49:18" itemprop="dateModified" datetime="2019-06-15T06:49:18Z">2019-06-15</time>
               
             
           </span>
@@ -497,7 +509,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -545,7 +557,7 @@
 <h2 id="2-1-graph-neural-networks"><a href="#2-1-graph-neural-networks" class="headerlink" title="2.1 graph neural networks"></a>2.1 graph neural networks</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在一个graph中，论文中说方法可以扩展到有向、无向、有环、无环的graph。每个顶点是由其特征和相邻节点来定义的。GNN的目标是为每个节点学习一个state embedding $h_v$来包含其邻接顶点的信息。对于每个节点v，会含有一个state emebdding $h_v$，表示其特征，还有一个输出$o_v$来表示其标签。定义两个函数，f为<code>local transition function</code>，在所有节点上共享参数，并且根据输入邻接顶点来更新节点的state embedding。g为<code>local output function</code>用来描述图和产生输出。所以$h_v$和$o_v$如下产生<br><img src="/images/rev1.png" alt="rev1"><br>将所有顶点的特征和state embedding都堆叠起来，可以得到以下形式<br><img src="/images/rev2.png" alt="rev2"><br>其中，F是<code>global transition function</code>，G是<code>gloabl output function</code>，是所有节点的f和g的堆叠。<br>GNN一个主要的想法：对于公式3，它认为H的值是函数F的不动点。<br>由此，它用到了<code>Banach&#39;s fixed point theorem</code>，里面提出了一个该函数有唯一解的充分条件，即F是contraction map。并且提出了求解函数F解的方法，通过不断迭代<br><img src="/images/rev3.png" alt="rev3"><br>这样对于任意初始化，就能以指数的速度收敛到公式3的解。<br>然后这里通过监督学习的方法来学到f和g的参数<br><img src="/images/rev4.png" alt="rev4"><br>其中，t为标签，p为顶点数目。使用梯度下降算法进行学习。</p>
 <p><strong>注意：</strong>通常将公式3的过程称为<code>propagation</code>，也就是传播过程。</p>
 <h3 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h3><ol>
-<li>将state embedding看成是函数的不动点，通过迭代方式进行求解效率很低，并且由于其要求F为contraction map，就多了额外的限制。</li>
+<li>将state embedding看成是函数的不动点，通过迭代方式进行求解效率很低，并且由于其要求F为contraction map，就多了额外的限制。如果放松不动点的约束，就可以设计多层的GNN来得到顶点和邻居更加稳定的表达。</li>
 <li>GNN在每次迭代时都使用相同的参数，而且CNN网络中，不同层使用不同的参数来得到不同层次的特征。并且，节点state embedding的更新是序列化进行的，所以可以参考RNN核方法。</li>
 <li>没有考虑到边的信息，比如在知识图谱中，不同边含有不同的类型，信息传递时，对于不同类型的边就要用不同的参数，而且如何学习边的state embedding也是一个问题。</li>
 <li>使用不动点理论是不合适的。我们关注的是顶点的表示而不是graph的表示，而通过不动点进行更新，会使得最终表示的分布十分平滑，不同点之间的信息都相同了，缺少自己独特的信息。</li>
@@ -567,10 +579,10 @@
 <ol start="3">
 <li><p><strong>注意力</strong><br><strong>GAT</strong>在传播过程中使用了注意力机制，使用self-attention机制，通过关注到各个邻居来计算state embedding。它提出了一层<code>graph attentional layer</code>，可以堆叠该层来任意使用。<br><img src="/images/rev21.png" alt="rev21"><br>它这里计算了顶点i和顶点j之间的权重。然后最后的输出为其加权和<br><img src="/images/rev22.png" alt="rev22"><br>我们的输入顶点集合为h，h中包含N个顶点，每个顶点为F维特征，我们通过使用$F’ \times F$的W将特征放缩到F’维，使得我们输出的顶点集合h’，每个顶点的特征都是F’维的。<br>而且它还可以使用<code>multi-head attention</code>，使用K个不同的权重来计算，最后通过拼接或者均值得到顶点的state embedding<br><img src="/images/rev23.png" alt="rev23"><br>attention机制具有以下特点：a. 邻居之间可以并行计算；b. 通过为邻居指定任意权重，它可以应用于不同程度的图节点；c. 可以扩展到归纳学习。</p>
 </li>
-<li><p><strong>跳跃连接</strong><br>许多方法都想要堆叠更多的层或者从邻居汇集更多的信息，但是这并没有带来好处，主要原因在于，越深的层，带来指数增长的邻接顶点，使得噪声更多。<br>可以使用类似残差网络的方法，但是效果不大，效果最好的还是两层GCN。<br><strong>Highway GCN</strong>参考了highway networks，通过门控来控制输出<br><img src="/images/rev24.png" alt="rev24"><br>可以在4层GCN中达到最好效果。<br><strong>Jump Knowledge Network</strong>可以学习自适应，结构化的表示。Jump Knowledge Network从最后一层的每个节点的所有中间表示（“跳转到最后一层”）中进行选择，这使得模型根据需要调整每个节点的有效邻域大小。 [58]在实验中使用三种方法，拼接，极大池化和LSTM-attention来聚合信息。它还可以与GCN，GraphSAGE和GAT等模型相结合，以提高其性能。</p>
+<li><p><strong>跳跃连接</strong><br>许多方法都想要堆叠更多的层或者从邻居汇集更多的信息，但是这并没有带来好处，主要原因在于，越深的层，带来指数增长的邻接顶点，使得噪声更多。<br><strong>注意：</strong>深度会引入噪音，是因为深度会带来指数增加的邻居节点，使得噪音增加，所以需要控制邻居节点的数目，防止过多噪音。<br>可以使用类似残差网络的方法，但是效果不大，效果最好的还是两层GCN。<br><strong>Highway GCN</strong>参考了highway networks，通过门控来控制输出<br><img src="/images/rev24.png" alt="rev24"><br>可以在4层GCN中达到最好效果。<br><strong>Jump Knowledge Network</strong>可以学习自适应，结构化的表示。Jump Knowledge Network从最后一层的每个节点的所有中间表示（“跳转到最后一层”）中进行选择，这使得模型根据需要调整每个节点的有效邻域大小。 [58]在实验中使用三种方法，拼接，极大池化和LSTM-attention来聚合信息。它还可以与GCN，GraphSAGE和GAT等模型相结合，以提高其性能。</p>
 </li>
 </ol>
-<h3 id="2-2-3-训练方法"><a href="#2-2-3-训练方法" class="headerlink" title="2.2.3 训练方法"></a>2.2.3 训练方法</h3><p>原始GCN在训练和优化中具有以下<strong>缺点</strong>：GCN需要整张graph的拉普拉斯矩阵，这就使得在比较大型的graph上计算复杂度很高，并且求解state embedding是递归进行的。因此，单个节点的感受野相对于层数呈指数增长，因此单个节点的计算梯度成本很高。 最后，GCN只能针对固定graph进行独立训练，缺乏归纳学习的能力。<br><strong>GraphSAGE</strong>可以解决上述问题，它将整张graph的拉普拉斯矩阵替换为可学习的聚合函数，也是进行信息传递和泛化的<strong>关键</strong>。并且它还对邻接顶点进行采样，来抑制指数增长的感受野。<br><strong>FastGCN</strong>更进一步改进了采样算法，不是对每个顶点的邻接顶点进行采样，而是直接对每一层的感受野进行采样，</p>
+<h3 id="2-2-3-训练方法"><a href="#2-2-3-训练方法" class="headerlink" title="2.2.3 训练方法"></a>2.2.3 训练方法</h3><p>原始GCN在训练和优化中具有以下<strong>缺点</strong>：GCN需要整张graph的拉普拉斯矩阵，这就使得在比较大型的graph上计算复杂度很高，并且求解state embedding是递归进行的。因此，单个节点的感受野相对于层数呈指数增长，因此单个节点的计算梯度成本很高。 最后，GCN只能针对固定graph进行独立训练，缺乏归纳学习的能力。<br><strong>GraphSAGE</strong>可以解决上述问题，它将整张graph的拉普拉斯矩阵替换为可学习的聚合函数，也是进行信息传递和泛化的<strong>关键</strong>。并且它还对邻接顶点进行采样，来抑制指数增长的感受野。<br><strong>注意：</strong>归纳法的重要修改是，普通的GCN需要计算拉普拉斯矩阵，而不同graph的拉普拉斯矩阵是不同的，所以对于新的graph就要重新训练。而GraphSAGE不使用拉普拉斯矩阵，而是用可学习的聚合函数，通过聚合函数和传播函数，能泛化到没见过的节点。<br><strong>FastGCN</strong>更进一步改进了采样算法，不是对每个顶点的邻接顶点进行采样，而是直接对每一层的感受野进行采样，</p>
 <p>&lt;累了&gt;<br><img src="/images/rev49.jpg" alt="rev49"></p>
 <h2 id="2-3-一般框架"><a href="#2-3-一般框架" class="headerlink" title="2.3 一般框架"></a>2.3 一般框架</h2><p><strong>MPNN</strong>message passing neural network，统一了不同的GNN和GCN方法，包括GCN的谱方法和非谱方法、GGNN、interaction network、molecular graph convolution、deep tensor neural networks。<br><strong>NLNN</strong>non-local neural network统一了不同的’self-attention’类型的方法。<br><strong>GN</strong>graph netw统一了MPNN和NLNN和其他很多方法。</p>
 <h3 id="2-3-1-MPNN"><a href="#2-3-1-MPNN" class="headerlink" title="2.3.1 MPNN"></a>2.3.1 MPNN</h3><p>主要包含两个阶段<code>message passing phase</code>和<code>readout phase</code>。<br>message passing phase包含<code>message function</code>%M_t%和<code>vertex update function</code>$U_t$，需要运行T次，<br><img src="/images/rev25.png" alt="rev25"><br>而readout phase使用<code>readout function</code>R来计算整个graph的特征<br><img src="/images/rev26.png" alt="rev26"><br><strong>注意：</strong>它这里是将整个graph的顶点特征都输入进来的。<br>这里的%M_t%、$U_t$和R都可以有不同的设定，就能统一不同的模型。<br>比如对于GGNN，可以是以下形式<br><img src="/images/rev27.png" alt="rev27"></p>
@@ -876,7 +888,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">91k</span>
   
 
   
@@ -885,7 +897,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:20</span>
+    <span title="站点阅读时长">1:22</span>
   
 </div>
 

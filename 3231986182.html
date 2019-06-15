@@ -142,7 +142,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN35.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN36.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/GCN37.png">
-<meta property="og:updated_time" content="2019-06-13T14:03:34.856Z">
+<meta property="og:updated_time" content="2019-06-15T07:13:41.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCN">
 <meta name="twitter:description" content="简单介绍GCN的推导，涉及graph拉普拉斯算子推导、graph傅里叶变换推导。">
@@ -412,12 +412,24 @@
                 
               
 
-              <time title="创建时间：2019-06-13 11:27:03 / 修改时间：14:03:34" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
+              <time title="创建时间：2019-06-13 11:27:03" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-15 07:13:41" itemprop="dateModified" datetime="2019-06-15T07:13:41Z">2019-06-15</time>
               
             
           </span>
@@ -487,7 +499,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.2k</span>
+                <span title="本文字数">4.8k</span>
               
 
               
@@ -546,6 +558,8 @@
 <li>令K=1，使得每层卷积只考虑直接邻域</li>
 <li>增加深度，减小宽度<br>对于上述公式，令$\lambda_max = 2, K = 1$，可以得到<br><img src="/images/GCN32.png" alt="GCN32"><br>进一步化简，假设<br><img src="/images/GCN33.png" alt="GCN33"><br>则可以表示为<br><img src="/images/GCN34.png" alt="GCN34"><br>因为上述的特征值范围为[0,2]，会造成数值不稳定和梯度梯度消失或者爆炸，所以进一步约束为<br><img src="/images/GCN35.png" alt="GCN35"><br>此时可以得到最终的图卷积形式<br><img src="/images/GCN36.png" alt="GCN36"><br>再加上激活函数，可以得到最终的GCN公式<br><img src="/images/GCN37.png" alt="GCN37"></li>
 </ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="GCN和GE的区别"><a href="#GCN和GE的区别" class="headerlink" title="GCN和GE的区别"></a>GCN和GE的区别</h2><p>GE基于高维相似性映射到低维以后也是相似的，来学习graph上的低维嵌入。一开始借鉴nlp的word2vec想法，认为想使用深度学习就应该先学习GE，得到低维嵌入后再用于后续下游任务。<br>而GCN就是直接端到端分类或者回归，当然也可以先进行GE，再讲嵌入结果进行GCN，但是GCN很多时候会附带产生GE。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>GCN是基于图谱理论的卷积，思想就是在原空间卷积不好做，就在图拉普拉斯算子的傅里叶域来做。<br>但是原始GCN在训练和优化中具有以下<strong>缺点</strong>：GCN需要整张graph的拉普拉斯矩阵，这就使得在比较大型的graph上计算复杂度很高，并且求解state embedding是递归进行的。因此，单个节点的感受野相对于层数呈指数增长，因此单个节点的计算梯度成本很高。 最后，GCN只能针对固定graph进行独立训练，缺乏归纳学习的能力。<br>所以还有一起其他的非图谱卷积方法，无需计算graph的拉普拉斯算子，直接在graph上卷积，主要包含有DCNN、CNN4G和GAT等等。<br>还有就是GCN他们都是直推式学习的方法，直接根据graph学习一个$N \times F$的矩阵，当graph变化时，就要重新学习。还有另一种学习方法叫做归纳式学习，利用节点邻域信息直接学习新增节点的embedding<br>表示，主要代表有graphSAGE模型。<br>归纳法的重要修改是，普通的GCN需要计算拉普拉斯矩阵，而不同graph的拉普拉斯矩阵是不同的，所以对于新的graph就要重新训练。而GraphSAGE不使用拉普拉斯矩阵，而是用可学习的聚合函数，通过聚合函数和传播函数，能泛化到没见过的节点。</p>
 <p><strong>参考：</strong><br><a href="https://zhuanlan.zhihu.com/p/67336297" target="_blank" rel="noopener">【其实贼简单】拉普拉斯算子和拉普拉斯矩阵</a><br><a href="https://zhuanlan.zhihu.com/p/54505069" target="_blank" rel="noopener">图卷积网络(GCN)新手村完全指南</a><br><a href="https://zhuanlan.zhihu.com/p/43972372" target="_blank" rel="noopener">Graph Neural Network Review</a></p>
 
       
@@ -800,7 +814,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">graph拉普拉斯算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始拉普拉斯算子"><span class="nav-number">2.1.</span> <span class="nav-text">原始拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图论中的函数"><span class="nav-number">2.2.</span> <span class="nav-text">图论中的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图函数的梯度"><span class="nav-number">2.3.</span> <span class="nav-text">图函数的梯度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉普拉斯算子与拉普拉斯矩阵"><span class="nav-number">2.4.</span> <span class="nav-text">拉普拉斯算子与拉普拉斯矩阵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph傅里叶变换"><span class="nav-number">3.</span> <span class="nav-text">graph傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实数域上的傅里叶变换和卷积"><span class="nav-number">3.1.</span> <span class="nav-text">实数域上的傅里叶变换和卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graph上傅里叶变换和傅里叶反变换"><span class="nav-number">3.2.</span> <span class="nav-text">graph上傅里叶变换和傅里叶反变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推导图卷积"><span class="nav-number">4.</span> <span class="nav-text">推导图卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一代图卷积"><span class="nav-number">4.1.</span> <span class="nav-text">第一代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二代图卷积"><span class="nav-number">4.2.</span> <span class="nav-text">第二代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三代图卷积"><span class="nav-number">4.3.</span> <span class="nav-text">第三代图卷积</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">graph拉普拉斯算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始拉普拉斯算子"><span class="nav-number">2.1.</span> <span class="nav-text">原始拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图论中的函数"><span class="nav-number">2.2.</span> <span class="nav-text">图论中的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图函数的梯度"><span class="nav-number">2.3.</span> <span class="nav-text">图函数的梯度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉普拉斯算子与拉普拉斯矩阵"><span class="nav-number">2.4.</span> <span class="nav-text">拉普拉斯算子与拉普拉斯矩阵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph傅里叶变换"><span class="nav-number">3.</span> <span class="nav-text">graph傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实数域上的傅里叶变换和卷积"><span class="nav-number">3.1.</span> <span class="nav-text">实数域上的傅里叶变换和卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graph上傅里叶变换和傅里叶反变换"><span class="nav-number">3.2.</span> <span class="nav-text">graph上傅里叶变换和傅里叶反变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推导图卷积"><span class="nav-number">4.</span> <span class="nav-text">推导图卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一代图卷积"><span class="nav-number">4.1.</span> <span class="nav-text">第一代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二代图卷积"><span class="nav-number">4.2.</span> <span class="nav-text">第二代图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三代图卷积"><span class="nav-number">4.3.</span> <span class="nav-text">第三代图卷积</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCN和GE的区别"><span class="nav-number">5.1.</span> <span class="nav-text">GCN和GE的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">5.2.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -833,7 +847,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">91k</span>
   
 
   
@@ -842,7 +856,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:20</span>
+    <span title="站点阅读时长">1:22</span>
   
 </div>
 
