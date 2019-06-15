@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge12.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge13.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/ge14.png">
-<meta property="og:updated_time" content="2019-06-15T07:07:14.300Z">
+<meta property="og:updated_time" content="2019-06-15T08:06:30.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="graph_embedding对比">
 <meta name="twitter:description" content="主要对比一下DeepWalk、LINE、node2vec、SDNE和struc2vec。">
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-06-15 08:43:46 / 修改时间：07:07:14" itemprop="dateCreated datePublished" datetime="2019-06-15T08:43:46Z">2019-06-15</time>
+              <time title="创建时间：2019-06-15 08:43:46 / 修改时间：08:06:30" itemprop="dateCreated datePublished" datetime="2019-06-15T08:43:46Z">2019-06-15</time>
             
 
             
@@ -462,7 +462,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4k</span>
+                <span title="本文字数">4.1k</span>
               
 
               
@@ -533,11 +533,13 @@
 </ol>
 <p>以上的重构损失只是度量了节点的结构性信息，但是还需要度量节点的相似度信息，就是让两个相邻节点在瓶颈层的低维表示尽可能接近<br><img src="/images/ge11.png" alt="ge11"><br><img src="/images/ge12.png" alt="ge12"></p>
 <p>直接优化上面的函数就能学到顶点的嵌入。</p>
+<p><strong>扩展：</strong><br><a href="https://zhuanlan.zhihu.com/p/33501938" target="_blank" rel="noopener">阿里凑单算法首次公开！基于Graph Embedding的打包购商品挖掘系统解析</a></p>
 <h2 id="struc2vec"><a href="#struc2vec" class="headerlink" title="struc2vec"></a>struc2vec</h2><p>这个方法注重的是度量顶点的结构相似性，通过度量该节点的有序度序列来得到该节点的结构。<br>首先，需要计算顶点对之间的距离，然后通过该距离计算权重。<br>其中，顶点对距离的计算是分层次的，对于顶点u和v，使用距离顶点为k的邻接顶点的有序度序列分别表示u和v的结构，然后使用距离度量方法DTW来计算距离，并且距离是按层次叠加起来的<br><img src="/images/ge13.png" alt="ge13"><br>其中，$f_k(u,v)$是顶点u和v之间距离为k的环路上的结构距离；$s(R_{k}(u))$表示距离顶点u距离为k的邻接顶点的有序度序列；g表示有序度序列之间的距离函数，使用DTW。<br><img src="/images/ge14.png" alt="ge14"><br>使用DTW的原因在于：①顶点对的有序度序列的长度可能不相同；②DTW倾向于选择度较大的节点。<br>然后通过以上计算出来的各个层次的距离来计算权重，然后根据权重采样顶点轨迹，然后使用word2vec进行训练。</p>
 <h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>可以看出，以上方法可分成两种，基于随机游走的DeepWalk、node2vec和struc2vec，以及不基于随机游走的LINE和SDNE。</p>
 <h2 id="基于随机游走"><a href="#基于随机游走" class="headerlink" title="基于随机游走"></a>基于随机游走</h2><p>基于随机游走的方法，都是先定义访问邻接顶点的概率，然后基于该概率进行随机游走，采样出一系列顶点序列后，使用word2vec进行嵌入学习。方法的不同主要在于概率设置的方法不同。<br><strong>DeepWalk</strong>是基于DFS邻域的，主要侧重于“同质性”，得到的embedding会更侧重于graph的内容。对于无权图就是完全随机的，而对于有权图，那邻接顶点的访问概率就是边权重的归一化概率。<br><strong>node2vec</strong>是对DFS和BFS的统一，使用额外超参数来控制访问重复节点和向外游走的概率。<br><strong>struc2vec</strong>主要侧重于度量graph的结构信息，而结构信息通过节点的有序度序列表示。以上方法只是对相邻顶点进行相似度度量，但是对于远距离的顶点也可能具有很高的相似性，上面的方法就无法捕捉了。struc2vec根据顶点距离将权重分为了k层，每一层考察的结构范围是不同的，第k层表示的是度量距离顶点k的结构。主要包含了三种权重，层内游走权重，切换到上一层的权重以及切换到下一层的权重，而层内游走权重，主要根据两个节点的有序度序列的相似度进行计算的，如果有序度序列越相似，表示两个顶点在该层次的结构月相似，则权重越高。<br>通过在上面构造的层次权重图上游走，会使得结构相似的顶点采样到一起，使其具有更相似的embedding。</p>
 <h2 id="不基于随机游走"><a href="#不基于随机游走" class="headerlink" title="不基于随机游走"></a>不基于随机游走</h2><p>不基于随机方法主要有LINE和SDNE。<br><strong>LINE</strong>是基于BFS邻域的，主要侧重于“结构性”，得到的embedding会更侧重于graph的机构。通过构造显示的两阶相似度进行优化的，一阶相似度是两个顶点的联合概率，只用于无向图，二阶相似度就是两个顶点的条件概率。训练中使得相邻的节点的相似度越高越好，两个相似度是分开优化的，最后将两个embedding拼接起来作为节点的低维嵌入。<br><strong>SDNE</strong>可以看成是LINE的扩展，它使用自编码器直接同时优化1阶和2阶相似度，通过重构邻接矩阵来优化二阶相似度，通过优化相邻顶点瓶颈层的MSE来优化一阶相似度，而LINE是显示构造相似度，并分开优化的。SDNE学习得到的向量表示能够保留局部和全局结构，并且对稀疏网络具有鲁棒性。</p>
 <h1 id="这类方法的缺点"><a href="#这类方法的缺点" class="headerlink" title="这类方法的缺点"></a>这类方法的缺点</h1><p>这些方法没有进行权重贡献，参数会随着顶点数目线性增长，而且由于直接嵌入方法缺少泛化能力，使得他们没办法解决动态graph或者泛化到新的graph。</p>
+<h1 id="补充阅读"><a href="#补充阅读" class="headerlink" title="补充阅读"></a>补充阅读</h1><p>GraphSAGE：<a href="https://zhuanlan.zhihu.com/p/62750137" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/62750137</a><br>GAT：<a href="https://zhuanlan.zhihu.com/p/66812926" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/66812926</a></p>
 <p><strong>参考：</strong><br><a href="https://zhuanlan.zhihu.com/p/27234078" target="_blank" rel="noopener">理解 Word2Vec 之 Skip-Gram 模型</a><br><a href="https://zhuanlan.zhihu.com/p/64756917" target="_blank" rel="noopener">关于Node2vec算法中Graph Embedding同质性和结构性的进一步探讨</a></p>
 
       
@@ -569,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/1212924403.html" rel="next" title="Graph Neural Networks_A Review of Methods and Applications">
-                <i class="fa fa-chevron-left"></i> Graph Neural Networks_A Review of Methods and Applications
+              <a href="/3231986183.html" rel="next" title="GCN">
+                <i class="fa fa-chevron-left"></i> GCN
               </a>
             
           </div>
@@ -788,7 +790,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型介绍"><span class="nav-number">2.</span> <span class="nav-text">模型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepWalk"><span class="nav-number">2.1.</span> <span class="nav-text">DeepWalk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LINE"><span class="nav-number">2.2.</span> <span class="nav-text">LINE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.2.1.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node2vec"><span class="nav-number">2.3.</span> <span class="nav-text">node2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDNE"><span class="nav-number">2.4.</span> <span class="nav-text">SDNE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struc2vec"><span class="nav-number">2.5.</span> <span class="nav-text">struc2vec</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比"><span class="nav-number">3.</span> <span class="nav-text">对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于随机游走"><span class="nav-number">3.1.</span> <span class="nav-text">基于随机游走</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不基于随机游走"><span class="nav-number">3.2.</span> <span class="nav-text">不基于随机游走</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这类方法的缺点"><span class="nav-number">4.</span> <span class="nav-text">这类方法的缺点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型介绍"><span class="nav-number">2.</span> <span class="nav-text">模型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepWalk"><span class="nav-number">2.1.</span> <span class="nav-text">DeepWalk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LINE"><span class="nav-number">2.2.</span> <span class="nav-text">LINE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.2.1.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node2vec"><span class="nav-number">2.3.</span> <span class="nav-text">node2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDNE"><span class="nav-number">2.4.</span> <span class="nav-text">SDNE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struc2vec"><span class="nav-number">2.5.</span> <span class="nav-text">struc2vec</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比"><span class="nav-number">3.</span> <span class="nav-text">对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于随机游走"><span class="nav-number">3.1.</span> <span class="nav-text">基于随机游走</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不基于随机游走"><span class="nav-number">3.2.</span> <span class="nav-text">不基于随机游走</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这类方法的缺点"><span class="nav-number">4.</span> <span class="nav-text">这类方法的缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充阅读"><span class="nav-number">5.</span> <span class="nav-text">补充阅读</span></a></li></ol></div>
             
 
           </div>
@@ -830,7 +832,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:22</span>
+    <span title="站点阅读时长">1:23</span>
   
 </div>
 

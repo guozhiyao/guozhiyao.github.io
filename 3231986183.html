@@ -98,8 +98,8 @@
 
   <meta name="description" content="graph综述论文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Graph Neural Networks_A Review of Methods and Applications">
-<meta property="og:url" content="https://guozhiyao.github.io/1212924403.html">
+<meta property="og:title" content="GCN">
+<meta property="og:url" content="https://guozhiyao.github.io/3231986183.html">
 <meta property="og:site_name" content="LearningNote">
 <meta property="og:description" content="graph综述论文">
 <meta property="og:locale" content="zh-CN">
@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev22.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev23.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev24.png">
-<meta property="og:image" content="https://guozhiyao.github.io/images/rev49.jpg">
+<meta property="og:image" content="https://guozhiyao.github.io/images/rev49.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev25.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev26.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev27.png">
@@ -152,9 +152,9 @@
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev46.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev47.png">
 <meta property="og:image" content="https://guozhiyao.github.io/images/rev48.png">
-<meta property="og:updated_time" content="2019-06-15T06:49:18.366Z">
+<meta property="og:updated_time" content="2019-06-15T08:40:29.889Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Graph Neural Networks_A Review of Methods and Applications">
+<meta name="twitter:title" content="GCN">
 <meta name="twitter:description" content="graph综述论文">
 <meta name="twitter:image" content="https://guozhiyao.github.io/images/rev1.png">
 
@@ -164,7 +164,7 @@
 
   
   
-  <link rel="canonical" href="https://guozhiyao.github.io/1212924403">
+  <link rel="canonical" href="https://guozhiyao.github.io/3231986183">
 
 
 
@@ -174,7 +174,7 @@
   };
 </script>
 
-  <title>Graph Neural Networks_A Review of Methods and Applications | LearningNote</title>
+  <title>GCN | LearningNote</title>
   
 
 
@@ -377,7 +377,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/1212924403.html">
+    <link itemprop="mainEntityOfPage" href="https://guozhiyao.github.io/3231986183.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GuoZhiyao">
@@ -394,7 +394,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Graph Neural Networks_A Review of Methods and Applications
+          <h1 class="post-title" itemprop="name headline">GCN
 
               
             
@@ -422,7 +422,7 @@
                 
               
 
-              <time title="创建时间：2019-06-14 09:51:54" itemprop="dateCreated datePublished" datetime="2019-06-14T09:51:54Z">2019-06-14</time>
+              <time title="创建时间：2019-06-13 11:27:03" itemprop="dateCreated datePublished" datetime="2019-06-13T11:27:03Z">2019-06-13</time>
             
 
             
@@ -439,7 +439,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-15 06:49:18" itemprop="dateModified" datetime="2019-06-15T06:49:18Z">2019-06-15</time>
+                <time title="修改时间：2019-06-15 08:40:29" itemprop="dateModified" datetime="2019-06-15T08:40:29Z">2019-06-15</time>
               
             
           </span>
@@ -475,8 +475,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/1212924403.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/1212924403.html" itemprop="commentCount"></span>
+                <a href="/3231986183.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/3231986183.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -484,7 +484,7 @@
 
           
           
-            <span id="/1212924403.html" class="leancloud_visitors" data-flag-title="Graph Neural Networks_A Review of Methods and Applications">
+            <span id="/3231986183.html" class="leancloud_visitors" data-flag-title="GCN">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -523,7 +523,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -546,61 +546,102 @@
         <p>graph综述论文<br><a id="more"></a></p>
 <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>许多学习任务要求处理graph结构数据，一类是数据本身就能表示成graph结构，另一类是要从非结构化数据比如文本或者图像中提取出结构，再在上面做推理，文本可以通过构建文本依赖树，图像可以通过构建scene graph。<br>GNN通过在节点之间进行信息传递，来获取graph中的依赖性，它可以根据任意的深度从邻接顶点获得信息来得到state，但是它是通过fixed point推导出来的，很难优化，可以从网络架构、优化技术和并行计算进行优化。</p>
 <h1 id="1-introduction"><a href="#1-introduction" class="headerlink" title="1.introduction"></a>1.introduction</h1><h2 id="GNN的动机："><a href="#GNN的动机：" class="headerlink" title="GNN的动机："></a>GNN的动机：</h2><ol>
-<li>第一个动机是来自于CNN。CNN具有提取多尺度局部空间特征的能力，并构建它们以构建高度表达的表现形式，但是CNN只能在规则的Euclidean数据上进行操作。CNN主要的特点是：拒不连接、权值共享和多层。这对于graph领域也很重要：a. graph是经典的局部连接结构；b. 权值共享能够有效的降低传统图谱理论的参数；c. 多层结构是获得层次特征的重点。所以通过CNN泛化到graph是很自然的想法，但是很难直接将CNN从Euclidean领域扩展到non-Euclidean领域。</li>
-<li>第二个动机来自于graph embedding，它想要学习graph节点、边或者子图的低维表示。根据representation learning和word embedding，DeepWalk、node2vec、LINE、TADW都被提出来了，但是这些方法有两个问题：a. 节点之间没有进行全治共享，就会带来计算和效率问题，参数数目随着节点数目增加而线性增长；b. 直接嵌入方法缺少泛化能力，无法处理动态graph或者泛化到新的graph。<br>所以基于CNN和graph embedding， GNN被提出来聚合graph结构的信息，并且，GNN同时可以使用RNN核来对graph上的扩散进行建模。<h2 id="GNN其他值得被他探索的原因"><a href="#GNN其他值得被他探索的原因" class="headerlink" title="GNN其他值得被他探索的原因"></a>GNN其他值得被他探索的原因</h2></li>
-<li>CNN和RNN无法处理graph输入，他们会按照特定顺序堆叠graph顶点，然而graph没有特定的节点顺序，所以为了完整地表示graph，就要探索所有可能的顺序，就会造成冗余的计算。<br>解决：GNN就在每个节点上独立地传播，就忽略了顶点输入的顺序。也就是让GNN的输出对任意的输入顺序是不变的。</li>
-<li>graph中的边表示顶点之间的依赖关系，然而标准网络将依赖信息看成顶点的特征。<br>解决：GNN可以通过网络结构来指导传播，而不是将其当做特征的一部分。也就是说，GNN使用节点的邻接节点特征的加权和来更新顶点特征。也就是用边来指导信息传播。</li>
-<li>传统的方法能够通过学习数据分布来生成图像和文本，但是还没办法学习推理graph结构，然后GNN能够隵从非结构化数据生成graph结构。<h2 id="现有的graph综述"><a href="#现有的graph综述" class="headerlink" title="现有的graph综述"></a>现有的graph综述</h2>[1]给出了较早的GNN方法的形式化定义<br>[2]演示了图神经网络的近似性质和计算能力<br>[3]提出了一个统一的框架，MoNet，将CNN架构推广到非欧几里得域（图和流形）<br>[4]提供了几何深度学习的全面回顾，提出了它的问题，困难，解决方案，应用和未来方向<br>[5]提出了消息传递神经网络（MPNN），它可以推广几种图形神经网络和图形卷积网络方法。它介绍了通过神经网络的消息的定义，并展示了它在量子化学中的应用。<br>[6]提出了非局部神经网络（NLNN），它统一了几种“自我关注”式的方法。但是，该模型未在原始论文的图表中明确定义。<br>[5]和[6]只给出了如何使用他们的框架推广其他模型的例子，他们没有提供对其他图神经网络模型的评论。<br>[7]提出了图形网络（GN）框架。该框架具有很强的推广其他模型的能力，其关系归纳偏差促进了组合泛化，这被认为是AI的首要任务。然而，[27]是部分立场文件，部分审查和部分统一，它只给出了应用程序的粗略分类。</li>
+<li><p>第一个动机是来自于CNN。CNN具有提取多尺度局部空间特征的能力，并构建它们以构建高度表达的表现形式，但是CNN只能在规则的Euclidean数据上进行操作。CNN主要的特点是：拒不连接、权值共享和多层。这对于graph领域也很重要：a. graph是经典的局部连接结构；b. 权值共享能够有效的降低传统图谱理论的参数；c. 多层结构是获得层次特征的重点。所以通过CNN泛化到graph是很自然的想法，但是很难直接将CNN从Euclidean领域扩展到non-Euclidean领域。</p>
+</li>
+<li><p>第二个动机来自于graph embedding，它想要学习graph节点、边或者子图的低维表示。根据representation learning和word embedding，DeepWalk、node2vec、LINE、TADW都被提出来了，但是这些方法有两个问题：a. 节点之间没有进行全治共享，就会带来计算和效率问题，参数数目随着节点数目增加而线性增长；b. 直接嵌入方法缺少泛化能力，无法处理动态graph或者泛化到新的graph。</p>
+</li>
 </ol>
-<p>1：F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini, “The graph neural network model,” IEEE TNN 2009<br>2：“Computational capabilities of graph neural networks,” IEEE TNN 2009<br>3：F. Monti, D. Boscaini, J. Masci, E. Rodola, J. Svoboda, and M. M. Bronstein, “Geometric deep learning on graphs and manifolds using mixture model cnns,” CVPR 2017<br>4：M. M. Bronstein, J. Bruna, Y. LeCun, A. Szlam, and P. Vandergheynst, “Geometric deep learning: going beyond euclidean data,” IEEE SPM 2017<br>5：J. Gilmer, S. S. Schoenholz, P. F. Riley, O. Vinyals, and G. E. Dahl, “Neural message passing for quantum chemistry,”<br>6：X. Wang, R. Girshick, A. Gupta, and K. He, “Non-local neural networks,”<br>7：P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti, D. Raposo, A. Santoro, R. Faulkner et al., “Relational inductive biases, deep learning, and graph networks,”</p>
+<p>所以基于CNN和graph embedding， GNN被提出来聚合graph结构的信息，并且，GNN同时可以使用RNN核来对graph上的扩散进行建模。</p>
+<h2 id="GNN其他值得被他探索的原因"><a href="#GNN其他值得被他探索的原因" class="headerlink" title="GNN其他值得被他探索的原因"></a>GNN其他值得被他探索的原因</h2><ol>
+<li><p>CNN和RNN无法处理graph输入，他们会按照特定顺序堆叠graph顶点，然而graph没有特定的节点顺序，所以为了完整地表示graph，就要探索所有可能的顺序，就会造成冗余的计算。<br>解决：GNN就在每个节点上独立地传播，就忽略了顶点输入的顺序。也就是让GNN的输出对任意的输入顺序是不变的。</p>
+</li>
+<li><p>graph中的边表示顶点之间的依赖关系，然而标准网络将依赖信息看成顶点的特征。<br>解决：GNN可以通过网络结构来指导传播，而不是将其当做特征的一部分。也就是说，GNN使用节点的邻接节点特征的加权和来更新顶点特征。也就是用边来指导信息传播。</p>
+</li>
+<li><p>传统的方法能够通过学习数据分布来生成图像和文本，但是还没办法学习推理graph结构，然后GNN能够隵从非结构化数据生成graph结构。</p>
+</li>
+</ol>
+<h2 id="现有的graph综述"><a href="#现有的graph综述" class="headerlink" title="现有的graph综述"></a>现有的graph综述</h2><p>[1]给出了较早的GNN方法的形式化定义<br>[2]演示了图神经网络的近似性质和计算能力<br>[3]提出了一个统一的框架，MoNet，将CNN架构推广到非欧几里得域（图和流形）<br>[4]提供了几何深度学习的全面回顾，提出了它的问题，困难，解决方案，应用和未来方向<br>[5]提出了消息传递神经网络（MPNN），它可以推广几种图形神经网络和图形卷积网络方法。它介绍了通过神经网络的消息的定义，并展示了它在量子化学中的应用。<br>[6]提出了非局部神经网络（NLNN），它统一了几种“自我关注”式的方法。但是，该模型未在原始论文的图表中明确定义。<br>[5]和[6]只给出了如何使用他们的框架推广其他模型的例子，他们没有提供对其他图神经网络模型的评论。<br>[7]提出了图形网络（GN）框架。该框架具有很强的推广其他模型的能力，其关系归纳偏差促进了组合泛化，这被认为是AI的首要任务。然而，[27]是部分立场文件，部分审查和部分统一，它只给出了应用程序的粗略分类。<br>1：F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini, “The graph neural network model,” IEEE TNN 2009<br>2：“Computational capabilities of graph neural networks,” IEEE TNN 2009<br>3：F. Monti, D. Boscaini, J. Masci, E. Rodola, J. Svoboda, and M. M. Bronstein, “Geometric deep learning on graphs and manifolds using mixture model cnns,” CVPR 2017<br>4：M. M. Bronstein, J. Bruna, Y. LeCun, A. Szlam, and P. Vandergheynst, “Geometric deep learning: going beyond euclidean data,” IEEE SPM 2017<br>5：J. Gilmer, S. S. Schoenholz, P. F. Riley, O. Vinyals, and G. E. Dahl, “Neural message passing for quantum chemistry,”<br>6：X. Wang, R. Girshick, A. Gupta, and K. He, “Non-local neural networks,”<br>7：P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti, D. Raposo, A. Santoro, R. Faulkner et al., “Relational inductive biases, deep learning, and graph networks,”</p>
 <h1 id="2-模型"><a href="#2-模型" class="headerlink" title="2.模型"></a>2.模型</h1><p>2.1中介绍原始的GNN，然后说明其局限；2.2介绍几种解决这个局限的变体；2.3介绍三种框架MPNN、NLNN和GN。</p>
 <h2 id="2-1-graph-neural-networks"><a href="#2-1-graph-neural-networks" class="headerlink" title="2.1 graph neural networks"></a>2.1 graph neural networks</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在一个graph中，论文中说方法可以扩展到有向、无向、有环、无环的graph。每个顶点是由其特征和相邻节点来定义的。GNN的目标是为每个节点学习一个state embedding $h_v$来包含其邻接顶点的信息。对于每个节点v，会含有一个state emebdding $h_v$，表示其特征，还有一个输出$o_v$来表示其标签。定义两个函数，f为<code>local transition function</code>，在所有节点上共享参数，并且根据输入邻接顶点来更新节点的state embedding。g为<code>local output function</code>用来描述图和产生输出。所以$h_v$和$o_v$如下产生<br><img src="/images/rev1.png" alt="rev1"><br>将所有顶点的特征和state embedding都堆叠起来，可以得到以下形式<br><img src="/images/rev2.png" alt="rev2"><br>其中，F是<code>global transition function</code>，G是<code>gloabl output function</code>，是所有节点的f和g的堆叠。<br>GNN一个主要的想法：对于公式3，它认为H的值是函数F的不动点。<br>由此，它用到了<code>Banach&#39;s fixed point theorem</code>，里面提出了一个该函数有唯一解的充分条件，即F是contraction map。并且提出了求解函数F解的方法，通过不断迭代<br><img src="/images/rev3.png" alt="rev3"><br>这样对于任意初始化，就能以指数的速度收敛到公式3的解。<br>然后这里通过监督学习的方法来学到f和g的参数<br><img src="/images/rev4.png" alt="rev4"><br>其中，t为标签，p为顶点数目。使用梯度下降算法进行学习。</p>
-<p><strong>注意：</strong>通常将公式3的过程称为<code>propagation</code>，也就是传播过程。</p>
+<p><strong>注意：</strong>通常将公式3的过程称为propagation，也就是传播过程。</p>
 <h3 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h3><ol>
-<li>将state embedding看成是函数的不动点，通过迭代方式进行求解效率很低，并且由于其要求F为contraction map，就多了额外的限制。如果放松不动点的约束，就可以设计多层的GNN来得到顶点和邻居更加稳定的表达。</li>
-<li>GNN在每次迭代时都使用相同的参数，而且CNN网络中，不同层使用不同的参数来得到不同层次的特征。并且，节点state embedding的更新是序列化进行的，所以可以参考RNN核方法。</li>
-<li>没有考虑到边的信息，比如在知识图谱中，不同边含有不同的类型，信息传递时，对于不同类型的边就要用不同的参数，而且如何学习边的state embedding也是一个问题。</li>
-<li>使用不动点理论是不合适的。我们关注的是顶点的表示而不是graph的表示，而通过不动点进行更新，会使得最终表示的分布十分平滑，不同点之间的信息都相同了，缺少自己独特的信息。</li>
+<li><p>将state embedding看成是函数的不动点，通过迭代方式进行求解效率很低，并且由于其要求F为contraction map，就多了额外的限制。如果放松不动点的约束，就可以设计多层的GNN来得到顶点和邻居更加稳定的表达。</p>
+</li>
+<li><p>GNN在每次迭代时都使用相同的参数，而且CNN网络中，不同层使用不同的参数来得到不同层次的特征。并且，节点state embedding的更新是序列化进行的，所以可以参考RNN核方法。</p>
+</li>
+<li><p>没有考虑到边的信息，比如在知识图谱中，不同边含有不同的类型，信息传递时，对于不同类型的边就要用不同的参数，而且如何学习边的state embedding也是一个问题。</p>
+</li>
+<li><p>使用不动点理论是不合适的。我们关注的是顶点的表示而不是graph的表示，而通过不动点进行更新，会使得最终表示的分布十分平滑，不同点之间的信息都相同了，缺少自己独特的信息。</p>
+</li>
 </ol>
 <h2 id="2-2-GNN的变体"><a href="#2-2-GNN的变体" class="headerlink" title="2.2 GNN的变体"></a>2.2 GNN的变体</h2><p>变体主要包含三种类型：graph types，扩展GNN的表达能力；修改传播方法，能够学习到高质量的表示；改进训练方法，来使得训练更加高效。<br><img src="/images/rev5.png" alt="rev5"><br><img src="/images/rev6.png" alt="rev6"></p>
 <h3 id="2-2-1-graph-types"><a href="#2-2-1-graph-types" class="headerlink" title="2.2.1 graph types"></a>2.2.1 graph types</h3><ol>
-<li><strong>有向图</strong><br>无向边可以看成是两种方向的有向边，然而有向边可以带来更多信息。<br><strong>ADGPM</strong>使用两种类型的参数矩阵，分别用来处理顶点的父节点和子节点，使得获得更加精细的网络结构，信息传递规则如下<br><img src="/images/rev7.png" alt="rev7"><br>采用了类似于GCN的归一化方法，然后先使用子节点对应的权重矩阵$W_c$处理节点对应的子节点，获得临时的state embedding，然后再使用父节点对应的权重矩阵$W_p$进行更新，得到最终节点对应的state embedding。</li>
-<li><strong>异构图</strong><br>异构图也就是指节点含有不同的类型。最简单的方法就是将节点的类型转变为one-hot编码，然后将这个编码和原来的节点特征拼接起来。<strong>GraphInception</strong>在传播过程中引入了<code>metapath</code> 的概念，根据邻接顶点的不同的类型将他们分成不同的组，对于每个组，GraphInception将它看成是subgraph，然后在不同的组上进行独立的信息传递，然后再将不同组得到的结果拼接起来作为节点的表示。</li>
-<li><strong>带有边信息</strong><br>对于有些graph，可能边也包含一定的信息，对于这类graph，有两种方法：a. 将graph转变成二部图，使得原来的边也变成节点，而该边节点与原来的节点又有两条新的边相连。<strong>G2S</strong>的encoder使用如下的方法来聚集邻接顶点的信息<br><img src="/images/rev8.png" alt="rev8"><br>其中$W_r$和$b_r$表示不同类型的边的传播参数，这里其实就是用边节点的信息来更新当前节点的信息。<br>b. 可以对不同类型的边使用不同的不同的参数矩阵。<br>当边的数量比较大时，<strong>r-GCN</strong>使用两种正则方法来减少对关系建模的参数：basis-和block-diagonal-分解。<br>使用basis分解，每个$W_r$变成<br><img src="/images/rev9.png" alt="rev9"><br>其中$V_b$是$d_{in} \times d_{out}$的矩阵，我猜测，由于边的数目很大，所以r的值应该很大，而这里将其变成不同$V_b$的线性组合，应该B的值要远小于r的值，才能达到减小参数的目的。<br>使用block-diagonal分解，就是使用一些低维矩阵的和来表示每个$W_r$，会需要更多的参数。</li>
+<li><strong>有向图</strong></li>
 </ol>
+<p>无向边可以看成是两种方向的有向边，然而有向边可以带来更多信息。<br><strong>ADGPM</strong>使用两种类型的参数矩阵，分别用来处理顶点的父节点和子节点，使得获得更加精细的网络结构，信息传递规则如下<br><img src="/images/rev7.png" alt="rev7"><br>采用了类似于GCN的归一化方法，然后先使用子节点对应的权重矩阵$W_c$处理节点对应的子节点，获得临时的state embedding，然后再使用父节点对应的权重矩阵$W_p$进行更新，得到最终节点对应的state embedding。</p>
+<ol start="2">
+<li><strong>异构图</strong></li>
+</ol>
+<p>异构图也就是指节点含有不同的类型。最简单的方法就是将节点的类型转变为one-hot编码，然后将这个编码和原来的节点特征拼接起来。<strong>GraphInception</strong>在传播过程中引入了<code>metapath</code>的概念，根据邻接顶点的不同的类型将他们分成不同的组，对于每个组，GraphInception将它看成是subgraph，然后在不同的组上进行独立的信息传递，然后再将不同组得到的结果拼接起来作为节点的表示。</p>
+<ol start="3">
+<li><strong>带有边信息</strong></li>
+</ol>
+<p>对于有些graph，可能边也包含一定的信息，对于这类graph，有两种方法：a. 将graph转变成二部图，使得原来的边也变成节点，而该边节点与原来的节点又有两条新的边相连。<strong>G2S</strong>的encoder使用如下的方法来聚集邻接顶点的信息<br><img src="/images/rev8.png" alt="rev8"><br>其中$W_r$和$b_r$表示不同类型的边的传播参数，这里其实就是用边节点的信息来更新当前节点的信息。<br>b. 可以对不同类型的边使用不同的不同的参数矩阵。<br>当边的数量比较大时，<strong>r-GCN</strong>使用两种正则方法来减少对关系建模的参数：basis-和block-diagonal-分解。<br>使用basis分解，每个$W_r$变成<br><img src="/images/rev9.png" alt="rev9"><br>其中$V_b$是$d_{in} \times d_{out}$的矩阵，我猜测，由于边的数目很大，所以r的值应该很大，而这里将其变成不同$V_b$的线性组合，应该B的值要远小于r的值，才能达到减小参数的目的。<br>使用block-diagonal分解，就是使用一些低维矩阵的和来表示每个WrWr，会需要更多的参数。</p>
 <h3 id="2-2-2-Propagation-Types"><a href="#2-2-2-Propagation-Types" class="headerlink" title="2.2.2 Propagation Types"></a>2.2.2 Propagation Types</h3><p>传播步骤f和输出步骤g对获得最终的state emebedding很重要，一般来说，输出步骤都是使用简单的前传网络，而不同论文的主要不同点在于传播步骤f的设置，会使用不同的聚合邻接顶点的方法，以及更新顶点state emebdding的方法。</p>
 <ol>
-<li><p><strong>卷积</strong><br>图卷积一般分成两种：spectral方法（图谱卷积）和non-spectral方法（非图谱方法）。<br>关于图谱卷积，可以参考之前的<a href="https://guozhiyao.github.io/3231986182.html#more">blog</a> 。<br><strong>图谱卷积的缺点：</strong>它们都是基于graph的拉普拉斯矩阵推导出来的，而拉普拉斯矩阵依赖于graph结构的，使得在特定graph上训练的名没办法直接用用于不同结构的graph。<br>而非图谱卷积是直接定义在graph上的，直接对邻接顶点进行操作。<strong>主要挑战</strong>：定义不同邻接顶点范围的卷及操作并且CNN的保留局部不变形。<br>[1]对不同度的节点使用不同的权重矩阵<br><img src="/images/rev10.png" alt="rev10"><br>其中，$N_v$表示节点v的度，L表示层数。先将邻接顶点的所有state embedding累加起来，然后通过节点的度来决定使用的线性变化参数。<strong>缺点</strong>在于无法再具有很大度数的graph上使用。<br><strong>DCNN</strong>（diffusion-convolutional neural networks）中，使用转移矩阵来定义邻接顶点。对于顶点分类任务，使用<br><img src="/images/rev11.png" alt="rev11"><br>其中，X是N*F维的输入特征，N为输入的顶点数目，F为特征维度，而$P^<em>$为N\</em>K*N维张量，包含了$P,P^2,P^3,…,P^K$，其中P是通过graph的邻接矩阵定义的度标准化后的转移矩阵，K次方就表示K此跳跃到达的各个顶点的概率。然后W为K*F矩阵，最终得到维度为N*K*F的H，表示graph中每个顶点的扩散表达。<br>对于图分类任务，就是简单地对其进行平均<br><img src="/images/rev12.png" alt="rev12"><br><strong>CNN4G</strong>这个是针对graph分类的，为每个节点提取并标准化k个节点的邻域。 然后归一化的邻域作为卷积运算的感受域。<br><strong>GraphSAGE</strong>是一种归纳模型，通过从节点的局部邻接顶点采样和汇聚特征来产生embedding。<br><img src="/images/rev13.png" alt="rev13"><br>然而，GraphSAGE没有使用完整的邻接顶点，而是通过均匀采样来使用固定数目的邻接顶点，并且他提出了三种聚集函数：<br>a. mean aggregator，这个可以看成是GCN的归纳版本<br><img src="/images/rev14.png" alt="rev14"><br>没有进行拼接操作，可以看成是跳跃连接的形式，效果比较好。<br>b. LSTM aggregator，能够有更好的表达能力，然后LSTM要求输入是有序的，所以要先对邻接顶点进行排序。<br>c. pooling aggregator，每个邻接顶点通过fc后，使用极大池化操作<br><img src="/images/rev15.png" alt="rev15"><br><strong>SACNN</strong>是Structure Aware Convolutional Neural Networks，使用单变量函数作为filter，它们可以处理欧几里得和非欧几里德结构数据。</p>
-</li>
-<li><p><strong>门控</strong><br>在传播过程使用门控的主要原因是为了减少GNN模型中的限制，并改善信息在图结构中的长期传播。<br><strong>GGNN</strong>在传播过程中使用GRU，并且运行固定步长T次的传播过程，而不是像GNN中运行直至收敛。<br><img src="/images/rev16.png" alt="rev16"><br>其中，$A_v$是邻接矩阵A的子矩阵，表示顶点v和它邻接顶点的连接关系。</p>
-</li>
+<li><strong>卷积</strong></li>
 </ol>
+<p>图卷积一般分成两种：spectral方法（图谱卷积）和non-spectral方法（非图谱方法）。<br>关于图谱卷积，可以参考之前的<a href="https://guozhiyao.github.io/3231986182.html#more">blog</a> 。<br><strong>图谱卷积的缺点：</strong>它们都是基于graph的拉普拉斯矩阵推导出来的，而拉普拉斯矩阵依赖于graph结构的，使得在特定graph上训练的名没办法直接用用于不同结构的graph。<br>而非图谱卷积是直接定义在graph上的，直接对邻接顶点进行操作。<strong>主要挑战：</strong>定义不同邻接顶点范围的卷及操作并且CNN的保留局部不变形。<br>[1]对不同度的节点使用不同的权重矩阵<br><img src="/images/rev10.png" alt="rev10"><br>其中，$N_v$表示节点v的度，L表示层数。先将邻接顶点的所有state embedding累加起来，然后通过节点的度来决定使用的线性变化参数。<strong>缺点</strong>在于无法再具有很大度数的graph上使用。<br><strong>DCNN</strong>（diffusion-convolutional neural networks）中，使用转移矩阵来定义邻接顶点。对于顶点分类任务，使用<br><img src="/images/rev11.png" alt="rev11"><br>其中，X是$N \times F$维的输入特征，N为输入的顶点数目，F为特征维度，而$P^{*}$为$N \times K \times N$维张量，包含了$P,P^2,P^3,…,P^$，其中P是通过graph的邻接矩阵定义的度标准化后的转移矩阵，K次方就表示K此跳跃到达的各个顶点的概率。然后W为$K \times F$矩阵，最终得到维度为$N \times K \times F$的H，表示graph中每个顶点的扩散表达。<br>对于图分类任务，就是简单地对其进行平均<br><img src="/images/rev12.png" alt="rev12"><br><strong>CNN4G</strong>这个是针对graph分类的，为每个节点提取并标准化k个节点的邻域。 然后归一化的邻域作为卷积运算的感受域。<br><strong>GraphSAGE</strong>是一种归纳模型，通过从节点的局部邻接顶点采样和汇聚特征来产生embedding。<br><img src="/images/rev13.png" alt="rev13"><br>然而，GraphSAGE没有使用完整的邻接顶点，而是通过均匀采样来使用固定数目的邻接顶点，并且他提出了三种聚集函数：<br>a. mean aggregator，这个可以看成是GCN的归纳版本<br><img src="/images/rev14.png" alt="rev14"><br>没有进行拼接操作，可以看成是跳跃连接的形式，效果比较好。<br>b. LSTM aggregator，能够有更好的表达能力，然后LSTM要求输入是有序的，所以要先对邻接顶点进行排序。<br>c. pooling aggregator，每个邻接顶点通过fc后，使用极大池化操作<br><img src="/images/rev15.png" alt="rev15"><br><strong>SACNN</strong>是Structure Aware Convolutional Neural Networks，使用单变量函数作为filter，它们可以处理欧几里得和非欧几里德结构数据。</p>
+<ol start="2">
+<li><strong>门控</strong></li>
+</ol>
+<p>在传播过程使用门控的主要原因是为了减少GNN模型中的限制，并改善信息在图结构中的长期传播。<br><strong>GGNN</strong>在传播过程中使用GRU，并且运行固定步长T次的传播过程，而不是像GNN中运行直至收敛。<br><img src="/images/rev16.png" alt="rev16"><br>其中，$A_v$是邻接矩阵A的子矩阵，表示顶点v和它邻接顶点的连接关系。</p>
 <p>[2]提出了对LSTM的两个扩展架构，<strong>Child-Sum Tree-LSTM</strong>和<strong>N-ary Tree-LSTM</strong>，对于树状LSTM，不使用一个遗忘门，每个顶点会对其不同的子节点都使用不同的遗忘门，使得它能在子节点中进行选择。Child-Sum Tree-LSTM公式如下<br><img src="/images/rev17.png" alt="rev17"><br><img src="/images/rev18.png" alt="rev18"><br>如果树的分支最大只有K，并且子节点都是有序的，就可以使用N-ary Tree-LSTM<br><img src="/images/rev19.png" alt="rev19"><br>为每个子节点k引入单独的参数矩阵允许模型学习比Child-Sum Tree-LSTM更多的细粒度表示来调节单元的状态。<br>可以将LSTM的扩展形式引入到graph中，<strong>graph-structured LSTM</strong>就使用了N-ary Tree-LSTM，但是加了额外的限制，每个顶点只含有两条输入边。<br><strong>Graph LSTM</strong>与上面的不同在于，graph中的每条边都含有标签，对不同的标签使用不同的权重<br><img src="/images/rev20.png" alt="rev20"><br>其中，m(k,v)表示标签。<br>[3]提出了一个Graph LSTM网络来解决语义对象解析任务。 它使用置信驱动方案自适应地选择起始节点并确定节点更新序列。 它遵循将现有LSTM概括为图结构化数据的相同想法，但具有特定的更新顺序，而我们上面提到的方法对节点的顺序是不可知的。</p>
 <ol start="3">
-<li><p><strong>注意力</strong><br><strong>GAT</strong>在传播过程中使用了注意力机制，使用self-attention机制，通过关注到各个邻居来计算state embedding。它提出了一层<code>graph attentional layer</code>，可以堆叠该层来任意使用。<br><img src="/images/rev21.png" alt="rev21"><br>它这里计算了顶点i和顶点j之间的权重。然后最后的输出为其加权和<br><img src="/images/rev22.png" alt="rev22"><br>我们的输入顶点集合为h，h中包含N个顶点，每个顶点为F维特征，我们通过使用$F’ \times F$的W将特征放缩到F’维，使得我们输出的顶点集合h’，每个顶点的特征都是F’维的。<br>而且它还可以使用<code>multi-head attention</code>，使用K个不同的权重来计算，最后通过拼接或者均值得到顶点的state embedding<br><img src="/images/rev23.png" alt="rev23"><br>attention机制具有以下特点：a. 邻居之间可以并行计算；b. 通过为邻居指定任意权重，它可以应用于不同程度的图节点；c. 可以扩展到归纳学习。</p>
-</li>
-<li><p><strong>跳跃连接</strong><br>许多方法都想要堆叠更多的层或者从邻居汇集更多的信息，但是这并没有带来好处，主要原因在于，越深的层，带来指数增长的邻接顶点，使得噪声更多。<br><strong>注意：</strong>深度会引入噪音，是因为深度会带来指数增加的邻居节点，使得噪音增加，所以需要控制邻居节点的数目，防止过多噪音。<br>可以使用类似残差网络的方法，但是效果不大，效果最好的还是两层GCN。<br><strong>Highway GCN</strong>参考了highway networks，通过门控来控制输出<br><img src="/images/rev24.png" alt="rev24"><br>可以在4层GCN中达到最好效果。<br><strong>Jump Knowledge Network</strong>可以学习自适应，结构化的表示。Jump Knowledge Network从最后一层的每个节点的所有中间表示（“跳转到最后一层”）中进行选择，这使得模型根据需要调整每个节点的有效邻域大小。 [58]在实验中使用三种方法，拼接，极大池化和LSTM-attention来聚合信息。它还可以与GCN，GraphSAGE和GAT等模型相结合，以提高其性能。</p>
-</li>
+<li><strong>注意力</strong></li>
 </ol>
-<h3 id="2-2-3-训练方法"><a href="#2-2-3-训练方法" class="headerlink" title="2.2.3 训练方法"></a>2.2.3 训练方法</h3><p>原始GCN在训练和优化中具有以下<strong>缺点</strong>：GCN需要整张graph的拉普拉斯矩阵，这就使得在比较大型的graph上计算复杂度很高，并且求解state embedding是递归进行的。因此，单个节点的感受野相对于层数呈指数增长，因此单个节点的计算梯度成本很高。 最后，GCN只能针对固定graph进行独立训练，缺乏归纳学习的能力。<br><strong>GraphSAGE</strong>可以解决上述问题，它将整张graph的拉普拉斯矩阵替换为可学习的聚合函数，也是进行信息传递和泛化的<strong>关键</strong>。并且它还对邻接顶点进行采样，来抑制指数增长的感受野。<br><strong>注意：</strong>归纳法的重要修改是，普通的GCN需要计算拉普拉斯矩阵，而不同graph的拉普拉斯矩阵是不同的，所以对于新的graph就要重新训练。而GraphSAGE不使用拉普拉斯矩阵，而是用可学习的聚合函数，通过聚合函数和传播函数，能泛化到没见过的节点。<br><strong>FastGCN</strong>更进一步改进了采样算法，不是对每个顶点的邻接顶点进行采样，而是直接对每一层的感受野进行采样，</p>
-<p>&lt;累了&gt;<br><img src="/images/rev49.jpg" alt="rev49"></p>
-<h2 id="2-3-一般框架"><a href="#2-3-一般框架" class="headerlink" title="2.3 一般框架"></a>2.3 一般框架</h2><p><strong>MPNN</strong>message passing neural network，统一了不同的GNN和GCN方法，包括GCN的谱方法和非谱方法、GGNN、interaction network、molecular graph convolution、deep tensor neural networks。<br><strong>NLNN</strong>non-local neural network统一了不同的’self-attention’类型的方法。<br><strong>GN</strong>graph netw统一了MPNN和NLNN和其他很多方法。</p>
-<h3 id="2-3-1-MPNN"><a href="#2-3-1-MPNN" class="headerlink" title="2.3.1 MPNN"></a>2.3.1 MPNN</h3><p>主要包含两个阶段<code>message passing phase</code>和<code>readout phase</code>。<br>message passing phase包含<code>message function</code>%M_t%和<code>vertex update function</code>$U_t$，需要运行T次，<br><img src="/images/rev25.png" alt="rev25"><br>而readout phase使用<code>readout function</code>R来计算整个graph的特征<br><img src="/images/rev26.png" alt="rev26"><br><strong>注意：</strong>它这里是将整个graph的顶点特征都输入进来的。<br>这里的%M_t%、$U_t$和R都可以有不同的设定，就能统一不同的模型。<br>比如对于GGNN，可以是以下形式<br><img src="/images/rev27.png" alt="rev27"></p>
-<h3 id="2-3-2-NLNN"><a href="#2-3-2-NLNN" class="headerlink" title="2.3.2 NLNN"></a>2.3.2 NLNN</h3><p>NLNN使用用来获得深度神经网络的长距离依赖。它的non-local operation是计算机视觉中传统的non-local mean operation的泛化。non-local operation计算一个位置的响应值，是其他位置的特征的加权和，就能看成是对’self-attention’的统一。<br><code>non-local operation</code>可以定义为<br><img src="/images/rev28.png" alt="rev28"><br>根据度量分数作为权重，来将邻居特征聚合起来。有不同的f和g的设置方案，一般来说，都将g设置为线性变换，而f就有不同形式的方案</p>
+<p>GAT在传播过程中使用了注意力机制，使用self-attention机制，通过关注到各个邻居来计算state embedding。它提出了一层<code>graph attentional layer</code>，可以堆叠该层来任意使用。<br><img src="/images/rev21.png" alt="rev21"><br>它这里计算了顶点i和顶点j之间的权重。然后最后的输出为其加权和<br><img src="/images/rev22.png" alt="rev22"><br>我们的输入顶点集合为h，h中包含N个顶点，每个顶点为F维特征，我们通过使用$F’ \times F$的W将特征放缩到F’维，使得我们输出的顶点集合h’，每个顶点的特征都是F’维的。<br>而且它还可以使用<code>multi-head attention</code>，使用K个不同的权重来计算，最后通过拼接或者均值得到顶点的state embedding<br><img src="/images/rev23.png" alt="rev23"><br>attention机制具有以下特点：a. 邻居之间可以并行计算；b. 通过为邻居指定任意权重，它可以应用于不同程度的图节点；c. 可以扩展到归纳学习。</p>
+<ol start="4">
+<li><strong>跳跃连接</strong></li>
+</ol>
+<p>许多方法都想要堆叠更多的层或者从邻居汇集更多的信息，但是这并没有带来好处，主要原因在于，越深的层，带来指数增长的邻接顶点，使得噪声更多。<br><strong>注意：</strong>深度会引入噪音，是因为深度会带来指数增加的邻居节点，使得噪音增加，所以需要控制邻居节点的数目，防止过多噪音。<br>可以使用类似残差网络的方法，但是效果不大，效果最好的还是两层GCN。<br><strong>Highway GCN</strong>参考了highway networks，通过门控来控制输出<br><img src="/images/rev24.png" alt="rev24"><br>可以在4层GCN中达到最好效果。<br><strong>Jump Knowledge Network</strong>可以学习自适应，结构化的表示。Jump Knowledge Network从最后一层的每个节点的所有中间表示（“跳转到最后一层”）中进行选择，这使得模型根据需要调整每个节点的有效邻域大小。 [58]在实验中使用三种方法，拼接，极大池化和LSTM-attention来聚合信息。它还可以与GCN，GraphSAGE和GAT等模型相结合，以提高其性能。</p>
+<h3 id="2-2-3-训练方法"><a href="#2-2-3-训练方法" class="headerlink" title="2.2.3 训练方法"></a>2.2.3 训练方法</h3><p>原始GCN在训练和优化中具有以下<strong>缺点：</strong>GCN需要整张graph的拉普拉斯矩阵，这就使得在比较大型的graph上计算复杂度很高，并且求解state embedding是递归进行的。因此，单个节点的感受野相对于层数呈指数增长，因此单个节点的计算梯度成本很高。 最后，GCN只能针对固定graph进行独立训练，缺乏归纳学习的能力。<br><strong>GraphSAGE</strong>可以解决上述问题，它将整张graph的拉普拉斯矩阵替换为可学习的聚合函数，也是进行信息传递和泛化的<strong>关键</strong>。并且它还对邻接顶点进行采样，来抑制指数增长的感受野。<br><strong>注意：</strong>归纳法的重要修改是，普通的GCN需要计算拉普拉斯矩阵，而不同graph的拉普拉斯矩阵是不同的，所以对于新的graph就要重新训练。而GraphSAGE不使用拉普拉斯矩阵，而是用可学习的聚合函数，通过聚合函数和传播函数，能泛化到没见过的节点。<br><strong>FastGCN</strong>更进一步改进了采样算法，不是对每个顶点的邻接顶点进行采样，而是直接对每一层的感受野进行采样，</p>
+<p>&lt;累了&gt;<br><img src="/images/rev49.png" alt="rev49"></p>
+<h2 id="2-3-一般框架"><a href="#2-3-一般框架" class="headerlink" title="2.3 一般框架"></a>2.3 一般框架</h2><p><strong>MPNN</strong>：message passing neural network，统一了不同的GNN和GCN方法，包括GCN的谱方法和非谱方法、GGNN、interaction network、molecular graph convolution、deep tensor neural networks。<br><strong>NLNN</strong>：non-local neural network统一了不同的’self-attention’类型的方法。<br><strong>GN</strong>：graph netw统一了MPNN和NLNN和其他很多方法。</p>
+<h3 id="2-3-1-MPNN"><a href="#2-3-1-MPNN" class="headerlink" title="2.3.1 MPNN"></a>2.3.1 MPNN</h3><p>主要包含两个阶段<code>message passing phase</code>和<code>readout phase</code>。<br>message passing phase包含<code>message function</code>$M_t$和<code>vertex update function</code>$U_t$，需要运行T次，<br><img src="/images/rev25.png" alt="rev25"><br>而readout phase使用<code>readout function</code>R来计算整个graph的特征<br><img src="/images/rev26.png" alt="rev26"><br><strong>注意：</strong>它这里是将整个graph的顶点特征都输入进来的。<br>这里的$M_t$、$U_t$和R都可以有不同的设定，就能统一不同的模型。<br>比如对于GGNN，可以是以下形式<br><img src="/images/rev27.png" alt="rev27"></p>
+<h3 id="2-3-2-NLNN"><a href="#2-3-2-NLNN" class="headerlink" title="2.3.2 NLNN"></a>2.3.2 NLNN</h3><p>NLNN使用用来获得深度神经网络的长距离依赖。它的non-local operation是计算机视觉中传统的non-local mean operation的泛化。non-local operation计算一个位置的响应值，是其他位置的特征的加权和，就能看成是对<code>self-attention</code>的统一。<br><code>non-local operation</code>可以定义为<br><img src="/images/rev28.png" alt="rev28"><br>根据度量分数作为权重，来将邻居特征聚合起来。有不同的f和g的设置方案，一般来说，都将g设置为线性变换，而f就有不同形式的方案</p>
 <ol>
-<li>Gussian<br><img src="/images/rev29.png" alt="rev29"><br>其中，归一化参数为所有f的累加。</li>
-<li>Embedded Gaussian<br><img src="/images/rev30.png" alt="rev30"><br>就是在上面的基础上添加了线性变换，其实就是做了softmax。</li>
-<li>dot product<br><img src="/images/rev31.png" alt="rev31"><br>归一化参数为N，N为h中的位置个数。</li>
-<li>concatenation<br><img src="/images/rev32.png" alt="rev32"></li>
+<li><strong>Gussian</strong></li>
 </ol>
-<p>并且，其实可以将non-local模块看成是残差，使用<br><img src="/images/rev33.png" alt="rev33"><br>将non-local很容易地拓展到已经训练的模型中，更加灵活。</p>
+<p><img src="/images/rev29.png" alt="rev29"><br>其中，归一化参数为所有f的累加。</p>
+<ol start="2">
+<li><strong>Embedded Gaussian</strong></li>
+</ol>
+<p><img src="/images/rev30.png" alt="rev30"><br>就是在上面的基础上添加了线性变换，其实就是做了softmax。</p>
+<ol start="3">
+<li><p><strong>dot product</strong><br><img src="/images/rev31.png" alt="rev31"><br>归一化参数为N，N为h中的位置个数。</p>
+</li>
+<li><p><strong>concatenation</strong></p>
+</li>
+</ol>
+<p><img src="/images/rev32.png" alt="rev32"><br>并且，其实可以将non-local模块看成是残差，使用<br><img src="/images/rev33.png" alt="rev33"><br>将non-local很容易地拓展到已经训练的模型中，更加灵活。</p>
 <h3 id="2-3-3-GN"><a href="#2-3-3-GN" class="headerlink" title="2.3.3 GN"></a>2.3.3 GN</h3><p>GN统一了很多模型，包括MMPNN和NLNN方法。需要介绍GN的graph定义、GN模块的定义、核心GN计算单元、计算步骤以及设计方法。</p>
 <ol>
-<li><strong>graph定义</strong><br>将graph定义成三元组$G=(u,H,E)$，其中，u为全局属性，H是所有节点的属性，E为<br><img src="/images/rev34.png" alt="rev34"><br>$e_k$为边的属性，$r_k$为接收节点的索引，$s_v$为发送节点的索引。</li>
-<li><strong>GN模块</strong><br>一个GN模块包含3个更新函数和3个聚合函数<br><img src="/images/rev35.png" alt="rev35"><br>其中<br><img src="/images/rev36.png" alt="rev36"><br><img src="/images/rev37.png" alt="rev37"><br><img src="/images/rev38.png" alt="rev38"><br>并且聚合函数对于输入要求顺序不变性，并且能接收不同数目的参数。</li>
-<li><strong>计算步骤</strong><br>①计算每条边e的更新值<br><img src="/images/rev39.png" alt="rev39"><br>②将所有射入顶点i的边集合起来<br><img src="/images/rev40.png" alt="rev40"><br>③对顶点i的入射边的特征做聚合，相当于表示顶点i接收到的边的信息<br><img src="/images/rev41.png" alt="rev41"><br>④通过接收到的边信息和原始的顶点特征对顶点i进行更新<br><img src="/images/rev42.png" alt="rev42"><br>⑤将更新后的所有顶点汇集起来<br><img src="/images/rev43.png" alt="rev43"><br>⑥得到系统中所有顶点的信息<br><img src="/images/rev44.png" alt="rev44"><br>⑦将更新后的所有边汇集起来<br><img src="/images/rev45.png" alt="rev45"><br>⑧得到系统中所有边的信息<br><img src="/images/rev46.png" alt="rev46"><br>⑨通过系统的整体信息对全局特征进行更新<br><img src="/images/rev47.png" alt="rev47"><br>这些计算顺序不是强制的，可以任意调整。</li>
-<li><strong>设计原则</strong><br>设计GN包含三条原则：灵活的表示，可配置的块内结构和可组合的多块体系结构。<br><strong>灵活的表示</strong>：全局、顶点和边属性可以使用任意的表示，可以有edge-focused、nodek-focused和graph-focused的GN。<br><strong>可配置的块内结构</strong>：GN块中的函数及其输入可以具有不同的设置，以便GN框架提供块内结构配置的灵活性。<br><strong>可组合的多块体系结构</strong>：可以组成GN块来构建复杂的体系结构。 任意数量的GN块可以按共享或非共享参数顺序组成。 [27]利用GN块来构建编码处理 - 解码架构和基于GN的循环架构。 这些体系结构如图3所示。构建基于GN架构的其他技术也很有用，例如跳跃，LSTM或GRU样式的门控方案等。<br><img src="/images/rev48.png" alt="rev48"></li>
+<li><strong>graph定义</strong></li>
 </ol>
+<p>将graph定义成三元组$G=(u,H,E)$，其中，u为全局属性，H是所有节点的属性，E为<br><img src="/images/rev34.png" alt="rev34"><br>$e_k$为边的属性，$r_k$为接收节点的索引，$s_v$为发送节点的索引。</p>
+<ol start="2">
+<li><strong>GN模块</strong></li>
+</ol>
+<p>一个GN模块包含3个更新函数和3个聚合函数<br><img src="/images/rev35.png" alt="rev35"><br>其中<br><img src="/images/rev36.png" alt="rev36"><br><img src="/images/rev37.png" alt="rev37"><br><img src="/images/rev38.png" alt="rev38"><br>并且聚合函数对于输入要求顺序不变性，并且能接收不同数目的参数。</p>
+<ol start="3">
+<li><strong>计算步骤</strong></li>
+</ol>
+<p>①计算每条边e的更新值<br><img src="/images/rev39.png" alt="rev39"><br>②将所有射入顶点i的边集合起来<br><img src="/images/rev40.png" alt="rev40"><br>③对顶点i的入射边的特征做聚合，相当于表示顶点i接收到的边的信息<br><img src="/images/rev41.png" alt="rev41"><br>④通过接收到的边信息和原始的顶点特征对顶点i进行更新<br><img src="/images/rev42.png" alt="rev42"><br>⑤将更新后的所有顶点汇集起来<br><img src="/images/rev43.png" alt="rev43"><br>⑥得到系统中所有顶点的信息<br><img src="/images/rev44.png" alt="rev44"><br>⑦将更新后的所有边汇集起来<br><img src="/images/rev45.png" alt="rev45"><br>⑧得到系统中所有边的信息<br><img src="/images/rev46.png" alt="rev46"><br>⑨通过系统的整体信息对全局特征进行更新<br><img src="/images/rev47.png" alt="rev47"><br>这些计算顺序不是强制的，可以任意调整。</p>
+<ol start="4">
+<li><strong>设计原则</strong></li>
+</ol>
+<p>设计GN包含三条原则：灵活的表示，可配置的块内结构和可组合的多块体系结构。<br><strong>灵活的表示：</strong>全局、顶点和边属性可以使用任意的表示，可以有edge-focused、nodek-focused和graph-focused的GN。<br><strong>可配置的块内结构：</strong>GN块中的函数及其输入可以具有不同的设置，以便GN框架提供块内结构配置的灵活性。<br><strong>可组合的多块体系结构：</strong>可以组成GN块来构建复杂的体系结构。 任意数量的GN块可以按共享或非共享参数顺序组成。 [27]利用GN块来构建编码处理 - 解码架构和基于GN的循环架构。 这些体系结构如图3所示。构建基于GN架构的其他技术也很有用，例如跳跃，LSTM或GRU样式的门控方案等。<br><img src="/images/rev48.png" alt="rev48"></p>
 <p>ADGPM：M. Kampffmeyer, Y. Chen, X. Liang, H. Wang, Y. Zhang, and E. P. Xing, “Rethinking knowledge graph propagation for zero-shot learning,” arXiv preprint arXiv:1805.11724, 2018<br>GraphInception：Y. Zhang, Y. Xiong, X. Kong, S. Li, J. Mi, and Y. Zhu, “Deep collective classification in heterogeneous information networks,” in WWW 2018, 2018, pp. 399–408.)<br>G2S：D. Beck, G. Haffari, and T. Cohn, “Graph-to-sequence learning using gated graph neural networks,” in ACL 2018, 2018, pp. 273– 283.<br>r-GCN：M. Schlichtkrull, T. N. Kipf, P. Bloem, R. van den Berg, I. Titov, and M. Welling, “Modeling relational data with graph convolutional networks,” in ESWC 2018. Springer, 2018, pp. 593–607.<br>1：D. K. Duvenaud, D. Maclaurin, J. Aguileraiparraguirre, R. Gomezbombarelli, T. D. Hirzel, A. Aspuruguzik, and R. P. Adams, “Convolutional networks on graphs for learning molecular fingerprints,” NIPS 2015, pp. 2224–2232, 2015.<br>DCNN：J. Atwood and D. Towsley, “Diffusion-convolutional neural networks,” in NIPS 2016, 2016, pp. 1993–2001.<br>CNN4G：M. Niepert, M. Ahmed, and K. Kutzkov, “Learning convolutional neural networks for graphs,” in ICML 2016, 2016, pp. 2014–2023.<br>SACNN：J. Chang, J. Gu, L. Wang, G. Meng, S. Xiang, and C. Pan, “Structure-aware convolutional neural networks,” in NeurIPS 2018, 2018, pp. 11–20.<br>GGNN：Y. Li, D. Tarlow, M. Brockschmidt, and R. S. Zemel, “Gated graph sequence neural networks,” arXiv: Learning, 2016.<br>2：K. S. Tai, R. Socher, and C. D. Manning, “Improved semantic representations from tree-structured long short-term memory networks,” IJCNLP 2015, pp. 1556–1566, 2015.<br>Graph LSTM：N. Peng, H. Poon, C. Quirk, K. Toutanova, and W.-t. Yih, “Cross-sentence n-ary relation extraction with graph lstms,” arXiv preprint arXiv:1708.03743, 2017.<br>graph-structured LSTM：V. Zayats and M. Ostendorf, “Conversation modeling on reddit using a graph-structured lstm,” TACL 2018, vol. 6, pp. 121–132, 2018.<br>3：X. Liang, X. Shen, J. Feng, L. Lin, and S. Yan, “Semantic object parsing with graph lstm,” ECCV 2016, pp. 125–143, 2016<br>GAT：P. Velickovic, G. Cucurull, A. Casanova, A. Romero, P. Lio, and Y. Bengio, “Graph attention networks,” ICLR 2018, 2018.<br>FastGCN：J. Chen, T. Ma, and C. Xiao, “Fastgcn: fast learning with graph convolutional networks via importance sampling,” arXiv preprint arXiv:1801.10247, 2018.</p>
 
       
@@ -897,7 +938,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:22</span>
+    <span title="站点阅读时长">1:23</span>
   
 </div>
 
@@ -1142,6 +1183,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
