@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="LearningNote">
 <meta property="og:description" content="厄拉多赛筛法主要用来提取不大于N的所有素数。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-16T14:42:18.954Z">
+<meta property="og:updated_time" content="2019-06-16T15:42:00.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="厄拉多赛筛法">
 <meta name="twitter:description" content="厄拉多赛筛法主要用来提取不大于N的所有素数。">
@@ -372,7 +372,7 @@
                 
               
 
-              <time title="创建时间：2019-06-16 19:26:22 / 修改时间：14:42:18" itemprop="dateCreated datePublished" datetime="2019-06-16T19:26:22Z">2019-06-16</time>
+              <time title="创建时间：2019-06-16 19:26:22 / 修改时间：15:42:00" itemprop="dateCreated datePublished" datetime="2019-06-16T19:26:22Z">2019-06-16</time>
             
 
             
@@ -447,7 +447,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">810</span>
+                <span title="本文字数">759</span>
               
 
               
@@ -484,9 +484,9 @@
         <p>厄拉多赛筛法主要用来提取不大于N的所有素数。<br><a id="more"></a></p>
 <h1 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h1><p>如果要寻找不大于N的所有素数，可以依次遍历2到根号N之间的所有数，并且从中删掉当前数字的倍数。</p>
 <h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>比如寻找不大于9的所有素数，则只需要遍历2到3的数组。<br>从2开始的所有数字有<br>2 3 4 5 6 7 8 9<br>第一遍，删除2的所有倍数<br>2 3 <del>4</del> 5 <del>6</del> 7 <del>8</del> 9<br>第二遍，删除3的所有倍数<br>2 3 <del>4</del> 5 <del>6</del> 7 <del>8</del> <del>9</del><br>剩下的数字就是最终的结果。</p>
-<p>这里之所以是遍历2到根号N的数字，是因为之前数字已经删去了当前数字的比根号小的倍数了。<br>比如寻找不大于25的所有素数，现在遍历到数字4，则其小于25的所有倍数有8,12,16,20,24，其中8是2的倍数，12是3的倍数，都已经被删掉了，之后后面的16、20和24需要由4来删除。</p>
+<p>这里之所以是遍历2到根号N的数字，是因为之前数字已经删去了当前数字的比根号小的倍数了。<br>比如寻找不大于25的所有素数，现在遍历到数字4，则其小于25的所有倍数有8,12,16,20,24，其中8是2的倍数，12是3的倍数，都已经被删掉了，只有后面的16、20和24需要由4来删除。</p>
 <h1 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> n&lt;<span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        mark = [<span class="number">1</span>]*n</span><br><span class="line">        mark[<span class="number">0</span>],mark[<span class="number">1</span>] = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,int(n**<span class="number">0.5</span>)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> mark[i] == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(i*<span class="number">2</span>,n,i):</span><br><span class="line">                    mark[j] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> sum(mark)</span><br></pre></td></tr></table></figure>
-<p><strong>参考：</strong><br>[厄拉多塞筛法和普通方法求素数表（python实现）(<a href="https://www.cnblogs.com/jiaxin359/p/6081629.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiaxin359/p/6081629.html</a>)</p>
+<p><strong>参考：</strong><br><a href="https://www.cnblogs.com/jiaxin359/p/6081629.html" target="_blank" rel="noopener">厄拉多塞筛法和普通方法求素数表（python实现）</a></p>
 
       
     </div>
